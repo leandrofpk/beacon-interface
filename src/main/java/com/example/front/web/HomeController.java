@@ -10,6 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 public class HomeController {
 
     @GetMapping
+    public ModelAndView root(){
+        return new ModelAndView("redirect:/home");
+    }
+
+    @GetMapping("/home")
     public ModelAndView home(){
         return new ModelAndView("/home/index");
     }
