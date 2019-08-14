@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-//@Api(tags = "Chains Commands", value = "ChainCommands", description = "Controller for Chain Commands")
 @Controller
 @RequestMapping(value = "/beacon/2.0/chain/{chainIndex}/pulse", produces= MediaType.APPLICATION_JSON_VALUE)
 public class SingleChainResource {
@@ -24,7 +23,6 @@ public class SingleChainResource {
         this.singlePulsesService = singlePulsesService;
     }
 
-//    @ApiOperation(value = "First Pulse of the Chain")
     @GetMapping("/first")
     @ResponseBody
     public ResponseEntity first(@PathVariable Long chainIndex){
@@ -37,7 +35,6 @@ public class SingleChainResource {
         return new ResponseEntity(pulseDto, HttpStatus.OK);
     }
 
-//    @ApiOperation(value = "Last Pulse of the Chain")
     @GetMapping("/last")
     @ResponseBody
     public ResponseEntity last(@PathVariable Long chainIndex){

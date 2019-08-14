@@ -17,7 +17,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 @Controller
-//@Api(tags = "Pulse Commands", value = "PulseCommands", description = "Controller for Pulse Commands")
 @RequestMapping(value = "/beacon/2.0/pulse", produces= MediaType.APPLICATION_JSON_VALUE)
 public class SinglePulseResource {
 
@@ -28,7 +27,6 @@ public class SinglePulseResource {
         this.singlePulsesService = singlePulsesService;
     }
 
-//    @ApiOperation(value = "Pulse at a specific time (or next closest)")
     @GetMapping("time/{timeStamp}")
     @ResponseBody
     public ResponseEntity specificTime(@PathVariable String timeStamp){
@@ -48,7 +46,6 @@ public class SinglePulseResource {
         }
     }
 
-//    @ApiOperation(value = "Next Pulse")
     @GetMapping("time/next/{timeStamp}")
     @ResponseBody
     public ResponseEntity next(@PathVariable String timeStamp){
@@ -68,7 +65,6 @@ public class SinglePulseResource {
         }
     }
 
-//    @ApiOperation(value = "Previous Pulse")
     @GetMapping("time/previous/{timeStamp}")
     public ResponseEntity previous(@PathVariable String timeStamp){
         try {
@@ -88,7 +84,6 @@ public class SinglePulseResource {
 
     }
 
-//    @ApiOperation(value = "Last Available Pulse")
     @GetMapping("last")
     @ResponseBody
     public ResponseEntity last(){
