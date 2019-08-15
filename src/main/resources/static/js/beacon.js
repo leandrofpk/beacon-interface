@@ -20,7 +20,6 @@ function getLastPulse() {
 
 function getFirstPulse() {
     $.ajax({
-    // /beacon/2.0/chain/{chainIndex}/pulse/first
         url: "/beacon/2.0/chain/1/pulse/first",
         method: 'GET',
         dataType: 'json',
@@ -50,6 +49,21 @@ function getPreviousPulse() {
 }
 
 function getNextPulse() {
+    $.ajax({
+        url: "/beacon/2.0/pulse/time/next/" + document.getElementById("input-datetime").value,
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            atualizarRecord(data);
+        },
+        error: function (xhr) {
+            alert(xhr.status + '-' +xhr.responseText);
+        }
+    });
+}
+
+function getByUri() {
     $.ajax({
         url: "/beacon/2.0/pulse/time/next/" + document.getElementById("input-datetime").value,
         method: 'GET',
@@ -97,43 +111,43 @@ function atualizarRecord(data) {
     lista += '<td>' + pulse.timeStamp + '</td></tr>';
 
     lista += '<tr><td>Local Random Value:</td>';
-    lista += '<td>' + pulse.localRandomValue + '</td></tr>';
+    lista += '<td class="col-sm-8">' + pulse.localRandomValue + '</td></tr>';
 
-    lista += '<tr><td>External Source Id:</td>';
-    lista += '<td>' + pulse.external.sourceId + '</td></tr>';
-
-    lista += '<tr><td>External Status Code:</td>';
-    lista += '<td>' + pulse.external.statusCode + '</td></tr>';
-
-    lista += '<tr><td>External Value:</td>';
-    lista += '<td>' + pulse.external.value + '</td></tr>';
-
-    lista += '<tr><td>Previous Output:</td>';
-    lista += '<td>' + pulse.listValues[0].value + '</td></tr>';
-
-    lista += '<tr><td>Hour:</td>';
-    lista += '<td>' + pulse.listValues[1].value + '</td></tr>';
-
-    lista += '<tr><td>Day:</td>';
-    lista += '<td>' + pulse.listValues[2].value + '</td></tr>';
-
-    lista += '<tr><td>Month:</td>';
-    lista += '<td>' + pulse.listValues[3].value + '</td></tr>';
-
-    lista += '<tr><td>Year:</td>';
-    lista += '<td>' + pulse.listValues[4].value + '</td></tr>';
-
-    lista += '<tr><td>Precommitment Value:</td>';
-    lista += '<td>' + pulse.precommitmentValue + '</td></tr>';
-
-    lista += '<tr><td>Signature:</td>';
-    lista += '<td>' + pulse.signature + '</td></tr>';
-
-    lista += '<tr><td>Output Value:</td>';
-    lista += '<td>' + pulse.outputValue + '</td></tr>';
-
-    lista += '<tr><td>Status:</td>';
-    lista += '<td>' + pulse.statusCode + '</td></tr>';
+    // lista += '<tr><td>External Source Id:</td>';
+    // lista += '<td>' + pulse.external.sourceId + '</td></tr>';
+    //
+    // lista += '<tr><td>External Status Code:</td>';
+    // lista += '<td>' + pulse.external.statusCode + '</td></tr>';
+    //
+    // lista += '<tr><td>External Value:</td>';
+    // lista += '<td>' + pulse.external.value + '</td></tr>';
+    //
+    // lista += '<tr><td>Previous Output:</td>';
+    // lista += '<td>' + pulse.listValues[0].value + '</td></tr>';
+    //
+    // lista += '<tr><td>Hour:</td>';
+    // lista += '<td>' + pulse.listValues[1].value + '</td></tr>';
+    //
+    // lista += '<tr><td>Day:</td>';
+    // lista += '<td>' + pulse.listValues[2].value + '</td></tr>';
+    //
+    // lista += '<tr><td>Month:</td>';
+    // lista += '<td>' + pulse.listValues[3].value + '</td></tr>';
+    //
+    // lista += '<tr><td>Year:</td>';
+    // lista += '<td>' + pulse.listValues[4].value + '</td></tr>';
+    //
+    // lista += '<tr><td>Precommitment Value:</td>';
+    // lista += '<td>' + pulse.precommitmentValue + '</td></tr>';
+    //
+    // lista += '<tr><td>Signature:</td>';
+    // lista += '<td>' + pulse.signature + '</td></tr>';
+    //
+    // lista += '<tr><td>Output Value:</td>';
+    // lista += '<td>' + pulse.outputValue + '</td></tr>';
+    //
+    // lista += '<tr><td>Status:</td>';
+    // lista += '<td>' + pulse.statusCode + '</td></tr>';
 
     $('#table_pulse').html(lista);
 }
