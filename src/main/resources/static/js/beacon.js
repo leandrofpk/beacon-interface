@@ -111,43 +111,43 @@ function atualizarRecord(data) {
     lista += '<td>' + pulse.timeStamp + '</td></tr>';
 
     lista += '<tr><td>Local Random Value:</td>';
-    lista += '<td class="col-sm-8">' + pulse.localRandomValue + '</td></tr>';
+    lista += '<td style="word-break: break-word">' + pulse.localRandomValue + '</td></tr>';
 
-    // lista += '<tr><td>External Source Id:</td>';
-    // lista += '<td>' + pulse.external.sourceId + '</td></tr>';
-    //
-    // lista += '<tr><td>External Status Code:</td>';
-    // lista += '<td>' + pulse.external.statusCode + '</td></tr>';
-    //
-    // lista += '<tr><td>External Value:</td>';
-    // lista += '<td>' + pulse.external.value + '</td></tr>';
-    //
-    // lista += '<tr><td>Previous Output:</td>';
-    // lista += '<td>' + pulse.listValues[0].value + '</td></tr>';
-    //
-    // lista += '<tr><td>Hour:</td>';
-    // lista += '<td>' + pulse.listValues[1].value + '</td></tr>';
-    //
-    // lista += '<tr><td>Day:</td>';
-    // lista += '<td>' + pulse.listValues[2].value + '</td></tr>';
-    //
-    // lista += '<tr><td>Month:</td>';
-    // lista += '<td>' + pulse.listValues[3].value + '</td></tr>';
-    //
-    // lista += '<tr><td>Year:</td>';
-    // lista += '<td>' + pulse.listValues[4].value + '</td></tr>';
-    //
-    // lista += '<tr><td>Precommitment Value:</td>';
-    // lista += '<td>' + pulse.precommitmentValue + '</td></tr>';
-    //
-    // lista += '<tr><td>Signature:</td>';
-    // lista += '<td>' + pulse.signature + '</td></tr>';
-    //
-    // lista += '<tr><td>Output Value:</td>';
-    // lista += '<td>' + pulse.outputValue + '</td></tr>';
-    //
-    // lista += '<tr><td>Status:</td>';
-    // lista += '<td>' + pulse.statusCode + '</td></tr>';
+    lista += '<tr><td>External Source Id:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.external.sourceId + '</td></tr>';
+
+    lista += '<tr><td>External Status Code:</td>';
+    lista += '<td>' + pulse.external.statusCode + '</td></tr>';
+
+    lista += '<tr><td>External Value:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.external.value + '</td></tr>';
+
+    lista += '<tr><td>Previous Output:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.listValues[0].value + '</td></tr>';
+
+    lista += '<tr><td>Hour:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.listValues[1].value + '</td></tr>';
+
+    lista += '<tr><td>Day:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.listValues[2].value + '</td></tr>';
+
+    lista += '<tr><td>Month:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.listValues[3].value + '</td></tr>';
+
+    lista += '<tr><td>Year:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.listValues[4].value + '</td></tr>';
+
+    lista += '<tr><td>Precommitment Value:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.precommitmentValue + '</td></tr>';
+
+    lista += '<tr><td>Signature:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.signatureValue + '</td></tr>';
+
+    lista += '<tr><td>Output Value:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.outputValue + '</td></tr>';
+
+    lista += '<tr><td>Status:</td>';
+    lista += '<td>' + pulse.statusCode + '</td></tr>';
 
     $('#table_pulse').html(lista);
 }
