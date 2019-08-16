@@ -113,7 +113,6 @@
 						<resources>
 							<resource>
 								<directory>${project.build.directory}/generated-docs</directory>
-<!--								<directory>${project.build.directory}/generated-snippets</directory>-->
 							</resource>
 						</resources>
 					</configuration>
