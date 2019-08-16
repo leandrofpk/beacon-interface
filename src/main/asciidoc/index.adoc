@@ -1,0 +1,25 @@
+= Sample API Documentation
+Leandro Corrêa <lpcorrea@inmetro.gov.br>
+2.0, 16/8/2019
+:toc: left
+:sectnums:
+
+== Introduction
+This is an example of Spring REST Docs generated documentation.
+
+== Certificate API
+Collection of CRUD API endpoints used to manipulate persons registered in the application.
+
+
+=== Get Certificate Id
+Obtains a specific person registered in the application by its unique identifier.
+include::{snippets}/beacon/2.0/certificate/get-by-certificateIdentifier/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/beacon/2.0/certificate/get-by-certificateIdentifier/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beacon/2.0/certificate/get-by-certificateIdentifier/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beacon/2.0/certificate/get-by-certificateIdentifier/curl-request.adoc[]

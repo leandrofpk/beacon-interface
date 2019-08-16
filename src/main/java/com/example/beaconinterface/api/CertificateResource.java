@@ -4,22 +4,20 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping(value = "/beacon/2.0/certificate/", produces= MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/beacon/2.0/certificate", produces= MediaType.APPLICATION_JSON_VALUE)
 public class CertificateResource {
 
-    @RequestMapping
+    @GetMapping(path = "/{certificateIdentifier}")
     @ResponseBody
-    public ResponseEntity getCertificate() {
+    public ResponseEntity getCertificate(@PathVariable String certificateIdentifier) {
         return new ResponseEntity(getCertificateString(), HttpStatus.OK);
     }
 
 
     private String getCertificateString(){
-
 
         return "-----BEGIN CERTIFICATE-----\n" +
                 "MIIGwTCCBamgAwIBAgIQBfnpjwe1SRtWx2HKo/WuVzANBgkqhkiG9w0BAQsFADBe\n" +

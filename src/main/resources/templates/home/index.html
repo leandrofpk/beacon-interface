@@ -89,32 +89,31 @@
 <!--              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
 <!--              <a href="#" class="btn btn-primary">Go somewhere</a>-->
 
-<!--                        <a class="btn btn-primary" onclick="getFirstPulse();" type="button">First</a>-->
-                        <button class="btn btn-primary" onclick="getFirstPulse();" type="button">First</button>
-                        <button class="btn btn-primary" onclick="getPreviousPulse();" type="button">Previous</button>
-<!--                        <input class="btn btn-primary" type="button" value="Hour">-->
-<!--                        <input class="btn btn-primary" type="submit" value="Day">-->
-<!--                        <input class="btn btn-primary" type="reset" value="Month">-->
-<!--                        <input class="btn btn-primary" type="reset" value="Year">-->
-                        <input class="btn btn-primary" onclick="getNextPulse();" type="button" value="Next">
-                        <input class="btn btn-primary" onclick="getLastPulse()" type="reset" value="Last">
+                  <button class="btn btn-primary" onclick="getFirstPulse();" type="button">First</button>
+                  <button class="btn btn-primary" onclick="getPreviousPulse();" type="button">Previous</button>
+                  <input id="hour" class="btn btn-primary" data-uri="" onclick="getByUri(this);" type="button" value="Hour">
+                  <input id="day" class="btn btn-primary" data-uri="" onclick="getByUri(this);" type="button" value="Day">
+                  <input id="month" class="btn btn-primary" data-uri="" onclick="getByUri(this);" type="button" value="Month">
+                  <input id="year" class="btn btn-primary" data-uri="" onclick="getByUri(this);" type="button" value="Year">
+                  <input class="btn btn-primary" onclick="getNextPulse();" type="button" value="Next">
+                  <input class="btn btn-primary" onclick="getLastPulse()" type="reset" value="Last">
+
             </div>
           </div>
 
-          <div class="card">
-            <div class="card-header">
-              Chain
-            </div>
-            <div class="card-body">
-<!--              <h5 class="card-title">Special title treatment</h5>-->
-<!--              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
-              <a href="#" class="btn btn-primary" onclick="getFirstPulse();">First</a>
-              <a href="#" class="btn btn-primary">Previous</a>
-              <a href="#" class="btn btn-primary">Next</a>
-              <a href="#" class="btn btn-primary">Last</a>
-            </div>
-          </div>
-
+<!--          <div class="card">-->
+<!--            <div class="card-header">-->
+<!--              Chain-->
+<!--            </div>-->
+<!--            <div class="card-body">-->
+<!--&lt;!&ndash;              <h5 class="card-title">Special title treatment</h5>&ndash;&gt;-->
+<!--&lt;!&ndash;              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>&ndash;&gt;-->
+<!--              <a href="#" class="btn btn-primary" onclick="getFirstPulse();">First</a>-->
+<!--              <a href="#" class="btn btn-primary">Previous</a>-->
+<!--              <a href="#" class="btn btn-primary">Next</a>-->
+<!--              <a href="#" class="btn btn-primary">Last</a>-->
+<!--            </div>-->
+<!--          </div>-->
 
           <div class="card">
             <div class="card-header">

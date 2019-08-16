@@ -63,23 +63,29 @@ function getNextPulse() {
     });
 }
 
-function getByUri() {
-    $.ajax({
-        url: "/beacon/2.0/pulse/time/next/" + document.getElementById("input-datetime").value,
-        method: 'GET',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            atualizarRecord(data);
-        },
-        error: function (xhr) {
-            alert(xhr.status + '-' +xhr.responseText);
-        }
-    });
+function getByUri(button) {
+   var uri = button.dataset.uri;
+
+    if (uri!="null"){
+        $.ajax({
+            url: button.dataset.uri,
+            method: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                atualizarRecord(data);
+            },
+            error: function (xhr) {
+                alert(xhr.status + '-' +xhr.responseText);
+            }
+        });
+    }
 }
 
 function atualizarRecord(data) {
     var pulse = data.pulse;
+
+    updateHidden(pulse);
 
     var elementById = document.getElementById("input-datetime");
     elementById.value = pulse.timeStamp;
@@ -150,4 +156,11 @@ function atualizarRecord(data) {
     lista += '<td>' + pulse.statusCode + '</td></tr>';
 
     $('#table_pulse').html(lista);
+}
+
+function updateHidden(pulse) {
+    document.getElementById("hour").dataset.uri = pulse.listValues[1].uri;
+    document.getElementById("day").dataset.uri = pulse.listValues[2].uri;
+    document.getElementById("month").dataset.uri = pulse.listValues[3].uri;
+    document.getElementById("year").dataset.uri = pulse.listValues[4].uri;
 }
