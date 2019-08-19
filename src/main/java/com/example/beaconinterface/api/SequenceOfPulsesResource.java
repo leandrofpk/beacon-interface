@@ -34,7 +34,7 @@ public class SequenceOfPulsesResource {
 //    @ApiOperation(value = "Skiplist between Times")
     @GetMapping("time/{timeStamp1}/{timeStamp2}")
     @ResponseBody
-    public ResponseEntity specificTime(@PathVariable String timeStamp1, @PathVariable String timeStamp2){
+    public ResponseEntity skypList(@PathVariable String timeStamp1, @PathVariable String timeStamp2){
         try {
             ZonedDateTime parse1 = ZonedDateTime.parse(timeStamp1, DateTimeFormatter.ISO_DATE_TIME);
             ZonedDateTime parse2 = ZonedDateTime.parse(timeStamp2, DateTimeFormatter.ISO_DATE_TIME);

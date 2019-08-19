@@ -1,4 +1,4 @@
-= Sample API Documentation
+= Brazilian Beacon API Documentation
 Leandro Corrêa <lpcorrea@inmetro.gov.br>
 2.0, 16/8/2019
 :toc: left
@@ -7,12 +7,15 @@ Leandro Corrêa <lpcorrea@inmetro.gov.br>
 == Introduction
 This is an example of Spring REST Docs generated documentation.
 
-== Certificate API
-Collection of CRUD API endpoints used to manipulate persons registered in the application.
+== Certificate Resource
+It is the hash() of a Base 64 encoded PEM formatted file (X.509 ASN.1 1583 encoding), following the RFC 5280 [CSF+08] specification,
+containing the certificate(s) 1584 of the public counter-part of the Beacon signing key used to produce the
+value in the 1585 signatureValue field of the pulse.
 
 
 === Get Certificate Id
-Obtains a specific person registered in the application by its unique identifier.
+Obtains a specific certificate by its unique identifier.
+
 include::{snippets}/beacon/2.0/certificate/get-by-certificateIdentifier/path-parameters.adoc[]
 
 ==== Sample Request
@@ -23,3 +26,65 @@ include::{snippets}/beacon/2.0/certificate/get-by-certificateIdentifier/http-res
 
 ==== CURL sample
 include::{snippets}/beacon/2.0/certificate/get-by-certificateIdentifier/curl-request.adoc[]
+
+
+== Pulse Resource
+Collection of CRUD API endpoints used to manipulate persons registered in the application.
+
+=== Get Pulse by timestamp
+Obtains a specific pulse by timestamp.
+
+include::{snippets}/beacon/2.0/pulse/time/get-by-timestamp/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/beacon/2.0/pulse/time/get-by-timestamp/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beacon/2.0/pulse/time/get-by-timestamp/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beacon/2.0/pulse/time/get-by-timestamp/curl-request.adoc[]
+
+=== Get Next Pulse by timestamp
+Obtains a next pulse.
+
+include::{snippets}/beacon/2.0/pulse/time/next/get-next-timestamp/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/beacon/2.0/pulse/time/next/get-next-timestamp/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beacon/2.0/pulse/time/next/get-next-timestamp/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beacon/2.0/pulse/time/next/get-next-timestamp/curl-request.adoc[]
+
+
+=== Get Previous Pulse by timestamp
+Obtains a previous pulse.
+
+include::{snippets}/beacon/2.0/pulse/time/previous/get-previous-timestamp/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/beacon/2.0/pulse/time/previous/get-previous-timestamp/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beacon/2.0/pulse/time/previous/get-previous-timestamp/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beacon/2.0/pulse/time/previous/get-previous-timestamp/curl-request.adoc[]
+
+=== Get Last Pulse
+Obtains the most recent pulse.
+
+include::{snippets}/beacon/2.0/pulse/time/last/get-last/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/beacon/2.0/pulse/time/last/get-last/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beacon/2.0/pulse/time/last/get-last/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beacon/2.0/pulse/time/last/get-last/curl-request.adoc[]
+

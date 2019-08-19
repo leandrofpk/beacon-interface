@@ -1,5 +1,7 @@
 package com.example.beaconinterface.web;
 
+import com.example.beaconinterface.AppUri;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/")
 public class HomeController {
 
+    private final AppUri appUri;
+
+    @Autowired
+    public HomeController(AppUri appUri) {
+        this.appUri = appUri;
+    }
+
     @GetMapping
     public ModelAndView root(){
         return new ModelAndView("redirect:/home");
@@ -16,6 +25,10 @@ public class HomeController {
 
     @GetMapping("/home")
     public ModelAndView home(){
+
+        System.out.println(appUri.getUri());
+
+
         return new ModelAndView("/home/index");
     }
 

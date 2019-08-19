@@ -54,8 +54,8 @@ public class CertificateResourceTest {
                 .andDo(document("beacon/2.0/certificate/get-by-certificateIdentifier",
                         pathParameters(parameterWithName("certificateIdentifier")
                                 .description("It is the hash() of the public Certificate"))
-//                        responseFields(
-//                                fieldWithPath("certificateIdentifier")
+//                        .responseFields(
+//                                fieldWithPath("hash")
 //                                        .description("It is the hash() of a Base 64 encoded PEM formatted file (X.509 ASN.1 1583 encoding)."))
                 ));
     }
