@@ -18,6 +18,8 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -37,15 +39,24 @@ public class SinglePulseResourceTest {
     @Rule
     public JUnitRestDocumentation jUnitRestDocumentation = new JUnitRestDocumentation();
 
-    private RestDocumentationResultHandler document;
+//    private RestDocumentationResultHandler document;
 
     private ResponseFieldsSnippet responseFieldsSnippetPulse;
 
+    private final String timestamp = "2019-08-15T20:17:00.000Z";
+
+//    private RestDocumentationResultHandler documentationHandler;
+
     @Before
     public void setup() {
+//        this.documentationHandler = document("{method-name}",
+//                preprocessRequest(prettyPrint()),
+//                preprocessResponse(prettyPrint()));
+
         mockMvc = MockMvcBuilders
                 .webAppContextSetup(context)
                 .apply(documentationConfiguration(this.jUnitRestDocumentation))
+//                .alwaysDo(documentationHandler)
                 .build();
 
         responseFieldsSnippetPulse = responseFields(fieldWithPath("pulse.uri").description("URI"),
@@ -92,10 +103,12 @@ public class SinglePulseResourceTest {
     public void specificTime() throws Exception {
 
         this.mockMvc.perform(
-                RestDocumentationRequestBuilders.get("/beacon/2.0/pulse/time/{timestamp}", "2019-08-16T01:32:00.000Z"))
+                RestDocumentationRequestBuilders.get("/beacon/2.0/pulse/time/{timestamp}", this.timestamp))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andDo(document("beacon/2.0/pulse/time/get-by-timestamp",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
                         pathParameters(parameterWithName("timestamp")
                                 .description("A time string formatted according to the rules of RFC 3339")),
                         responseFieldsSnippetPulse
@@ -104,10 +117,37 @@ public class SinglePulseResourceTest {
 
     }
 
+//    @Test
+    public void specificTimeError() throws Exception {
+
+        RestDocumentationResultHandler docs = document("Error Response",
+                preprocessRequest(prettyPrint()),
+                preprocessResponse(prettyPrint()),
+
+                responseFields(
+                        fieldWithPath("status").optional().type("Integer").description("Application status field.")
+//                        fieldWithPath("errorMsg").type("String").description("A global description of the cause of the error")
+
+                )
+        );
+
+        this.mockMvc.perform(
+                RestDocumentationRequestBuilders.get("/beacon/2.0/pulse/time/{timestamp}", "2019-08-15T20:17:00.ZZZZ"))
+                .andExpect(status().isBadRequest())
+                .andDo(document("beacon/2.0/pulse/time/get-by-timestamp",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
+                        pathParameters(parameterWithName("timestamp")
+                                .description("A time string formatted according to the rules of RFC 3339"))
+                ))
+                .andDo(docs);
+
+    }
+
     @Test
     public void next() throws Exception {
         this.mockMvc.perform(
-                RestDocumentationRequestBuilders.get("/beacon/2.0/pulse/time/next/{timestamp}", "2019-08-16T01:31:00.000Z"))
+                RestDocumentationRequestBuilders.get("/beacon/2.0/pulse/time/next/{timestamp}", this.timestamp))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andDo(document("beacon/2.0/pulse/time/next/get-next-timestamp",
@@ -120,7 +160,7 @@ public class SinglePulseResourceTest {
     @Test
     public void previous() throws Exception {
         this.mockMvc.perform(
-                RestDocumentationRequestBuilders.get("/beacon/2.0/pulse/time/previous/{timestamp}", "2019-08-16T01:31:00.000Z"))
+                RestDocumentationRequestBuilders.get("/beacon/2.0/pulse/time/previous/{timestamp}", this.timestamp))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andDo(document("beacon/2.0/pulse/time/previous/get-previous-timestamp",

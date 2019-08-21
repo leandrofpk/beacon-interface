@@ -61,17 +61,24 @@ public class QuerySinglePulsesService {
             PulseEntity next = pulsesRepository.findNext(specificTimeStamp);
             PulseEntity previous = pulsesRepository.findPrevious(specificTimeStamp);
 
-            long between1 = ChronoUnit.MINUTES.between(specificTimeStamp, next.getTimeStamp());
-            long between2 = ChronoUnit.MINUTES.between(previous.getTimeStamp(), specificTimeStamp);
+            long between1 = 0; long between2 = 0;
+
+            if (next != null){
+                between1 = ChronoUnit.MINUTES.between(specificTimeStamp, next.getTimeStamp());
+            }
+
+            if (previous != null){
+                between2 = ChronoUnit.MINUTES.between(previous.getTimeStamp(), specificTimeStamp);
+            }
 
             if (between1==0 && between2==0){
                 return null;
             }
 
             if (between1 <= between2){
-                return new PulseDto(pulsesRepository.findByTimestamp(next.getTimeStamp()));
-            } else {
                 return new PulseDto(pulsesRepository.findByTimestamp(previous.getTimeStamp()));
+            } else {
+                return new PulseDto(pulsesRepository.findByTimestamp(next.getTimeStamp()));
             }
 
         } else {

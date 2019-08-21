@@ -5,10 +5,11 @@ Leandro Corrêa <lpcorrea@inmetro.gov.br>
 :sectnums:
 
 == Introduction
-This is an example of Spring REST Docs generated documentation.
+This is the Brazilian Beacon API Documentation.
 
-== Certificate Resource
-It is the hash() of a Base 64 encoded PEM formatted file (X.509 ASN.1 1583 encoding), following the RFC 5280 [CSF+08] specification,
+
+== Certificate API
+It is the hash() of a Base 64 encoded PEM formatted file (X.509 ASN.1 1583 encoding), following the RFC 5280 specification,
 containing the certificate(s) 1584 of the public counter-part of the Beacon signing key used to produce the
 value in the 1585 signatureValue field of the pulse.
 
@@ -28,7 +29,7 @@ include::{snippets}/beacon/2.0/certificate/get-by-certificateIdentifier/http-res
 include::{snippets}/beacon/2.0/certificate/get-by-certificateIdentifier/curl-request.adoc[]
 
 
-== Pulse Resource
+== Pulse API
 Collection of CRUD API endpoints used to manipulate persons registered in the application.
 
 === Get Pulse by timestamp
@@ -77,8 +78,6 @@ include::{snippets}/beacon/2.0/pulse/time/previous/get-previous-timestamp/curl-r
 === Get Last Pulse
 Obtains the most recent pulse.
 
-include::{snippets}/beacon/2.0/pulse/time/last/get-last/path-parameters.adoc[]
-
 ==== Sample Request
 include::{snippets}/beacon/2.0/pulse/time/last/get-last/http-request.adoc[]
 
@@ -88,3 +87,20 @@ include::{snippets}/beacon/2.0/pulse/time/last/get-last/http-response.adoc[]
 ==== CURL sample
 include::{snippets}/beacon/2.0/pulse/time/last/get-last/curl-request.adoc[]
 
+
+== SkipList API
+Its a sequence of pulses in chronological order
+
+=== Get skipList by time
+Obtains a skipList between times <startTimestamp> and <endTimestamp>
+
+include::{snippets}/beacon/2.0/skiplist/time/path-parameters.adoc[]
+
+==== Sample Request
+include::{snippets}/beacon/2.0/skiplist/time/http-request.adoc[]
+
+==== Sample Response
+include::{snippets}/beacon/2.0/skiplist/time/http-response.adoc[]
+
+==== CURL sample
+include::{snippets}/beacon/2.0/skiplist/time/curl-request.adoc[]

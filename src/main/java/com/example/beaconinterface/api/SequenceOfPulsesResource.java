@@ -32,12 +32,12 @@ public class SequenceOfPulsesResource {
     }
 
 //    @ApiOperation(value = "Skiplist between Times")
-    @GetMapping("time/{timeStamp1}/{timeStamp2}")
+    @GetMapping("time/{startTimestamp}/{endTimestamp}")
     @ResponseBody
-    public ResponseEntity skypList(@PathVariable String timeStamp1, @PathVariable String timeStamp2){
+    public ResponseEntity skypList(@PathVariable String startTimestamp, @PathVariable String endTimestamp){
         try {
-            ZonedDateTime parse1 = ZonedDateTime.parse(timeStamp1, DateTimeFormatter.ISO_DATE_TIME);
-            ZonedDateTime parse2 = ZonedDateTime.parse(timeStamp2, DateTimeFormatter.ISO_DATE_TIME);
+            ZonedDateTime parse1 = ZonedDateTime.parse(startTimestamp, DateTimeFormatter.ISO_DATE_TIME);
+            ZonedDateTime parse2 = ZonedDateTime.parse(endTimestamp, DateTimeFormatter.ISO_DATE_TIME);
 
             List<PulseDto> sequence = querySequencePulsesService.sequence(parse1, parse2);
 

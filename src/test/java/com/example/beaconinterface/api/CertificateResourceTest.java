@@ -17,6 +17,8 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.junit.Assert.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.*;
+import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -45,13 +47,14 @@ public class CertificateResourceTest {
     }
 
     @Test
-//    public void getCertificateByCertificateIdentifierShouldReturnOk() throws Exception {
     public void getCertificateByCertificateIdentifier() throws Exception {
         this.mockMvc.perform(
                 RestDocumentationRequestBuilders.get("/beacon/2.0/certificate/{certificateIdentifier}", "dewerwrwre"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andDo(document("beacon/2.0/certificate/get-by-certificateIdentifier",
+                        preprocessRequest(prettyPrint()),
+                        preprocessResponse(prettyPrint()),
                         pathParameters(parameterWithName("certificateIdentifier")
                                 .description("It is the hash() of the public Certificate"))
 //                        .responseFields(

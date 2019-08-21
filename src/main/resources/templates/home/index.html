@@ -76,28 +76,28 @@
 <!--          </ul>-->
           <p>
           <strong>Pulse at a specific time (or next closest):</strong> <br>
-          https://beacon.nist.gov/beacon/2.0/pulse/time/&lt;timestamp&gt; <br><br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/time/&lt;timestamp&gt; <br><br>
 
           <strong>Previous Pulse: </strong> <br>
-          https://beacon.nist.gov/beacon/2.0/pulse/time/previous/&lt;timestamp&gt; <br><br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/time/previous/&lt;timestamp&gt; <br><br>
 
           <strong>Next Pulse :</strong><br>
-          https://beacon.nist.gov/beacon/2.0/pulse/time/next <br><br>
+            <span th:text="${uri}"></span>/beacon/2.0/pulse/time/next <br><br>
 
           <strong>Last Available Pulse:</strong><br>
-          https://beacon.nist.gov/beacon/2.0/pulse/last <br>
-          https://beacon.nist.gov/beacon/2.0/chain/last/pulse/last <br><br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/last <br>
+          <span th:text="${uri}"></span>/beacon/2.0/chain/last/pulse/last <br><br>
 
           <strong>First Pulse of the first Chain:</strong><br>
-          https://beacon.nist.gov/beacon/2.0/chain/1/pulse/1<br><br>
+          <span th:text="${uri}"></span>/beacon/2.0/chain/1/pulse/1<br><br>
 
           <strong>Pulse &lt;pulseIndex&gt; in chain &lt;chainIndex&gt;:</strong>
-          https://beacon.nist.gov/beacon/2.0/chain/&lt;chainIndex&gt;/pulse/&lt;pulseIndex&gt; <br><br>
+          <span th:text="${uri}"></span>/beacon/2.0/chain/&lt;chainIndex&gt;/pulse/&lt;pulseIndex&gt; <br><br>
 
-         <strong>Sequence of Pulses: </strong>
-         https://beacon.nist.gov/beacon/2.0/skiplist/time/&lt;timeStamp1&gt;/&lt;timeStamp2&gt;<br><br>
+         <strong>Sequence of Pulses: </strong><br>
+         <span th:text="${uri}"></span>/beacon/2.0/skiplist/time/&lt;timeStamp1&gt;/&lt;timeStamp2&gt;<br><br>
 
-        If a request for a Pulse results in no Pulse found, a 404 response is returned.
+         If a request for a Pulse results in no Pulse found, a 404 response is returned.
           </p>
         </div>
       </div>
