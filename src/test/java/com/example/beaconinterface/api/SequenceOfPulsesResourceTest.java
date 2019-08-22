@@ -57,43 +57,6 @@ public class SequenceOfPulsesResourceTest {
                 .webAppContextSetup(context)
                 .apply(documentationConfiguration(this.jUnitRestDocumentation))
                 .build();
-
-//        responseFieldsSnippetPulse = responseFields(fieldWithPath("pulse.uri").description("URI"),
-//                fieldWithPath("pulse.version").description("Version"),
-//                fieldWithPath("pulse.cipherSuite").description("cipherSuite"),
-//                fieldWithPath("pulse.period").description("period"),
-//                fieldWithPath("pulse.certificateId").description("certificateId"),
-//                fieldWithPath("pulse.chainIndex").description("chainIndex"),
-//                fieldWithPath("pulse.pulseIndex").description("pulseIndex"),
-//                fieldWithPath("pulse.timeStamp").description("timeStamp"),
-//                fieldWithPath("pulse.localRandomValue").description("localRandomValue"),
-//                fieldWithPath("pulse.external.sourceId").description("External source Id"),
-//                fieldWithPath("pulse.external.statusCode").description("External statuscode"),
-//                fieldWithPath("pulse.external.value").description("External value"),
-//                fieldWithPath("pulse.listValues[0].uri").description("Previous uri"),
-//                fieldWithPath("pulse.listValues[0].type").description("Previous type"),
-//                fieldWithPath("pulse.listValues[0].value").description("Previous value"),
-//
-//                fieldWithPath("pulse.listValues[1].uri").description("Hour uri"),
-//                fieldWithPath("pulse.listValues[1].type").description("Hour type"),
-//                fieldWithPath("pulse.listValues[1].value").description("Hour value"),
-//
-//                fieldWithPath("pulse.listValues[2].uri").description("Day uri"),
-//                fieldWithPath("pulse.listValues[2].type").description("Day type"),
-//                fieldWithPath("pulse.listValues[2].value").description("Day value"),
-//
-//                fieldWithPath("pulse.listValues[3].uri").description("Month uri"),
-//                fieldWithPath("pulse.listValues[3].type").description("Month type"),
-//                fieldWithPath("pulse.listValues[3].value").description("Month value"),
-//
-//                fieldWithPath("pulse.listValues[4].uri").description("Year uri"),
-//                fieldWithPath("pulse.listValues[4].type").description("Year type"),
-//                fieldWithPath("pulse.listValues[4].value").description("Year value"),
-//
-//                fieldWithPath("pulse.precommitmentValue").description("precommitmentValue"),
-//                fieldWithPath("pulse.statusCode").description("statusCode"),
-//                fieldWithPath("pulse.signatureValue").description("signatureValue"),
-//                fieldWithPath("pulse.outputValue").description("outputValue"));
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.example.beaconinterface;
 
+import com.example.beaconinterface.infra.AppUri;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;

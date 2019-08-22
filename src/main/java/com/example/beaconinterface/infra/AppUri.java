@@ -1,4 +1,4 @@
-package com.example.beaconinterface;
+package com.example.beaconinterface.infra;
 
 import javax.servlet.http.HttpServletRequest;
 
