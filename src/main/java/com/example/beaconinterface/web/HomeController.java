@@ -25,7 +25,7 @@ public class HomeController {
 
     @GetMapping("/home")
     public ModelAndView home(){
-        ModelAndView mv = new ModelAndView("/home/index");
+        ModelAndView mv = new ModelAndView("home/index");
         mv.addObject("uri", appUri.getUri());
         return mv;
     }

@@ -11,7 +11,9 @@ public class AppUri {
     }
 
     public String getUri(){
-        if (request.getServerPort() != 443){
+        System.out.println(request.getServerPort());
+
+        if ((request.getServerPort() != 443) || (request.getServerPort() != 80)){
             return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
         } else {
             return "https://" + request.getServerName() + request.getContextPath();

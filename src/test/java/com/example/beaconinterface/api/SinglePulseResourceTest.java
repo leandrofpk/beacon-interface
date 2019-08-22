@@ -43,7 +43,7 @@ public class SinglePulseResourceTest {
 
     private ResponseFieldsSnippet responseFieldsSnippetPulse;
 
-    private final String timestamp = "2019-08-15T20:17:00.000Z";
+    private final String timestamp = "2019-08-22T18:51:00.000Z";
 
 //    private RestDocumentationResultHandler documentationHandler;
 
@@ -118,31 +118,31 @@ public class SinglePulseResourceTest {
     }
 
 //    @Test
-    public void specificTimeError() throws Exception {
-
-        RestDocumentationResultHandler docs = document("Error Response",
-                preprocessRequest(prettyPrint()),
-                preprocessResponse(prettyPrint()),
-
-                responseFields(
-                        fieldWithPath("status").optional().type("Integer").description("Application status field.")
-//                        fieldWithPath("errorMsg").type("String").description("A global description of the cause of the error")
-
-                )
-        );
-
-        this.mockMvc.perform(
-                RestDocumentationRequestBuilders.get("/beacon/2.0/pulse/time/{timestamp}", "2019-08-15T20:17:00.ZZZZ"))
-                .andExpect(status().isBadRequest())
-                .andDo(document("beacon/2.0/pulse/time/get-by-timestamp",
-                        preprocessRequest(prettyPrint()),
-                        preprocessResponse(prettyPrint()),
-                        pathParameters(parameterWithName("timestamp")
-                                .description("A time string formatted according to the rules of RFC 3339"))
-                ))
-                .andDo(docs);
-
-    }
+//    public void specificTimeError() throws Exception {
+//
+//        RestDocumentationResultHandler docs = document("Error Response",
+//                preprocessRequest(prettyPrint()),
+//                preprocessResponse(prettyPrint()),
+//
+//                responseFields(
+//                        fieldWithPath("status").optional().type("Integer").description("Application status field.")
+////                        fieldWithPath("errorMsg").type("String").description("A global description of the cause of the error")
+//
+//                )
+//        );
+//
+//        this.mockMvc.perform(
+//                RestDocumentationRequestBuilders.get("/beacon/2.0/pulse/time/{timestamp}", "2019-08-15T20:17:00.ZZZZ"))
+//                .andExpect(status().isBadRequest())
+//                .andDo(document("beacon/2.0/pulse/time/get-by-timestamp",
+//                        preprocessRequest(prettyPrint()),
+//                        preprocessResponse(prettyPrint()),
+//                        pathParameters(parameterWithName("timestamp")
+//                                .description("A time string formatted according to the rules of RFC 3339"))
+//                ))
+//                .andDo(docs);
+//
+//    }
 
     @Test
     public void next() throws Exception {

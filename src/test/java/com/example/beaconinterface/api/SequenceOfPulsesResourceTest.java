@@ -46,9 +46,9 @@ public class SequenceOfPulsesResourceTest {
 
 //    private ResponseFieldsSnippet responseFieldsSnippetPulse;
 
-    private final String startTimestamp = "2019-08-15T20:17:00.000Z";
+    private final String startTimestamp = "2019-08-22T18:51:00.000Z";
 
-    private final String endTimestamp = "2019-08-15T20:18:00.000Z";
+    private final String endTimestamp = "2019-08-22T18:52:00.000Z";
 
     @Before
     public void setup() {
