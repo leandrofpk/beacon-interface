@@ -74,6 +74,7 @@
 <!--            <li>Bootstrap's scrollspy feature which highlights which section of the page you're on in the navbar</li>-->
 <!--            <li>Minimal custom CSS so you are free to explore your own unique design options</li>-->
 <!--          </ul>-->
+
           <p>
           <strong>Pulse at a specific time (or next closest):</strong> <br>
           <span th:text="${uri}"></span>/beacon/2.0/pulse/time/&lt;timestamp&gt; <br><br>
@@ -82,11 +83,11 @@
           <span th:text="${uri}"></span>/beacon/2.0/pulse/time/previous/&lt;timestamp&gt; <br><br>
 
           <strong>Next Pulse :</strong><br>
-            <span th:text="${uri}"></span>/beacon/2.0/pulse/time/next <br><br>
+            <span th:text="${uri}"></span>/beacon/2.0/pulse/time/next/&lt;timestamp&gt; <br><br>
 
           <strong>Last Available Pulse:</strong><br>
           <span th:text="${uri}"></span>/beacon/2.0/pulse/last <br>
-          <span th:text="${uri}"></span>/beacon/2.0/chain/last/pulse/last <br><br>
+<!--          <span th:text="${uri}"></span>/beacon/2.0/chain/last/pulse/last <br><br>-->
 
           <strong>First Pulse of the first Chain:</strong><br>
           <span th:text="${uri}"></span>/beacon/2.0/chain/1/pulse/1<br><br>
@@ -111,10 +112,15 @@
           <h2>Viewer</h2>
 <!--          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>-->
           <div class="card">
+
             <div class="card-header">
               Pulse
+
+
+
             </div>
             <div class="card-body">
+
 <!--              <h5 class="card-title">Special title treatment</h5>-->
 <!--              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
 <!--              <a href="#" class="btn btn-primary">Go somewhere</a>-->
