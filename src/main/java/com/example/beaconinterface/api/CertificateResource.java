@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
 @RequestMapping(value = "/beacon/2.0/certificate", produces= MediaType.APPLICATION_JSON_VALUE)
 public class CertificateResource {

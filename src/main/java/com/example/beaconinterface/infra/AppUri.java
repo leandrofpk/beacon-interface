@@ -11,12 +11,10 @@ public class AppUri {
     }
 
     public String getUri(){
-        if (request.getServerPort() != 443 || request.getServerPort() != 80){
+        if (request.getServerPort() != 443 && request.getServerPort() != 80){
             return request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
         } else {
             return request.getServerName() + request.getContextPath();
         }
-
     }
-
 }

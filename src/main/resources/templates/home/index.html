@@ -87,12 +87,13 @@
 
           <strong>Last Available Pulse:</strong><br>
           <span th:text="${uri}"></span>/beacon/2.0/pulse/last <br>
-<!--          <span th:text="${uri}"></span>/beacon/2.0/chain/last/pulse/last <br><br>-->
+<!--          <span th:text="${uri}"></span>/beacon/2.0/chain/last/pulse/last <br>-->
+            <br>
 
           <strong>First Pulse of the first Chain:</strong><br>
           <span th:text="${uri}"></span>/beacon/2.0/chain/1/pulse/1<br><br>
 
-          <strong>Pulse &lt;pulseIndex&gt; in chain &lt;chainIndex&gt;:</strong>
+          <strong>Pulse &lt;pulseIndex&gt; in chain &lt;chainIndex&gt;:</strong> <br>
           <span th:text="${uri}"></span>/beacon/2.0/chain/&lt;chainIndex&gt;/pulse/&lt;pulseIndex&gt; <br><br>
 
          <strong>Sequence of Pulses: </strong><br>
@@ -116,6 +117,9 @@
             <div class="card-header">
               Pulse
 
+<!--              <div id="status" style="display:none;" class="spinner-border m-0 float-right" role="status" align="rig">-->
+<!--                <span class="sr-only">Loading...</span>-->
+<!--              </div>-->
 
 
             </div>

@@ -1,7 +1,25 @@
 $(document).ready(function() {
     // $(".form_datetime").datetimepicker({format: "yyyy-MM-dd'T'HH:mm:ss.SSSz"});
+
+    // $("#status").bind("ajaxSend", function() {
+    //     $(this).show();
+    // }).bind("ajaxStop", function() {
+    //     $(this).hide();
+    // }).bind("ajaxError", function() {
+    //     $(this).hide();
+    // });
+
     getLastPulse();
 });
+
+// var $loading = $('#status').hide();
+// $(document)
+//     .ajaxStart(function () {
+//         $loading.show();
+//     })
+//     .ajaxStop(function () {
+//         $loading.hide();
+//     });
 
 function getLastPulse() {
     $.ajax({
@@ -68,7 +86,7 @@ function getByUri(button) {
 
     if (uri!="null"){
         $.ajax({
-            url: button.dataset.uri,
+            url: uri,
             method: 'GET',
             dataType: 'json',
             contentType: 'application/json',

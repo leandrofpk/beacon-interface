@@ -9,18 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
-//@Api(tags = "Sequence Pulse Commands", value = "SequencePulseCommands", description = "Queries for sequences of pulses")
 @RequestMapping(value = "/beacon/2.0/skiplist", produces= MediaType.APPLICATION_JSON_VALUE)
 public class SequenceOfPulsesResource {
 
@@ -31,7 +28,6 @@ public class SequenceOfPulsesResource {
         this.querySequencePulsesService = querySequencePulsesService;
     }
 
-//    @ApiOperation(value = "Skiplist between Times")
     @GetMapping("time/{startTimestamp}/{endTimestamp}")
     @ResponseBody
     public ResponseEntity skypList(@PathVariable String startTimestamp, @PathVariable String endTimestamp){
