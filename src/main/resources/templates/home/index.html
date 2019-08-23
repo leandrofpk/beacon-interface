@@ -77,29 +77,66 @@
 
           <p>
           <strong>Pulse at a specific time (or next closest):</strong> <br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/time/&lt;timestamp&gt; <br><br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/time/&lt;timestamp&gt; <br>
+
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/time/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/pulse/time/${timestampPrevious}|"></a>
+          </span>
+
+          <br><br>
 
           <strong>Previous Pulse: </strong> <br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/time/previous/&lt;timestamp&gt; <br><br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/time/previous/&lt;timestamp&gt; <br>
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/time/previous/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/pulse/time/previous/${timestampPrevious}|"></a>
+          </span>
+
+          <br><br>
 
           <strong>Next Pulse :</strong><br>
-            <span th:text="${uri}"></span>/beacon/2.0/pulse/time/next/&lt;timestamp&gt; <br><br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/time/next/&lt;timestamp&gt; <br>
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/time/next/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/pulse/time/next/${timestampPrevious}|"></a>
+          </span>
+
+          <br><br>
 
           <strong>Last Available Pulse:</strong><br>
           <span th:text="${uri}"></span>/beacon/2.0/pulse/last <br>
 <!--          <span th:text="${uri}"></span>/beacon/2.0/chain/last/pulse/last <br>-->
-            <br>
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/last}" th:text="|${uri}/beacon/2.0/pulse/last|"></a>
+          </span>
+
+          <br><br>
 
           <strong>First Pulse of the first Chain:</strong><br>
-          <span th:text="${uri}"></span>/beacon/2.0/chain/1/pulse/1<br><br>
+          <span th:text="${uri}"></span>/beacon/2.0/chain/1/pulse/1<br>
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/chain/1/pulse/1}" th:text="|${uri}//beacon/2.0/chain/1/pulse/1|"></a>
+          </span>
+
+          <br><br>
 
           <strong>Pulse &lt;pulseIndex&gt; in chain &lt;chainIndex&gt;:</strong> <br>
-          <span th:text="${uri}"></span>/beacon/2.0/chain/&lt;chainIndex&gt;/pulse/&lt;pulseIndex&gt; <br><br>
+          <span th:text="${uri}"></span>/beacon/2.0/chain/&lt;chainIndex&gt;/pulse/&lt;pulseIndex&gt; <br>
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/chain/1/pulse/} + ${pulseIndexPrevious}" th:text="|${uri}//beacon/2.0/chain/1/pulse/${pulseIndexPrevious}|"></a>
+          </span>
+
+         <br><br>
 
          <strong>Sequence of Pulses: </strong><br>
-         <span th:text="${uri}"></span>/beacon/2.0/skiplist/time/&lt;startTimestamp&gt;/&lt;endTimestamp&gt;<br><br>
+         <span th:text="${uri}"></span>/beacon/2.0/skiplist/time/&lt;startTimestamp&gt;/&lt;endTimestamp&gt;<br>
+         <span th:if="${timestampPrevious!=null}">
+         Example: <a style="word-break: break-word" th:href="@{beacon/2.0/skiplist/time/} + ${timestampPrevious} + @{/} + ${timestampCurrent}"
+                     th:text="@{beacon/2.0/skiplist/time/} + ${timestampPrevious} + @{/} + ${timestampCurrent}"></a>
+         </span>
 
-         If a request for a Pulse results in no Pulse found, a 404 response is returned.
+         <br><br>
+
+          If a request for a Pulse results in no Pulse found, a 404 response is returned. <br>
+          If a request for a Pulse is not in RFC 3339 format, a 400 (BAD REQUEST) is returned.
           </p>
         </div>
       </div>
