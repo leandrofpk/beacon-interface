@@ -92,22 +92,11 @@ public class VdfTest {
 
     @Test
     public void testBigInteger(){
-        int x = 80;
+        String s = "A72FAD21591F39EAF99DAA8E9D4CB162225271A048B511A5C0309AEF035DD8E1A8B4578546626D0E23AFC09015F72AE2F8276C723AC2A38E764DE8CF657339B4";
+        String s2 = "1.174021671158539e+308";
+        BigDecimal bigInteger = new BigDecimal(s2);
 
-        BigInteger bigInteger = new BigInteger("73237431696005972674723595250817150843").add(new BigInteger("1"));
-        BigInteger pow1 = new BigInteger("732374316960059726").pow(bigInteger.intValue());
-
-//        BigInteger p = new BigInteger("73237431696005972674723595250817150843");
-        double pow = Math.pow(x, p.doubleValue() + 1d);
-
-//        Math.
-
-//        BigInteger pow = p.pow(p.intValue() + 1);
-        System.out.println(pow);
-
-//        System.out.println(Math.pow(7,2));
-
-
+        System.out.println(bigInteger.toString());
     }
 
 }
