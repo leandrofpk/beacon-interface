@@ -1,4 +1,4 @@
-package com.example.beaconinterface.vdf;
+package com.example.beaconinterface.vdf.util;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;

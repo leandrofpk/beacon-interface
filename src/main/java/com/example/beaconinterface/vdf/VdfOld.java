@@ -1,8 +1,10 @@
 package com.example.beaconinterface.vdf;
 
+import com.example.beaconinterface.vdf.util.HashUtil;
+
 import java.util.List;
 
-public class Vdf {
+public class VdfOld {
 
     private List<String> seed;
 
