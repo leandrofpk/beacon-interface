@@ -81,14 +81,46 @@
 
             <div class="card">
                 <div class="card-header">
-                    VDF: [Status]
+                    Verificable Delay Function
                 </div>
                 <div class="card-body">
-                    <h5 class="card-title">Submitions: [Status]</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+                  <h5 class="card-title">Submissions: [<span id="spanStatus">[Status]</span>]</h5>
+
+                  <div id="divClosed">
+                    <p class="card-text" id="pNextSubmission">Next submissions in <span id="spanNextRunInMinutes"></span> minute(s)</p>
+                    <p class="card-text"><strong>Start:</strong> <span id="spanStart">2019-08-31T11:30:00.000Z</span>  <strong>End:</strong> <span id="spanEnd">2019-08-31T11:30:00.000Z</span></p>
+                    <p class="card-text"><strong>Current hash:</strong><span id="spanCurrentHash"></span></p>
+                    <p class="card-text"><strong>Output:</strong><span id="spanOutput"></span></p>
+                    <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+                  </div>
                 </div>
             </div>
+
+          <div class="card">
+            <div class="card-header">
+              Seed List
+            </div>
+            <div class="card-body">
+<!--              <h5 class="card-title">Submissions: [<span id="spanStatus">[Status]</span>]</h5>-->
+
+                <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+                <!--                    <a href="#" class="btn btn-primary">Show previous numbers</a>-->
+
+              <div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Seed</th>
+                      <th scope="col">Uri</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table_seed">
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
 
 <!--          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>-->
 
