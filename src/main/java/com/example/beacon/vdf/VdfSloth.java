@@ -1,9 +1,6 @@
 package com.example.beacon.vdf;
 
-import com.example.beacon.vdf.application.VdfSeed;
-
 import java.math.BigInteger;
-import java.util.List;
 
 public class VdfSloth {
 

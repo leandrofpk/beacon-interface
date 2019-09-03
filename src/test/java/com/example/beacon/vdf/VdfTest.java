@@ -11,7 +11,7 @@ public class VdfTest {
 
     private final BigInteger p = new BigInteger("73237431696005972674723595250817150843");
 
-    @Test
+//    @Test
     public void vdfTeste(){
 
         double x = 80;
@@ -72,7 +72,7 @@ public class VdfTest {
 //        return Math.pow(x,(p.doubleValue()-1 / 2)) == 1;
     }
 
-    @Test
+//    @Test
     public void testFormatDouble(){
         DecimalFormat df = new DecimalFormat(".00");
         double dblResult = Math.pow(4.2, 3);
@@ -88,7 +88,7 @@ public class VdfTest {
 
     }
 
-    @Test
+//    @Test
     public void testBigInteger(){
         String s = "A72FAD21591F39EAF99DAA8E9D4CB162225271A048B511A5C0309AEF035DD8E1A8B4578546626D0E23AFC09015F72AE2F8276C723AC2A38E764DE8CF657339B4";
         String s2 = "1.174021671158539e+308";

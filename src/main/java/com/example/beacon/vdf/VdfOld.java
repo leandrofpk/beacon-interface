@@ -1,6 +1,6 @@
 package com.example.beacon.vdf;
 
-import com.example.beacon.vdf.util.HashUtil;
+import com.example.beacon.vdf.infra.util.HashUtil;
 
 import java.util.List;
 

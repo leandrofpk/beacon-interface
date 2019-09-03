@@ -1,4 +1,4 @@
-package com.example.beacon.vdf.util;
+package com.example.beacon.vdf.infra.util;
 
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;

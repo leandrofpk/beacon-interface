@@ -24,7 +24,7 @@ public class VdfTest3Wladmir2 {
 
         LocalDateTime startEval = LocalDateTime.now();
         VdfTest3Wladmir2 vdfTest3Wladmir = new VdfTest3Wladmir2();
-        BigInteger y = vdfTest3Wladmir.mod_op(x, t);
+        BigInteger y = vdfTest3Wladmir.mod_op(x, t);                     // SEM HASH E ASSINADO - HAS | timestamp | assinatura (verificação pela função e não por encadeamento)
         LocalDateTime endEval = LocalDateTime.now();
 
         long between = ChronoUnit.MILLIS.between(startEval, endEval);

@@ -1,18 +1,16 @@
-package com.example.beacon.vdf.application;
+package com.example.beacon.vdf.application.old;
 
 import com.example.beacon.vdf.StatusEnum;
 import com.example.beacon.vdf.SubmissionTime;
 import com.example.beacon.vdf.VdfSloth;
-import com.example.beacon.vdf.util.DateUtil;
-import com.example.beacon.vdf.util.HashUtil;
+import com.example.beacon.vdf.infra.util.DateUtil;
+import com.example.beacon.vdf.infra.util.HashUtil;
 import lombok.Getter;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
-import org.springframework.core.env.Environment;
 
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 

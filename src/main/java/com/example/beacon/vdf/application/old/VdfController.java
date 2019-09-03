@@ -1,4 +1,4 @@
-package com.example.beacon.vdf.application;
+package com.example.beacon.vdf.application.old;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
 package com.example.beacon.vdf.scheduling;
 
-import com.example.beacon.vdf.application.VdfAppService;
+import com.example.beacon.vdf.application.old.VdfAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;

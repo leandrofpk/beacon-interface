@@ -1,17 +1,16 @@
-package com.example.beacon.vdf.application;
+package com.example.beacon.vdf.application.old;
 
-import com.example.beacon.vdf.util.DateUtil;
+import com.example.beacon.vdf.application.old.Vdf;
+import com.example.beacon.vdf.application.old.VdfException;
+import com.example.beacon.vdf.application.old.VdfSeed;
+import com.example.beacon.vdf.infra.util.DateUtil;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
-
-import static org.junit.Assert.*;
 
 public class VdfTest {
 

@@ -1,4 +1,4 @@
-package com.example.beacon.vdf.application;
+package com.example.beacon.vdf.application.old;
 
 import com.example.beacon.interfac.api.dto.PulseDto;
 import com.example.beacon.vdf.repository.RemoteSourceRepositoryInterface;

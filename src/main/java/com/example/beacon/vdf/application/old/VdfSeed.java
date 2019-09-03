@@ -1,4 +1,4 @@
-package com.example.beacon.vdf.application;
+package com.example.beacon.vdf.application.old;
 
 import lombok.Data;
 import lombok.Getter;

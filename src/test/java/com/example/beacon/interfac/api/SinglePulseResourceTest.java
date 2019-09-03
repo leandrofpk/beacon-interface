@@ -43,7 +43,7 @@ public class SinglePulseResourceTest {
 
     private ResponseFieldsSnippet responseFieldsSnippetPulse;
 
-    private final String timestamp = "2019-08-22T18:51:00.000Z";
+    private final String timestamp = "2019-09-02T05:07:00.000Z";
 
 //    private RestDocumentationResultHandler documentationHandler;
 

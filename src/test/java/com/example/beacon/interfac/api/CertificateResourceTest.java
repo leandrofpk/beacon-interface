@@ -49,7 +49,8 @@ public class CertificateResourceTest {
     @Test
     public void getCertificateByCertificateIdentifier() throws Exception {
         this.mockMvc.perform(
-                RestDocumentationRequestBuilders.get("/beacon/2.0/certificate/{certificateIdentifier}", "dewerwrwre"))
+                RestDocumentationRequestBuilders.get("/beacon/2.0/certificate/{certificateIdentifier}",
+                        "04c5dc3b40d25294c55f9bc2496fd4fe9340c1308cd073900014e6c214933c7f7737227fc5e4527298b9e95a67ad92e0310b37a77557a10518ced0ce1743e132"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andDo(document("beacon/2.0/certificate/get-by-certificateIdentifier",
