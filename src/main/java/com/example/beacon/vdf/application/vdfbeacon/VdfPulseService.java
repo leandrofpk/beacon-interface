@@ -6,7 +6,6 @@ import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.VdfTest3Wladmir2;
 import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
 import com.example.beacon.vdf.infra.entity.VdfSeedEntity;
-import com.example.beacon.vdf.infra.util.HashUtil;
 import com.example.beacon.vdf.repository.VdfPulsesRepository;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +13,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
@@ -24,8 +21,6 @@ import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.example.beacon.shared.ByteSerializationFieldsUtil.*;
 
 @Service
 public class VdfPulseService {
@@ -44,16 +39,19 @@ public class VdfPulseService {
 
     private String precommitment = "";
 
+    private final ICipherSuite cipherSuite;
+
     @Autowired
     public VdfPulseService(Environment env, VdfPulsesRepository vdfPulsesRepository) {
         this.env = env;
         this.vdfPulsesRepository = vdfPulsesRepository;
         this.statusEnum = StatusEnum.STOPPED;
         this.seedList = new ArrayList<>();
+        this.cipherSuite = CipherSuiteBuilder.build(0);
     }
 
     public void startTimeSlot(){
-        this.statusEnum.equals(StatusEnum.OPEN);
+        this.statusEnum = StatusEnum.OPEN;
         this.timestamp = getDateTime();
     }
 
@@ -92,6 +90,7 @@ public class VdfPulseService {
         BigInteger y = doSloth(x, iterations);
 
         persist(y,x, iterations);
+        seedList.clear();
     }
 
     private BigInteger doConcat(String precommitment) {
@@ -105,7 +104,7 @@ public class VdfPulseService {
             return new BigInteger(precommitment, 16);
         }
 
-        return new BigInteger(HashUtil.getDigest(concat.toString()), 16);
+        return new BigInteger(cipherSuite.getDigest(concat.toString()), 16);
     }
 
     // TODO Ta bungando com o XOR
@@ -176,20 +175,15 @@ public class VdfPulseService {
         seedList.forEach(vdfPulseDto ->
                 vdfPulseEntity.addSeed(new VdfSeedEntity(vdfPulseDto, vdfPulseEntity)));
 
-        ByteArrayOutputStream baos = serializeFields(vdfPulseEntity);
+//        ByteArrayOutputStream baos = serializeFields(vdfPulseEntity);
 
-        signPulse(baos, vdfPulseEntity);
-
-
+        signPulse(VdfPulseSerialize.serializeVdfEntity(vdfPulseEntity), vdfPulseEntity);
         vdfPulsesRepository.saveAndFlush(vdfPulseEntity);
     }
 
-    private void signPulse(ByteArrayOutputStream baos, VdfPulseEntity vdfPulseEntity) throws Exception {
-        final ICipherSuite sha512Util = CipherSuiteBuilder.build(vdfPulseEntity.getCipherSuite());
+    private void signPulse(byte[] bytes, VdfPulseEntity vdfPulseEntity) throws Exception {
         PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
-        String digest = sha512Util.getDigest(baos.toByteArray());
-        vdfPulseEntity.setSignatureValue(sha512Util.signBytes15(digest, privateKey));
-
+        vdfPulseEntity.setSignatureValue(cipherSuite.sign(privateKey, bytes));
     }
 
     private ZonedDateTime getDateTime(){
@@ -199,28 +193,6 @@ public class VdfPulseService {
                 .withZoneSameInstant((ZoneOffset.UTC).normalized());
 
         return now;
-    }
-
-    private ByteArrayOutputStream serializeFields(VdfPulseEntity entity) throws IOException {
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream(8192); // should be enough
-
-        baos.write(byteSerializeHash(entity.getCertificateId()));
-        baos.write(encode4(entity.getCipherSuite()));
-        baos.write(encode4(entity.getPeriod()));
-        baos.write(encode8(entity.getPulseIndex()));
-        baos.write(byteSerializeString(getTimeStampFormated(entity.getTimeStamp())));
-        baos.write(encode8(entity.getStatusCode()));
-
-        for (VdfSeedEntity e : entity.getSeedList()) {
-            baos.write(byteSerializeHash(e.getSeed()));
-            baos.write(byteSerializeString(e.getOrigin().toString()));
-        }
-
-        baos.write(byteSerializeString(entity.getX()));
-        baos.write(byteSerializeString(entity.getY()));
-        baos.write(encode4(entity.getIterations()));
-
-        return baos;
     }
 
 }

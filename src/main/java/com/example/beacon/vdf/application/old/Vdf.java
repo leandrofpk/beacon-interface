@@ -1,5 +1,7 @@
 package com.example.beacon.vdf.application.old;
 
+import com.example.beacon.shared.CipherSuiteBuilder;
+import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.StatusEnumOld;
 import com.example.beacon.vdf.SubmissionTime;
 import com.example.beacon.vdf.VdfSloth;
@@ -29,10 +31,14 @@ public class Vdf {
 
     private String output;
 
+    private final ICipherSuite cipherSuite;
+
+
     public Vdf(){
         this.statusEnum = StatusEnumOld.CLOSED;
         this.submissionTime = new SubmissionTime(DateUtil.getTimestampOfNextRun(ZonedDateTime.now()), 15);
         this.currentHash = "";
+        this.cipherSuite = CipherSuiteBuilder.build(0);
     }
 
     public void startSubmissions(int submissionDuration){
@@ -54,7 +60,7 @@ public class Vdf {
         } else {
             this.currentXorValue = ByteUtils.xor(currentXorValue, seed.getSeed().getBytes(StandardCharsets.UTF_8));
         }
-        this.currentHash = HashUtil.getDigest(currentXorValue);
+        this.currentHash = cipherSuite.getDigest(currentXorValue);
     }
 
     public void startProcessing(){
@@ -67,7 +73,7 @@ public class Vdf {
 
 //        BigInteger bigInteger = vdfSloth.mod_op(x, 999999);
         BigInteger bigInteger = vdfSloth.mod_op(x, 9);
-        this.output = HashUtil.getDigest(bigInteger.toByteArray());
+        this.output = cipherSuite.getDigest(bigInteger.toByteArray());
         System.out.println("output:" + this.output);
 
         endProcess();

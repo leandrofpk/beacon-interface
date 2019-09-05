@@ -8,13 +8,13 @@ import org.springframework.stereotype.Component;
 
 import java.time.ZonedDateTime;
 
-@Component
+//@Component
 //@EnableScheduling
 public class VDFScheduling {
 
     private final VdfAppService vdfAppService;
 
-    @Autowired
+//    @Autowired
     public VDFScheduling(VdfAppService vdfAppService) {
         this.vdfAppService = vdfAppService;
     }
