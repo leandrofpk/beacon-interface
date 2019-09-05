@@ -13,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @JsonTypeName("vdf")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT ,use = JsonTypeInfo.Id.NAME)
-public class VdfDto {
+public class VdfDtoOld {
 
     private String start;
 

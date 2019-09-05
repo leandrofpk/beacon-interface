@@ -4,25 +4,10 @@ import java.math.BigInteger;
 
 public class VdfSloth {
 
-//    private final int iterations;
-//
-//    private final BigInteger x;
-
     private static final BigInteger BIG_INT_QUATRO = new BigInteger("4");
     private static final BigInteger BIG_INT_DOIS = new BigInteger("2");
     private static final BigInteger BIG_INT_UM = new BigInteger("1");
     private final BigInteger p = new BigInteger("73237431696005972674723595250817150843");
-
-
-//    public VdfSloth(BigInteger x, int iterations) {
-//        this.x = x;
-//        this.iterations = iterations;
-//        init();
-//    }
-
-//    private void init() {
-////        mod_op(x, iterations);
-//    }
 
     public BigInteger mod_op(BigInteger x, int t) {
         for (int i = 0; i < t; i++) {
@@ -48,7 +33,7 @@ public class VdfSloth {
         return powT.equals(BIG_INT_UM);
     }
 
-    private boolean mod_verif(BigInteger y, BigInteger x, int t){
+    public boolean mod_verif(BigInteger y, BigInteger x, int t){
 
         for (int i = 0; i < t; i++) {
             y = y.modPow(BIG_INT_DOIS, p);

@@ -1,6 +1,6 @@
 package com.example.beacon.vdf;
 
-public enum StatusEnum {
+public enum StatusEnumOld {
 
     OPEN("Open"),
     RUNNING("Running"),
@@ -8,7 +8,7 @@ public enum StatusEnum {
 
     private String description;
 
-    StatusEnum(String descricao) {
+    StatusEnumOld(String descricao) {
         this.description = descricao;
     }
 

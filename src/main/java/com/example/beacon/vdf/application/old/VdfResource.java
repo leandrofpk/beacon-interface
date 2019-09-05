@@ -29,17 +29,17 @@ public class VdfResource {
     @GetMapping("/current")
     public ResponseEntity submission(){
         try {
-            VdfDto dto = converter(vdfAppService.getCurrentVdf());
+            VdfDtoOld dto = converter(vdfAppService.getCurrentVdf());
             return new ResponseEntity(dto, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    private VdfDto converter(Vdf vdf){
+    private VdfDtoOld converter(Vdf vdf){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz");
 
-        VdfDto dto = new VdfDto();
+        VdfDtoOld dto = new VdfDtoOld();
         dto.setStart(vdf.getSubmissionTime().getStart().withZoneSameInstant((ZoneOffset.UTC).normalized()).format(dateTimeFormatter));
         dto.setEnd(vdf.getSubmissionTime().getEnd().withZoneSameInstant((ZoneOffset.UTC).normalized()).format(dateTimeFormatter));
         dto.setStatus(vdf.getStatusEnum().getDescription());

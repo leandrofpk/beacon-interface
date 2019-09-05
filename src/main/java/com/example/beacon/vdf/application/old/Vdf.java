@@ -1,6 +1,6 @@
 package com.example.beacon.vdf.application.old;
 
-import com.example.beacon.vdf.StatusEnum;
+import com.example.beacon.vdf.StatusEnumOld;
 import com.example.beacon.vdf.SubmissionTime;
 import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.infra.util.DateUtil;
@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 public class Vdf {
 
-    private StatusEnum statusEnum;
+    private StatusEnumOld statusEnum;
 
     private SubmissionTime submissionTime;
 
@@ -30,20 +30,20 @@ public class Vdf {
     private String output;
 
     public Vdf(){
-        this.statusEnum = StatusEnum.CLOSED;
+        this.statusEnum = StatusEnumOld.CLOSED;
         this.submissionTime = new SubmissionTime(DateUtil.getTimestampOfNextRun(ZonedDateTime.now()), 15);
         this.currentHash = "";
     }
 
     public void startSubmissions(int submissionDuration){
-        this.statusEnum = StatusEnum.OPEN;
+        this.statusEnum = StatusEnumOld.OPEN;
         this.currentHash = "";
         this.output = "";
     }
 
     public void addSeed(VdfSeed seed){
 
-        if (!this.statusEnum.equals(StatusEnum.OPEN)){
+        if (!this.statusEnum.equals(StatusEnumOld.OPEN)){
             throw new VdfException("Status <> OPEN");
         }
 
@@ -58,10 +58,9 @@ public class Vdf {
     }
 
     public void startProcessing(){
-        this.statusEnum = StatusEnum.RUNNING;
+        this.statusEnum = StatusEnumOld.RUNNING;
 
 //        BigInteger x = new BigInteger("80");
-
         BigInteger x = new BigInteger(ByteUtils.toHexString(this.currentXorValue), 16);
 
         VdfSloth vdfSloth = new VdfSloth();
@@ -72,7 +71,7 @@ public class Vdf {
         System.out.println("output:" + this.output);
 
         endProcess();
-        this.statusEnum = StatusEnum.CLOSED;
+        this.statusEnum = StatusEnumOld.CLOSED;
     }
 
     private void endProcess() {

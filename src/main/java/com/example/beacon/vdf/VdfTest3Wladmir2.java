@@ -17,7 +17,9 @@ public class VdfTest3Wladmir2 {
 
     public static void main(String[] args) {
 
-        BigInteger x = new BigInteger("80");
+        BigInteger x = new BigInteger("0EE710ADDAFA8774268E736A92B65C82901087BD926886147179BAD110ADCA5EFDE28099C94DEC2EE2A328369A72737C564C6C3DA08CE7057DC9B7B1D02BFBB2", 16);
+//        BigInteger x = new BigInteger("80");
+
 //        x = x % p;  // não faz nada no python
 //        int t = 99999;
         int t = 999;
@@ -38,14 +40,18 @@ public class VdfTest3Wladmir2 {
         System.out.println("Verify - Elapsed in millis:" + between2);
         System.out.println("verify:" + b);
 
-        System.out.println("------------------------------------");
-        String digest = vdfTest3Wladmir.getDigest(y.toString());
-        System.out.println("Last number:" + y);
-        System.out.println("Hash last number:" + digest);
+
+        System.out.println("x:" + x);
+        System.out.println("y:" + y);
+        System.out.println("iterations:" + t);
+
+//        System.out.println("------------------------------------");
+//        String digest = vdfTest3Wladmir.getDigest(y.toString());
+//        System.out.println("Last number:" + y);
+//        System.out.println("Hash last number:" + digest);
     }
 
-    private BigInteger mod_op(BigInteger x, int t) { // hash operation on an int with t iternations
-//        x = x % p  Acho que o cara quis fazer um hash - não faz nada no python
+    public BigInteger mod_op(BigInteger x, int t) { // hash operation on an int with t iternations
         for (int i = 0; i < t; i++) {
             x = mod_sqrt_op(x, p);
         }
@@ -70,7 +76,7 @@ public class VdfTest3Wladmir2 {
         return powT.equals(BIG_INT_UM);
     }
 
-    private boolean mod_verif(BigInteger y, BigInteger x, int t){
+    public boolean mod_verif(BigInteger y, BigInteger x, int t){
 
         for (int i = 0; i < t; i++) {
 //            y = pow(int(y), 2, p)
