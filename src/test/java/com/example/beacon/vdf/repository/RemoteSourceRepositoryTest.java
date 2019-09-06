@@ -15,7 +15,7 @@ public class RemoteSourceRepositoryTest {
     public void get() {
         RestTemplate restTemplate = new RestTemplate();
         PulseDto lastPulse = restTemplate.getForObject("https://beacon.nist.gov/beacon/2.0/pulse/last", PulseDto.class);
-        PulseDto lastPulse2 = restTemplate.getForObject("https://random.uchile.cl/beacon/2.0/pulse/last", PulseDto.class);
+//        PulseDto lastPulse2 = restTemplate.getForObject("https://random.uchile.cl/beacon/2.0/pulse/last", PulseDto.class);
 
         System.out.println(lastPulse);
 

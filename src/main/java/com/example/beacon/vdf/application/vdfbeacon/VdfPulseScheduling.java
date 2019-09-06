@@ -15,7 +15,8 @@ public class VdfPulseScheduling {
     }
 
 //    @Scheduled(cron = "00 * * * * *")
-    @Scheduled(cron = "0 50 * * * *")
+//    @Scheduled(cron = "0 50 * * * *")
+    @Scheduled(cron = "0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *") // a cada 5 min
     private void startTimeSlot(){
         vdfPulseService.startTimeSlot();
         System.out.println("Start:" + ZonedDateTime.now());
@@ -24,7 +25,8 @@ public class VdfPulseScheduling {
     }
 
     //    @Scheduled(cron = "0 0-5-10-15-20-25-30-35-40-45-50-55 * * * *") // a cada 5 min
-    @Scheduled(cron = "10 50 * * * *")
+//    @Scheduled(cron = "10 50 * * * *")
+    @Scheduled(cron = "0 0,6,11,16,21,26,31,36,41,45,51,56 * * * *") // a cada 5 min
     private void endTimeSlot() throws Exception {
         vdfPulseService.endTimeSlot();
     }

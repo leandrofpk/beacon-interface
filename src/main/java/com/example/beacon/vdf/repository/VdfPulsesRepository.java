@@ -1,6 +1,5 @@
 package com.example.beacon.vdf.repository;
 
-import com.example.beacon.interfac.infra.PulseEntity;
 import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

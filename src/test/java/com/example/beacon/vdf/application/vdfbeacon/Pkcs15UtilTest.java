@@ -17,11 +17,11 @@ import java.security.PublicKey;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class Pkcs15UtilTest {
 
-    @Autowired
+//    @Autowired
     Environment env;
 
 //    private VdfPulseDtoPost getPulse(){

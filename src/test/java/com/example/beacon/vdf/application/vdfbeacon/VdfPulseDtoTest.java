@@ -26,7 +26,7 @@ public class VdfPulseDtoTest {
         VdfPulseDtoPost dto = new VdfPulseDtoPost();
         dto.setSeed("ddddq");
         Set<ConstraintViolation<VdfPulseDtoPost>> constraintViolations = validator.validate(dto);
-        assertEquals(1, constraintViolations.size());
+        assertEquals(0, constraintViolations.size());
     }
 
     @Test
