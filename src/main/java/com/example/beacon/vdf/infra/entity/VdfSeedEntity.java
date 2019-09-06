@@ -1,13 +1,12 @@
 package com.example.beacon.vdf.infra.entity;
 
 import com.example.beacon.vdf.application.vdfbeacon.OriginEnum;
-import com.example.beacon.vdf.application.vdfbeacon.VdfPulseDto;
+import com.example.beacon.vdf.application.vdfbeacon.VdfPulseDtoPost;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 
 @Entity
 @Data
@@ -29,7 +28,7 @@ public class VdfSeedEntity {
     @JoinColumn(name = "vdf_pulse_id")
     private VdfPulseEntity vdfPulseEntity;
 
-    public VdfSeedEntity(VdfPulseDto dto, VdfPulseEntity vdfPulseEntity) {
+    public VdfSeedEntity(VdfPulseDtoPost dto, VdfPulseEntity vdfPulseEntity) {
         this.seed = dto.getSeed();
         this.origin = dto.getOriginEnum();
         this.vdfPulseEntity = vdfPulseEntity;

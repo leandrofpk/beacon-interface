@@ -1,8 +1,7 @@
 package com.example.beacon.vdf.application.vdfbeacon;
 
-import com.example.beacon.shared.CipherSuiteBuilder;
-import com.example.beacon.shared.CriptoUtilService;
-import com.example.beacon.shared.ICipherSuite;
+import com.example.beacon.interfac.infra.EntropyEntity;
+import com.example.beacon.shared.*;
 import com.example.beacon.vdf.VdfTest3Wladmir2;
 import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
 import com.example.beacon.vdf.infra.entity.VdfSeedEntity;
@@ -29,7 +28,7 @@ public class VdfPulseService {
 
     private StatusEnum statusEnum;
 
-    private List<VdfPulseDto> seedList;
+    private List<VdfPulseDtoPost> seedList;
 
     private final VdfPulsesRepository vdfPulsesRepository;
 
@@ -39,12 +38,17 @@ public class VdfPulseService {
 
     private String precommitment = "";
 
+    private int statuscode;
+
     private final ICipherSuite cipherSuite;
 
+    private final EntropyRepository entropyRepository;
+
     @Autowired
-    public VdfPulseService(Environment env, VdfPulsesRepository vdfPulsesRepository) {
+    public VdfPulseService(Environment env, VdfPulsesRepository vdfPulsesRepository, EntropyRepository entropyRepository) {
         this.env = env;
         this.vdfPulsesRepository = vdfPulsesRepository;
+        this.entropyRepository = entropyRepository;
         this.statusEnum = StatusEnum.STOPPED;
         this.seedList = new ArrayList<>();
         this.cipherSuite = CipherSuiteBuilder.build(0);
@@ -69,12 +73,23 @@ public class VdfPulseService {
         return this.statusEnum.equals(StatusEnum.OPEN);
     }
 
-    public void addSeed(VdfPulseDto dto){
+    public void addSeed(VdfPulseDtoPost dto){
         this.seedList.add(dto);
     }
 
     private void run() throws Exception {
-        this.precommitment = "0EE710ADDAFA8774268E736A92B65C82901087BD926886147179BAD110ADCA5EFDE28099C94DEC2EE2A328369A72737C564C6C3DA08CE7057DC9B7B1D02BFBB2";
+       ZonedDateTime timeStamp = entropyRepository.findNewerNumber();
+
+        long between = ChronoUnit.MINUTES.between(timeStamp, ZonedDateTime.now());
+
+        if (between > 2){
+            this.precommitment = "0EE710ADDAFA8774268E736A92B65C82901087BD926886147179BAD110ADCA5EFDE28099C94DEC2EE2A328369A72737C564C6C3DA08CE7057DC9B7B1D02BFBB2";
+            this.statuscode = 5;
+        } else {
+            EntropyEntity byTimeStamp = entropyRepository.findByTimeStamp(timeStamp);
+            this.precommitment = byTimeStamp.getRawData();
+            this.statuscode = 0;
+        }
 
         CombinatioEnum combination = CombinatioEnum.valueOf(env.getProperty("pulse.vdf.combination").toUpperCase());
         int iterations = Integer.parseInt(env.getProperty("pulse.vdf.iterations"));
@@ -95,7 +110,7 @@ public class VdfPulseService {
 
     private BigInteger doConcat(String precommitment) {
         StringBuilder concat = new StringBuilder();
-        for (VdfPulseDto dto : seedList) {
+        for (VdfPulseDtoPost dto : seedList) {
             concat.append(dto.getSeed().toUpperCase().trim());
         }
         concat.append(precommitment.toUpperCase().trim());
@@ -120,7 +135,7 @@ public class VdfPulseService {
             return new BigInteger(s, 16);
         }
 
-//        for (VdfPulseDto dto : seedList) {
+//        for (VdfPulseDtoPost dto : seedList) {
 //
 //        }
         return null;
@@ -139,7 +154,6 @@ public class VdfPulseService {
         System.out.println("y:" + y);
         System.out.println("iterations:" + iterations);
 
-        System.out.println("Persist");
         return y;
     }
 
@@ -160,22 +174,20 @@ public class VdfPulseService {
         vdfPulseEntity.setCipherSuite(0);
         vdfPulseEntity.setPeriod(Integer.parseInt(env.getProperty("pulse.vdf.period")));
 
-        vdfPulseEntity.setStatusCode(0);
+        vdfPulseEntity.setStatusCode(this.statuscode);
 
         vdfPulseEntity.setX(x.toString());
         vdfPulseEntity.setY(y.toString());
         vdfPulseEntity.setIterations(iterations);
 
         // seed inmetro
-        VdfPulseDto vdfPulseDto1 = new VdfPulseDto();
+        VdfPulseDtoPost vdfPulseDto1 = new VdfPulseDtoPost();
         vdfPulseDto1.setOriginEnum(OriginEnum.INMETRO);
         vdfPulseDto1.setSeed(this.precommitment);
         seedList.add(vdfPulseDto1);
 
         seedList.forEach(vdfPulseDto ->
                 vdfPulseEntity.addSeed(new VdfSeedEntity(vdfPulseDto, vdfPulseEntity)));
-
-//        ByteArrayOutputStream baos = serializeFields(vdfPulseEntity);
 
         signPulse(VdfPulseSerialize.serializeVdfEntity(vdfPulseEntity), vdfPulseEntity);
         vdfPulsesRepository.saveAndFlush(vdfPulseEntity);

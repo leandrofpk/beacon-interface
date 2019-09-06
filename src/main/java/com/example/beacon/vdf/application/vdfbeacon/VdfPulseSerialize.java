@@ -10,7 +10,7 @@ import static com.example.beacon.shared.ByteSerializationFieldsUtil.*;
 import static com.example.beacon.shared.ByteSerializationFieldsUtil.byteSerializeHash;
 
 public class VdfPulseSerialize {
-    public static byte[] serializeVdfDto(VdfPulseDto dto) throws IOException {
+    public static byte[] serializeVdfDto(VdfPulseDtoPost dto) throws IOException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream(2048); // should be enough
         baos.write(byteSerializeHash(dto.getCertificateId()));
         baos.write(encode4(dto.getCipherSuite()));

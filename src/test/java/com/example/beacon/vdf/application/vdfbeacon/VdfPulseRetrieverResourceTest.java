@@ -7,7 +7,6 @@ import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.util.ASN1Dump;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.util.encoders.Hex;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,13 +16,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.*;
 
 import static com.example.beacon.shared.ByteSerializationFieldsUtil.*;
@@ -37,11 +32,11 @@ public class VdfPulseRetrieverResourceTest {
     @Autowired
     Environment env;
 
-    VdfPulseDto pulse;
+    VdfPulseDtoPost pulse;
 
     @Before
     public void init(){
-        pulse = new VdfPulseDto();
+        pulse = new VdfPulseDtoPost();
         pulse.setCertificateId("04c5dc3b40d25294c55f9bc2496fd4fe9340c1308cd073900014e6c214933c7f7737227" +
                 "fc5e4527298b9e95a67ad92e0310b37a77557a10518ced0ce1743e132");
         pulse.setCipherSuite(0);
@@ -105,7 +100,7 @@ public class VdfPulseRetrieverResourceTest {
         System.out.println(MessageDigest.isEqual(hash.digest(), sigHash.getOctets()));
     }
 
-    private ByteArrayOutputStream serialize(VdfPulseDto pulse) throws IOException {
+    private ByteArrayOutputStream serialize(VdfPulseDtoPost pulse) throws IOException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream(2048); // should be enough
         baos.write(byteSerializeHash(pulse.getCertificateId()));
         baos.write(encode4(pulse.getCipherSuite()));

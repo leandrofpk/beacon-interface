@@ -123,7 +123,7 @@ function atualizarRecord(data) {
     lista += '<td>' + pulse.period + '</td></tr>';
 
     lista += '<tr><td>Certified Hash:</td>';
-    lista += '<td>' + pulse.certificateId + '</td></tr>';
+    lista += '<td style="word-break: break-word">' + pulse.certificateId + '</td></tr>';
 
     lista += '<tr><td>Chain Index:</td>';
     lista += '<td>' + pulse.chainIndex + '</td></tr>';

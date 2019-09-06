@@ -1,0 +1,125 @@
+$(document).ready(function() {
+    getLastPulse();
+    setInterval(function(){ getLastPulse(); }, 5000);
+});
+
+function getLastPulse() {
+    $.ajax({
+        url: "/beacon/2.0/pulse/vdf/last",
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            atualizarRecord(data);
+        },
+        error: function (xhr, status) {
+            alert("Ocorreu um erro.  Por favor, tente mais tarde")
+        }
+    });
+}
+
+function getFirstPulse() {
+    $.ajax({
+        url: "/beacon/2.0/pulse/vdf/first",
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            atualizarRecord(data);
+        },
+        error: function (xhr) {
+            alert(xhr.status + '-' +xhr.responseText);
+        }
+    });
+}
+
+function getPreviousPulse() {
+    $.ajax({
+        url: "/beacon/2.0/pulse/vdf/previous/" + document.getElementById("input-datetime").value ,
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            atualizarRecord(data);
+        },
+        error: function (xhr) {
+            alert(xhr.status + '-' +xhr.responseText);
+        }
+    });
+}
+
+function getNextPulse() {
+    $.ajax({
+        url: "/beacon/2.0/pulse/vdf/next/" + document.getElementById("input-datetime").value,
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            atualizarRecord(data);
+        },
+        error: function (xhr) {
+            alert(xhr.status + '-' +xhr.responseText);
+        }
+    });
+}
+
+function getByUri(button) {
+   var uri = button.dataset.uri;
+
+    if (uri!="null"){
+        $.ajax({
+            url: uri,
+            method: 'GET',
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+                atualizarRecord(data);
+            },
+            error: function (xhr) {
+                alert(xhr.status + '-' +xhr.responseText);
+            }
+        });
+    }
+}
+
+function atualizarRecord(data) {
+    var pulse = data.pulse;
+
+    var elementById = document.getElementById("input-datetime");
+    elementById.value = pulse.timeStamp;
+
+    var lista = '';
+
+    lista += '<tr><td>Cipher Suite:</td>';
+    lista += '<td>' + pulse.cipherSuite + '</td></tr>';
+
+    lista += '<tr><td>Period:</td>';
+    lista += '<td>' + pulse.period + '</td></tr>';
+
+    lista += '<tr><td>Certified Hash:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.certificateId + '</td></tr>';
+
+    lista += '<tr><td>Pulse Index:</td>';
+    lista += '<td>' + pulse.pulseIndex + '</td></tr>';
+
+    lista += '<tr><td>Time:</td>';
+    lista += '<td>' + pulse.timeStamp + '</td></tr>';
+
+    lista += '<tr><td>Status:</td>';
+
+    lista += '<td>' + pulse.statusCode + '</td></tr>';
+    lista += '<tr><td>Vdf x:</td>';
+
+    lista += '<td style="word-break: break-word">' + pulse.sloth.x + '</td></tr>';
+    lista += '<tr><td>Vdf y:</td>';
+
+    lista += '<td style="word-break: break-word">' + pulse.sloth.y + '</td></tr>';
+    lista += '<tr><td>Vdf iterations:</td>';
+
+    lista += '<td>' + pulse.sloth.iterations + '</td></tr>';
+
+    lista += '<tr><td>Signature:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.signatureValue + '</td></tr>';
+
+    $('#table_pulse').html(lista);
+}

@@ -5,12 +5,10 @@ import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.infra.LoadCertificateFromUriService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
@@ -28,7 +26,7 @@ class VdfPulseRetrieverResource {
     }
 
     @PostMapping("/vdf/pulse")
-    ResponseEntity postSeed(@Valid @RequestBody VdfPulseDto newVdfPulse) {
+    ResponseEntity postSeed(@Valid @RequestBody VdfPulseDtoPost newVdfPulse) {
         try {
 
             if (!vdfPulseService.isOpen()){
@@ -53,7 +51,7 @@ class VdfPulseRetrieverResource {
 
     }
 
-    private boolean validateSignature(final VdfPulseDto newVdfPulse) throws Exception {
+    private boolean validateSignature(final VdfPulseDtoPost newVdfPulse) throws Exception {
         String baseUrl = "http://localhost:8080/beacon/2.0/certificate/";
         URL CERT_URL = new URL(baseUrl + newVdfPulse.getCertificateId());
 

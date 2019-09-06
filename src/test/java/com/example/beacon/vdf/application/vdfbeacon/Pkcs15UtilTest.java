@@ -24,8 +24,8 @@ public class Pkcs15UtilTest {
     @Autowired
     Environment env;
 
-//    private VdfPulseDto getPulse(){
-//        VdfPulseDto pulse = new VdfPulseDto();
+//    private VdfPulseDtoPost getPulse(){
+//        VdfPulseDtoPost pulse = new VdfPulseDtoPost();
 //        pulse.setCertificateId("04c5dc3b40d25294c55f9bc2496fd4fe9340c1308cd073900014e6c214933c7f7737227" +
 //                "fc5e4527298b9e95a67ad92e0310b37a77557a10518ced0ce1743e132");
 //        pulse.setCipherSuite(0);
@@ -37,7 +37,7 @@ public class Pkcs15UtilTest {
 //
 //    @Test
 //    public void signAndVerify() throws Exception {
-//        VdfPulseDto pulse = getPulse();
+//        VdfPulseDtoPost pulse = getPulse();
 //
 //        byte[] serialize = VdfPulseSerialize.serialize(pulse);
 //        PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
