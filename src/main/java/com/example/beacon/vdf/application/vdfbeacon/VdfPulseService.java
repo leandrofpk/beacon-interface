@@ -1,9 +1,11 @@
 package com.example.beacon.vdf.application.vdfbeacon;
 
 import com.example.beacon.interfac.infra.EntropyEntity;
-import com.example.beacon.shared.*;
+import com.example.beacon.shared.CipherSuiteBuilder;
+import com.example.beacon.shared.CriptoUtilService;
+import com.example.beacon.shared.EntropyRepository;
+import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.VdfSloth;
-import com.example.beacon.vdf.VdfTest3Wladmir2;
 import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
 import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
 import com.example.beacon.vdf.infra.entity.VdfSeedEntity;
@@ -64,11 +66,6 @@ public class VdfPulseService {
     public void endTimeSlot() throws Exception {
         this.statusEnum = StatusEnum.RUNNING;
         run();
-    }
-
-    public boolean verify(BigInteger x, BigInteger y, int iterations){
-
-        return true;
     }
 
     public boolean isOpen(){
@@ -145,22 +142,6 @@ public class VdfPulseService {
 
     private BigInteger doSloth(BigInteger x, int iterations){
         BigInteger y = VdfSloth.mod_op(x, iterations);
-
-        boolean b = VdfSloth.mod_verif(y, x, iterations);
-        System.out.println("Verified? " + b);
-
-
-
-//        VdfTest3Wladmir2 vdfSloth = new VdfTest3Wladmir2();
-//        BigInteger y = vdfSloth.mod_op(x, iterations);
-
-//        boolean b = vdfSloth.mod_verif(y, x, iterations);
-//        System.out.println("Verified? " + b);
-//
-//        System.out.println("x:" + x);
-//        System.out.println("y:" + y);
-//        System.out.println("iterations:" + iterations);
-
         return y;
     }
 

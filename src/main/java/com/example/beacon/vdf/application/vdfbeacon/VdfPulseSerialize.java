@@ -9,6 +9,7 @@ import java.io.IOException;
 
 import static com.example.beacon.shared.ByteSerializationFieldsUtil.*;
 import static com.example.beacon.shared.ByteSerializationFieldsUtil.byteSerializeHash;
+import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
 
 public class VdfPulseSerialize {
     public static byte[] serializeVdfDto(VdfPulseDtoPost dto) throws IOException {

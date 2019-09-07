@@ -3,9 +3,6 @@ package com.example.beacon.shared;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 
 import java.nio.ByteBuffer;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -37,12 +34,6 @@ public class ByteSerializationFieldsUtil {
         byte[] concatenate = ByteUtils.concatenate(bytes1, bytes2);
 
         return concatenate;
-    }
-
-    public static String getTimeStampFormated(ZonedDateTime timeStamp){
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz");
-        String format = timeStamp.withZoneSameInstant((ZoneOffset.UTC).normalized()).format(dateTimeFormatter);
-        return format;
     }
 
     public static byte[] byteSerializeSig(String hexString){

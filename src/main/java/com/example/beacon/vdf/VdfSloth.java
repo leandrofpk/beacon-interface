@@ -12,7 +12,6 @@ public class VdfSloth {
     public static BigInteger mod_op(BigInteger x, int t) {
         for (int i = 0; i < t; i++) {
             x = mod_sqrt_op(x, p);
-            System.out.println(x);
         }
         return x;
     }

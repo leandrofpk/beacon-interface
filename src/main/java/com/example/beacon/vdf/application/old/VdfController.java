@@ -14,6 +14,8 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
+import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
+
 @Controller
 @RequestMapping("/vdf")
 public class VdfController {
@@ -34,8 +36,6 @@ public class VdfController {
 
         mv.addObject("uri", appUri.getUri());
 
-//        PulseDto pulseDto = querySinglePulsesService.findPrevious(ZonedDateTime.now().minus(5, ChronoUnit.MINUTES));
-//        PulseEntity previous = vdfPulsesRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
         VdfPulseEntity previous = vdfPulsesRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
 
         if (previous!=null){
@@ -48,12 +48,5 @@ public class VdfController {
 
         return mv;
     }
-
-    private String getTimeStampFormated(ZonedDateTime timestamp){
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz");
-        String format = timestamp.withZoneSameInstant((ZoneOffset.UTC).normalized()).format(dateTimeFormatter);
-        return format;
-    }
-
 
 }
