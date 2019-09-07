@@ -38,11 +38,12 @@ public class VdfController {
 //        PulseEntity previous = vdfPulsesRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
         VdfPulseEntity previous = vdfPulsesRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
 
-
         if (previous!=null){
             mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));
             mv.addObject("timestampCurrent", getTimeStampFormated(ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
             mv.addObject("pulseIndexPrevious", previous.getPulseIndex());
+            mv.addObject("linkVerify", String.format("?y=%s&x=%s&iterations=%s",
+                    previous.getY(), previous.getX(), previous.getIterations()));
         }
 
         return mv;

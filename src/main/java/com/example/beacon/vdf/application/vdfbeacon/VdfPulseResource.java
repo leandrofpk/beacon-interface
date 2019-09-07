@@ -1,7 +1,8 @@
 package com.example.beacon.vdf.application.vdfbeacon;
 
-import com.example.beacon.interfac.api.dto.PulseDto;
-import com.example.beacon.interfac.infra.PulseEntity;
+import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDto;
+import com.example.beacon.vdf.application.vdfbeacon.dto.VdfSeedDto;
+import com.example.beacon.vdf.application.vdfbeacon.dto.VdfSlothDto;
 import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
 import com.example.beacon.vdf.repository.VdfPulsesRepository;
 import org.springframework.http.HttpStatus;

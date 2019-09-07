@@ -1,6 +1,6 @@
 $(document).ready(function() {
     getLastPulse();
-    setInterval(function(){ getLastPulse(); }, 10000);
+    setInterval(function(){ getLastPulse(); }, 60000);
 });
 
 function getLastPulse() {

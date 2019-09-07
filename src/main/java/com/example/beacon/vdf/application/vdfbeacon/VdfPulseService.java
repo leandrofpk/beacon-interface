@@ -2,7 +2,9 @@ package com.example.beacon.vdf.application.vdfbeacon;
 
 import com.example.beacon.interfac.infra.EntropyEntity;
 import com.example.beacon.shared.*;
+import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.VdfTest3Wladmir2;
+import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
 import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
 import com.example.beacon.vdf.infra.entity.VdfSeedEntity;
 import com.example.beacon.vdf.repository.VdfPulsesRepository;
@@ -142,17 +144,22 @@ public class VdfPulseService {
     }
 
     private BigInteger doSloth(BigInteger x, int iterations){
-        System.out.println(x);
+        BigInteger y = VdfSloth.mod_op(x, iterations);
 
-        VdfTest3Wladmir2 vdfSloth = new VdfTest3Wladmir2();
-        BigInteger y = vdfSloth.mod_op(x, iterations);
-
-        boolean b = vdfSloth.mod_verif(y, x, iterations);
+        boolean b = VdfSloth.mod_verif(y, x, iterations);
         System.out.println("Verified? " + b);
 
-        System.out.println("x:" + x);
-        System.out.println("y:" + y);
-        System.out.println("iterations:" + iterations);
+
+
+//        VdfTest3Wladmir2 vdfSloth = new VdfTest3Wladmir2();
+//        BigInteger y = vdfSloth.mod_op(x, iterations);
+
+//        boolean b = vdfSloth.mod_verif(y, x, iterations);
+//        System.out.println("Verified? " + b);
+//
+//        System.out.println("x:" + x);
+//        System.out.println("y:" + y);
+//        System.out.println("iterations:" + iterations);
 
         return y;
     }

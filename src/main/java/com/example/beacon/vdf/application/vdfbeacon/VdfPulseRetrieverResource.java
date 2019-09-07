@@ -2,6 +2,9 @@ package com.example.beacon.vdf.application.vdfbeacon;
 
 import com.example.beacon.shared.CipherSuiteBuilder;
 import com.example.beacon.shared.ICipherSuite;
+import com.example.beacon.vdf.VdfSloth;
+import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
+import com.example.beacon.vdf.application.vdfbeacon.dto.VdfSlothReturnVerifiedDto;
 import com.example.beacon.vdf.infra.LoadCertificateFromUriService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.math.BigInteger;
 import java.net.URL;
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
@@ -25,7 +29,16 @@ class VdfPulseRetrieverResource {
         this.vdfPulseService = vdfPulseService;
     }
 
-    @PostMapping("/vdf/pulse")
+    @GetMapping("/beacon/2.0/pulse/vdf/verify")
+    ResponseEntity verify(@RequestParam(name = "y") String y,
+                          @RequestParam(name = "x") String x,
+                          @RequestParam(name = "iterations") int iterations){
+
+        boolean verified = VdfSloth.mod_verif(new BigInteger(y), new BigInteger(x), iterations);
+        return new ResponseEntity(new VdfSlothReturnVerifiedDto(y, x, iterations, verified), HttpStatus.OK);
+    }
+
+    @PostMapping("/beacon/2.0/pulse/vdf")
     ResponseEntity postSeed(@Valid @RequestBody VdfPulseDtoPost newVdfPulse) {
         try {
 

@@ -4,6 +4,7 @@ import com.example.beacon.interfac.api.dto.PulseDto;
 import com.example.beacon.shared.CipherSuiteBuilder;
 import com.example.beacon.shared.ICipherSuite;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
@@ -32,11 +33,6 @@ public class LoadCertificateFromUriServiceTest {
         X509Certificate x509Certificate = LoadCertificateFromUriService.loadCert(CERT_URL);
         PublicKey publicKey = x509Certificate.getPublicKey();
         assertEquals("X.509", publicKey.getFormat());
-    }
-
-    @Test
-    public void testByteStringAnd(){
-
     }
 
     @Test

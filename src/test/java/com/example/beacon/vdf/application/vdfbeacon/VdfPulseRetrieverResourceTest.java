@@ -3,6 +3,7 @@ package com.example.beacon.vdf.application.vdfbeacon;
 import com.example.beacon.shared.CipherSuiteBuilder;
 import com.example.beacon.shared.CriptoUtilService;
 import com.example.beacon.shared.ICipherSuite;
+import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Sequence;

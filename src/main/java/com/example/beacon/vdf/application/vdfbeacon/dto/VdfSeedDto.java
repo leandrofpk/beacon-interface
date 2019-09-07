@@ -1,4 +1,4 @@
-package com.example.beacon.vdf.application.vdfbeacon;
+package com.example.beacon.vdf.application.vdfbeacon.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

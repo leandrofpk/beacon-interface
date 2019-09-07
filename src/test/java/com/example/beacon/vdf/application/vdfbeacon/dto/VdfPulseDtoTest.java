@@ -1,5 +1,6 @@
-package com.example.beacon.vdf.application.vdfbeacon;
+package com.example.beacon.vdf.application.vdfbeacon.dto;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -8,8 +9,6 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
-
-import static org.junit.Assert.assertEquals;
 
 public class VdfPulseDtoTest {
 
@@ -26,7 +25,7 @@ public class VdfPulseDtoTest {
         VdfPulseDtoPost dto = new VdfPulseDtoPost();
         dto.setSeed("ddddq");
         Set<ConstraintViolation<VdfPulseDtoPost>> constraintViolations = validator.validate(dto);
-        assertEquals(0, constraintViolations.size());
+        Assert.assertEquals(0, constraintViolations.size());
     }
 
     @Test
@@ -34,7 +33,7 @@ public class VdfPulseDtoTest {
         VdfPulseDtoPost dto = new VdfPulseDtoPost();
         dto.setSeed("D31A8642F8AA222AB02817BABE33CFE3A1996EE404A54F694CFEFDC1A56CE0F0FF2FC5DBC4DCEBF32BED3EDA5437E79BD866F0A61773D7587F9798878CAC3B5B");
         Set<ConstraintViolation<VdfPulseDtoPost>> constraintViolations = validator.validate(dto);
-        assertEquals(0, constraintViolations.size());
+        Assert.assertEquals(0, constraintViolations.size());
 
     }
 

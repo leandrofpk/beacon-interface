@@ -1,5 +1,6 @@
 package com.example.beacon.vdf.application.vdfbeacon;
 
+import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;

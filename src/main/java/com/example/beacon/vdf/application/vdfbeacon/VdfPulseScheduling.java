@@ -3,8 +3,6 @@ package com.example.beacon.vdf.application.vdfbeacon;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import java.time.ZonedDateTime;
-
 @Component
 public class VdfPulseScheduling {
 
@@ -15,18 +13,14 @@ public class VdfPulseScheduling {
     }
 
 //    @Scheduled(cron = "00 * * * * *")
-//    @Scheduled(cron = "0 50 * * * *")
-    @Scheduled(cron = "0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *") // a cada 5 min
+    @Scheduled(cron = "0 55 * * * *")
+//    @Scheduled(cron = "0 0,5,10,15,20,25,30,35,40,45,50,55 * * * *") // a cada 5 min
     private void startTimeSlot(){
         vdfPulseService.startTimeSlot();
-        System.out.println("Start:" + ZonedDateTime.now());
-
-//        vdfPulseService.addSeed(new VdfPulseDtoPost());
     }
 
-    //    @Scheduled(cron = "0 0-5-10-15-20-25-30-35-40-45-50-55 * * * *") // a cada 5 min
-//    @Scheduled(cron = "10 50 * * * *")
-    @Scheduled(cron = "0 0,6,11,16,21,26,31,36,41,45,51,56 * * * *") // a cada 5 min
+    @Scheduled(cron = "10 55 * * * *")
+//    @Scheduled(cron = "0 1,6,11,16,21,26,31,36,41,46,51,56 * * * *") // a cada 5 min
     private void endTimeSlot() throws Exception {
         vdfPulseService.endTimeSlot();
     }

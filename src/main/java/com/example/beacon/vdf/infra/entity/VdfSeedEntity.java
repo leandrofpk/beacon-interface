@@ -1,8 +1,7 @@
 package com.example.beacon.vdf.infra.entity;
 
 import com.example.beacon.vdf.application.vdfbeacon.OriginEnum;
-import com.example.beacon.vdf.application.vdfbeacon.VdfPulseDto;
-import com.example.beacon.vdf.application.vdfbeacon.VdfPulseDtoPost;
+import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

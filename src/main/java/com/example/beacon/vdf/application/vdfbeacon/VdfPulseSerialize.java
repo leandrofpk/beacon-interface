@@ -1,5 +1,6 @@
 package com.example.beacon.vdf.application.vdfbeacon;
 
+import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
 import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
 import com.example.beacon.vdf.infra.entity.VdfSeedEntity;
 
