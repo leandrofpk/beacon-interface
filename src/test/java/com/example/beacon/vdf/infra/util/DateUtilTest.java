@@ -2,11 +2,25 @@ package com.example.beacon.vdf.infra.util;
 
 import org.junit.Test;
 
+import java.text.ParseException;
 import java.time.ZonedDateTime;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class DateUtilTest {
+
+    @Test
+    public void datetimeToMilli() throws ParseException {
+        ZonedDateTime parse = ZonedDateTime.parse("2019-09-07T20:11:00.000Z");
+        long l = parse.toInstant().toEpochMilli();
+        assertEquals(1567887060000L, l);
+    }
+
+    @Test
+    public void longToLocalDateTimeTest(){
+        ZonedDateTime zonedDateTime = DateUtil.longToLocalDateTime("1567887077666");
+        assertEquals("2019-09-07T20:11:00.000Z", DateUtil.getTimeStampFormated(zonedDateTime));
+    }
 
     @Test
     public void nextExecutionInMinutes() {

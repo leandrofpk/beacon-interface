@@ -1,5 +1,7 @@
 package com.example.beacon.vdf.infra.util;
 
+import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,18 +9,22 @@ import java.time.temporal.ChronoUnit;
 
 public class DateUtil {
 
-//    public static LocalDateTime longToLocalDateTime(String data){
-//        Long millis = new Long(data);
-//        if (data.length() == 10){
-//            millis = millis*1000;
-//        }
-//
-//        // atual
-//        LocalDateTime localDateTime = LocalDateTime.ofInstant(Instant.ofEpochMilli(millis),
-//                ZoneId.of("America/Sao_Paulo")).truncatedTo(ChronoUnit.MINUTES);
-//
-//        return localDateTime;
-//    }
+    public static long datetimeToMilli(ZonedDateTime time){
+        return time.toInstant().toEpochMilli();
+    }
+
+    public static ZonedDateTime longToLocalDateTime(String data){
+        Long millis = new Long(data);
+        if (data.length() == 10){
+            millis = millis*1000;
+        }
+
+        // atual
+        ZonedDateTime localDateTime = ZonedDateTime.ofInstant(Instant.ofEpochMilli(millis),
+                ZoneId.of("UTC")).truncatedTo(ChronoUnit.MINUTES);
+
+        return localDateTime;
+    }
 
 
     public static String getTimeStampFormated(ZonedDateTime timestamp){
