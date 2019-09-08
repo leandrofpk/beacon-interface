@@ -1,7 +1,6 @@
-package com.example.beacon.vdf.application.old;
+package com.example.beacon.vdf.application.vdfpublic;
 
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.ZonedDateTime;

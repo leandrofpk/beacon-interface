@@ -1,4 +1,4 @@
-package com.example.beacon.vdf.application.old;
+package com.example.beacon.vdf.application.vdfpublic;
 
 import com.example.beacon.vdf.infra.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,19 +17,19 @@ import java.time.format.DateTimeFormatter;
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping(value = "/vdf/", produces= MediaType.APPLICATION_JSON_VALUE)
-public class VdfResource {
+public class VdfPublicResource {
 
-    private final VdfAppService vdfAppService;
+    private final VdfPublicService vdfPublicService;
 
     @Autowired
-    public VdfResource(VdfAppService vdfAppService) {
-        this.vdfAppService = vdfAppService;
+    public VdfPublicResource(VdfPublicService vdfPublicService) {
+        this.vdfPublicService = vdfPublicService;
     }
 
     @GetMapping("/current")
     public ResponseEntity submission(){
         try {
-            VdfDtoOld dto = converter(vdfAppService.getCurrentVdf());
+            VdfDtoOld dto = converter(vdfPublicService.getCurrentVdf());
             return new ResponseEntity(dto, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

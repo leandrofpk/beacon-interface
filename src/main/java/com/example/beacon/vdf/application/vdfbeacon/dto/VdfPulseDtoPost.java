@@ -13,13 +13,7 @@ public class VdfPulseDtoPost {
 
     private int cipherSuite;
 
-    private long pulseIndex;
-
-    private String timeStamp;
-
     private String seed;
-
-    private int statusCode;
 
     @JsonProperty("origin")
     private OriginEnum originEnum;

@@ -13,6 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @JsonTypeName("pulse")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT ,use = JsonTypeInfo.Id.NAME)
+/*
+    Return to api or page
+ */
 public class VdfPulseDto {
 
     private String certificateId;
@@ -21,7 +24,6 @@ public class VdfPulseDto {
 
     private long pulseIndex;
 
-//    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSz")
     private String timeStamp;
 
     private String signatureValue;
@@ -32,8 +34,6 @@ public class VdfPulseDto {
 
     @JsonProperty("sloth")
     private VdfSlothDto slothDto;
-
-    private int statusCode;
 
     public void addSeed(VdfSeedDto seedDto){
         this.seedList.add(seedDto);

@@ -9,6 +9,13 @@ import java.time.temporal.ChronoUnit;
 
 public class DateUtil {
 
+    public static ZonedDateTime getCurrentTrucatedZonedDateTime(){
+        ZonedDateTime now = ZonedDateTime.now()
+                .truncatedTo(ChronoUnit.MINUTES)
+                .withZoneSameInstant((ZoneOffset.UTC).normalized());
+        return now;
+    }
+
     public static long datetimeToMilli(ZonedDateTime time){
         return time.toInstant().toEpochMilli();
     }

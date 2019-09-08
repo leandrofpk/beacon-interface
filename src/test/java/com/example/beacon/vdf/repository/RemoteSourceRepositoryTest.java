@@ -1,6 +1,5 @@
 package com.example.beacon.vdf.repository;
 
-import com.example.beacon.interfac.api.dto.PulseDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,12 +13,11 @@ public class RemoteSourceRepositoryTest {
     @Test
     public void get() {
         RestTemplate restTemplate = new RestTemplate();
-        PulseDto lastPulse = restTemplate.getForObject("https://beacon.nist.gov/beacon/2.0/pulse/last", PulseDto.class);
-//        PulseDto lastPulse2 = restTemplate.getForObject("https://random.uchile.cl/beacon/2.0/pulse/last", PulseDto.class);
+        BeaconRemoteDto lastPulse = restTemplate.getForObject("https://beacon.nist.gov/beacon/2.0/pulse/last", BeaconRemoteDto.class);
+        BeaconRemoteDto lastPulse2 = restTemplate.getForObject("https://random.uchile.cl/beacon/2.0/pulse/last", BeaconRemoteDto.class);
 
-        System.out.println(lastPulse);
-
-
+        System.out.println("nist:"+lastPulse);
+        System.out.println("chile:" + lastPulse2);
 
     }
 }

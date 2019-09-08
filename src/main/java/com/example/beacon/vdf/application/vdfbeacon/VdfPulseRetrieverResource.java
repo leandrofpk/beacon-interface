@@ -19,7 +19,6 @@ import java.security.cert.X509Certificate;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-//@RequestMapping(value = "/vdf/pulse", produces= MediaType.APPLICATION_JSON_VALUE)
 class VdfPulseRetrieverResource {
 
     private final VdfPulseService vdfPulseService;

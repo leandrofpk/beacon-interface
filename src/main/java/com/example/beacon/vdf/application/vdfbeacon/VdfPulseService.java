@@ -1,15 +1,15 @@
 package com.example.beacon.vdf.application.vdfbeacon;
 
-import com.example.beacon.interfac.infra.EntropyEntity;
 import com.example.beacon.shared.CipherSuiteBuilder;
 import com.example.beacon.shared.CriptoUtilService;
-import com.example.beacon.shared.EntropyRepository;
 import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
+import com.example.beacon.vdf.application.vdfpublic.SeedPostDto;
 import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
 import com.example.beacon.vdf.infra.entity.VdfSeedEntity;
 import com.example.beacon.vdf.repository.VdfPulsesRepository;
+import com.example.beacon.vdf.sources.SeedBuilder;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -19,11 +19,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.beacon.vdf.infra.util.DateUtil.getCurrentTrucatedZonedDateTime;
 
 @Service
 public class VdfPulseService {
@@ -42,25 +42,36 @@ public class VdfPulseService {
 
     private String precommitment = "";
 
-    private int statuscode;
-
     private final ICipherSuite cipherSuite;
 
-    private final EntropyRepository entropyRepository;
+    private final SeedBuilder seedBuilder;
 
     @Autowired
-    public VdfPulseService(Environment env, VdfPulsesRepository vdfPulsesRepository, EntropyRepository entropyRepository) {
+    public VdfPulseService(Environment env, VdfPulsesRepository vdfPulsesRepository, SeedBuilder seedBuilder) {
         this.env = env;
         this.vdfPulsesRepository = vdfPulsesRepository;
-        this.entropyRepository = entropyRepository;
+        this.seedBuilder = seedBuilder;
         this.statusEnum = StatusEnum.STOPPED;
-        this.seedList = new ArrayList<>();
         this.cipherSuite = CipherSuiteBuilder.build(0);
+
+        this.seedList = new ArrayList<>();
     }
 
     public void startTimeSlot(){
         this.statusEnum = StatusEnum.OPEN;
-        this.timestamp = getDateTime();
+        this.timestamp = getCurrentTrucatedZonedDateTime();
+
+        List<SeedPostDto> preDefSeed = seedBuilder.getPreDefSeed();
+
+        for (SeedPostDto dto : preDefSeed) {
+            VdfPulseDtoPost vdfPulseDtoPost = new VdfPulseDtoPost();
+            vdfPulseDtoPost.setOriginEnum(OriginEnum.INMETRO);
+            vdfPulseDtoPost.setSeed(dto.getSeed());
+        }
+    }
+
+    public void addSeed(VdfPulseDtoPost dto){
+        this.seedList.add(dto);
     }
 
     public void endTimeSlot() throws Exception {
@@ -72,39 +83,40 @@ public class VdfPulseService {
         return this.statusEnum.equals(StatusEnum.OPEN);
     }
 
-    public void addSeed(VdfPulseDtoPost dto){
-        this.seedList.add(dto);
-    }
-
     private void run() throws Exception {
-       ZonedDateTime timeStamp = entropyRepository.findNewerNumber();
+//        ZonedDateTime timeStamp = entropyRepository.findNewerNumber();
+//
+//        long between = ChronoUnit.MINUTES.between(timeStamp, ZonedDateTime.now());
+//
+//        if (between > 2){
+////            this.precommitment = "0EE710ADDAFA8774268E736A92B65C82901087BD926886147179BAD110ADCA5EFDE28099C94DEC2EE2A328369A72737C564C6C3DA08CE7057DC9B7B1D02BFBB2";
+//            this.precommitment = getNoise512Bits(env.getProperty("vdf.seed.prng"));
+//            this.statuscode = 5;
+//        } else {
+//            EntropyEntity byTimeStamp = entropyRepository.findByTimeStamp(timeStamp);
+//            this.precommitment = byTimeStamp.getRawData();
+//            this.statuscode = 0;
+//        }
 
-        long between = ChronoUnit.MINUTES.between(timeStamp, ZonedDateTime.now());
 
-        if (between > 2){
-            this.precommitment = "0EE710ADDAFA8774268E736A92B65C82901087BD926886147179BAD110ADCA5EFDE28099C94DEC2EE2A328369A72737C564C6C3DA08CE7057DC9B7B1D02BFBB2";
-            this.statuscode = 5;
-        } else {
-            EntropyEntity byTimeStamp = entropyRepository.findByTimeStamp(timeStamp);
-            this.precommitment = byTimeStamp.getRawData();
-            this.statuscode = 0;
-        }
 
         CombinatioEnum combination = CombinatioEnum.valueOf(env.getProperty("pulse.vdf.combination").toUpperCase());
         int iterations = Integer.parseInt(env.getProperty("pulse.vdf.iterations"));
 
-        BigInteger x = null;
+//        BigInteger x = null;
 
-        if (combination.equals(CombinatioEnum.XOR)){
-            x  = doXor(precommitment);
-        } else {
-            x = doConcat(precommitment);
-        }
+//        if (combination.equals(CombinatioEnum.XOR)){
+//            x  = doXor(precommitment);
+//        } else {
+//            x = doConcat(precommitment);
+//        }
 
         BigInteger y = doSloth(x, iterations);
 
         persist(y,x, iterations);
         seedList.clear();
+        this.statusEnum = StatusEnum.STOPPED;
+
     }
 
     private BigInteger doConcat(String precommitment) {
@@ -162,8 +174,6 @@ public class VdfPulseService {
         vdfPulseEntity.setCipherSuite(0);
         vdfPulseEntity.setPeriod(Integer.parseInt(env.getProperty("pulse.vdf.period")));
 
-        vdfPulseEntity.setStatusCode(this.statuscode);
-
         vdfPulseEntity.setX(x.toString());
         vdfPulseEntity.setY(y.toString());
         vdfPulseEntity.setIterations(iterations);
@@ -184,15 +194,6 @@ public class VdfPulseService {
     private void signPulse(byte[] bytes, VdfPulseEntity vdfPulseEntity) throws Exception {
         PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
         vdfPulseEntity.setSignatureValue(cipherSuite.sign(privateKey, bytes));
-    }
-
-    private ZonedDateTime getDateTime(){
-        ZonedDateTime now = ZonedDateTime.now()
-                .truncatedTo(ChronoUnit.MINUTES)
-                .plus(1, ChronoUnit.MINUTES)
-                .withZoneSameInstant((ZoneOffset.UTC).normalized());
-
-        return now;
     }
 
 }

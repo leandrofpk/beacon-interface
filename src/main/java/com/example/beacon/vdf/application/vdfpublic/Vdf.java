@@ -1,4 +1,4 @@
-package com.example.beacon.vdf.application.old;
+package com.example.beacon.vdf.application.vdfpublic;
 
 import com.example.beacon.shared.CipherSuiteBuilder;
 import com.example.beacon.shared.ICipherSuite;
@@ -6,7 +6,6 @@ import com.example.beacon.vdf.StatusEnumOld;
 import com.example.beacon.vdf.SubmissionTime;
 import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.infra.util.DateUtil;
-import com.example.beacon.vdf.infra.util.HashUtil;
 import lombok.Getter;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 
@@ -27,7 +26,7 @@ public class Vdf {
 
     private String currentHash;
 
-    private byte[] currentXorValue = new byte[4096];
+    private byte[] currentXorValue = new byte[64];
 
     private String output;
 

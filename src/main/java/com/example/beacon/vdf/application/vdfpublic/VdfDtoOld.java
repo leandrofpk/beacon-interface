@@ -1,4 +1,4 @@
-package com.example.beacon.vdf.application.old;
+package com.example.beacon.vdf.application.vdfpublic;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;

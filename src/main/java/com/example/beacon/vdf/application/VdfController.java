@@ -1,4 +1,4 @@
-package com.example.beacon.vdf.application.old;
+package com.example.beacon.vdf.application;
 
 import com.example.beacon.interfac.infra.AppUri;
 import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
@@ -9,9 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
@@ -31,14 +29,14 @@ public class VdfController {
     }
 
     @GetMapping
-    public ModelAndView home(){
+    public ModelAndView home() {
         ModelAndView mv = new ModelAndView("vdf-pulse/index");
 
         mv.addObject("uri", appUri.getUri());
 
         VdfPulseEntity previous = vdfPulsesRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
 
-        if (previous!=null){
+        if (previous != null) {
             mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));
             mv.addObject("timestampCurrent", getTimeStampFormated(ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
             mv.addObject("pulseIndexPrevious", previous.getPulseIndex());
@@ -49,4 +47,9 @@ public class VdfController {
         return mv;
     }
 
+    @GetMapping("/public")
+    public ModelAndView homeClassic() {
+        ModelAndView mv = new ModelAndView("vdf/index");
+        return mv;
+    }
 }

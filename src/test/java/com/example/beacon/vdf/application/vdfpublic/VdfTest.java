@@ -1,8 +1,5 @@
-package com.example.beacon.vdf.application.old;
+package com.example.beacon.vdf.application.vdfpublic;
 
-import com.example.beacon.vdf.application.old.Vdf;
-import com.example.beacon.vdf.application.old.VdfException;
-import com.example.beacon.vdf.application.old.VdfSeed;
 import com.example.beacon.vdf.infra.util.DateUtil;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 import org.junit.Before;
