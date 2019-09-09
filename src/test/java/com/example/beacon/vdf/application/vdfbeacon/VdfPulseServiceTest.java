@@ -1,6 +1,7 @@
 package com.example.beacon.vdf.application.vdfbeacon;
 
 import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
+import com.example.beacon.vdf.application.vdfpublic.SeedPostDto;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,14 +32,19 @@ public class VdfPulseServiceTest {
 
     @Test
     public void precommitSeedAndOneMore() throws Exception {
-        VdfPulseDtoPost vdfPulseDto = new VdfPulseDtoPost();
-        vdfPulseDto.setCertificateId("02288edbdc04bdeeb1c8140a41a1ad40ab2ea7ad27fdd316946f3ec5aff1a7129f1fb5078202d75d42c201878b06d79c45bf37adb55f83aa213200834792b1da");
-        vdfPulseDto.setSeed("100EFBEB29F458E06BF267EBB5CFCE768F9980317555E8C716B7CBE6C2BC07BE4983121D8DC0384AD6EF6ED4FC7C8EFDCB90509649AF3126A621368FA9073D12");
-        vdfPulseDto.setCipherSuite(0);
-        vdfPulseDto.setOriginEnum(OriginEnum.NIST);
+//        VdfPulseDtoPost vdfPulseDto = new VdfPulseDtoPost();
+//        vdfPulseDto.setCertificateId("02288edbdc04bdeeb1c8140a41a1ad40ab2ea7ad27fdd316946f3ec5aff1a7129f1fb5078202d75d42c201878b06d79c45bf37adb55f83aa213200834792b1da");
+//        vdfPulseDto.setSeed("100EFBEB29F458E06BF267EBB5CFCE768F9980317555E8C716B7CBE6C2BC07BE4983121D8DC0384AD6EF6ED4FC7C8EFDCB90509649AF3126A621368FA9073D12");
+//        vdfPulseDto.setCipherSuite(0);
+//        vdfPulseDto.setOriginEnum(OriginEnum.NIST);
+
+        SeedPostDto seedPostDto = new SeedPostDto("100EFBEB29F458E06BF267EBB5CFCE768F9980317555E8C716B7CBE6C2BC07" +
+                "BE4983121D8DC0384AD6EF6ED4FC7C8EFDCB90509649AF3126A621368FA9073D12",
+                OriginEnum.NIST.toString());
+
 
         vdfPulseService.startTimeSlot();
-        vdfPulseService.addSeed(vdfPulseDto);
+        vdfPulseService.addSeed(seedPostDto);
         vdfPulseService.endTimeSlot();
 
 //        assertEquals(true, vdfPulseService.);

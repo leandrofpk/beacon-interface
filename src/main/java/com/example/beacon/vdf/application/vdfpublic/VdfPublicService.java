@@ -1,11 +1,17 @@
 package com.example.beacon.vdf.application.vdfpublic;
 
 import com.example.beacon.shared.CipherSuiteBuilder;
-import com.example.beacon.shared.EntropyRepository;
+import com.example.beacon.shared.CriptoUtilService;
 import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.application.vdfbeacon.CombinatioEnum;
 import com.example.beacon.vdf.application.vdfbeacon.StatusEnum;
+import com.example.beacon.vdf.application.vdfbeacon.VdfSerialize;
+import com.example.beacon.vdf.infra.entity.VdfPublicEntity;
+import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
+import com.example.beacon.vdf.infra.entity.VdfSeedEntity;
+import com.example.beacon.vdf.infra.entity.VdfSeedPublicEntity;
+import com.example.beacon.vdf.repository.VdfPulsesPublicRepository;
 import com.example.beacon.vdf.sources.SeedBuilder;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +19,10 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
+import java.security.PrivateKey;
 import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,15 +50,17 @@ public class VdfPublicService {
 
     private String currentConcatValue;
 
-    private final EntropyRepository entropyRepository;
+    private final String certificateId = "04c5dc3b40d25294c55f9bc2496fd4fe9340c1308cd073900014e6c214933c7f7737227fc5e4527298b9e95a67ad92e0310b37a77557a10518ced0ce1743e132";
 
     private final SeedBuilder seedBuilder;
 
+    private final VdfPulsesPublicRepository vdfPulsesPublicRepository;
+
     @Autowired
-    public VdfPublicService(Environment environment, EntropyRepository entropyRepository, SeedBuilder seedBuilder) {
+    public VdfPublicService(Environment environment, SeedBuilder seedBuilder, VdfPulsesPublicRepository vdfPulsesPublicRepository) {
         this.env = environment;
-        this.entropyRepository = entropyRepository;
         this.seedBuilder = seedBuilder;
+        this.vdfPulsesPublicRepository = vdfPulsesPublicRepository;
         this.statusEnum = StatusEnum.STOPPED;
         this.vdf = new Vdf();
         this.seedList = new ArrayList<>();
@@ -73,8 +83,8 @@ public class VdfPublicService {
     public void endTimeSlot() throws Exception {
         this.statusEnum = StatusEnum.RUNNING;
 
-        List<SeedPostDto> preDefinedSeeds = seedBuilder.getHonestParty();
-        preDefinedSeeds.forEach(dto -> calcSeed(dto));
+        List<SeedPostDto> honestSeeds = seedBuilder.getHonestParty();
+        honestSeeds.forEach(dto -> calcSeed(dto));
 
         run();
     }
@@ -130,8 +140,38 @@ public class VdfPublicService {
     }
 
     @Transactional
-    protected void persist(BigInteger y, BigInteger x, int iterations) {
-        System.out.println("persistir");
+    protected void persist(BigInteger y, BigInteger x, int iterations) throws Exception {
+
+        Long maxPulseIndex = vdfPulsesPublicRepository.findMaxId();
+
+        if (maxPulseIndex==null){
+            maxPulseIndex = 1L;
+        } else {
+            maxPulseIndex = maxPulseIndex + 1L ;
+        }
+
+        VdfPublicEntity vdfPublicEntity = new VdfPublicEntity();
+        vdfPublicEntity.setPulseIndex(maxPulseIndex);
+        vdfPublicEntity.setTimeStamp(this.timestamp);
+        vdfPublicEntity.setCertificateId(this.certificateId);
+        vdfPublicEntity.setCipherSuite(0);
+        vdfPublicEntity.setPeriod(Integer.parseInt(env.getProperty("vdf.public.period")));
+
+        vdfPublicEntity.setX(x.toString());
+        vdfPublicEntity.setY(y.toString());
+        vdfPublicEntity.setIterations(iterations);
+
+        seedList.forEach(seedPostDto ->
+                vdfPublicEntity.addSeed(new VdfSeedPublicEntity(seedPostDto, vdfPublicEntity)));
+
+        signPulse(VdfSerialize.serializeVdfPublic(vdfPublicEntity), vdfPublicEntity);
+        vdfPulsesPublicRepository.saveAndFlush(vdfPublicEntity);
+
+    }
+
+    private void signPulse(byte[] bytes, VdfPublicEntity vdfPulseEntity) throws Exception {
+        PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
+        vdfPulseEntity.setSignatureValue(cipherSuite.sign(privateKey, bytes));
     }
 
 }

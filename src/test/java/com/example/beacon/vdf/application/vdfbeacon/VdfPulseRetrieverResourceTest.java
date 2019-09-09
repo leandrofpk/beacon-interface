@@ -51,14 +51,14 @@ public class VdfPulseRetrieverResourceTest {
         final ICipherSuite cipherSuite = CipherSuiteBuilder.build(0);
         PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
 
-        byte[] bytes = VdfPulseSerialize.serializeVdfDto(pulse);
+        byte[] bytes = VdfSerialize.serializeVdfDto(pulse);
         String sign = cipherSuite.sign(privateKey, bytes);
 
         pulse.setSignatureValue(sign);
         System.out.println(pulse);
 
         PublicKey publicKey = CriptoUtilService.loadPublicKeyFromCertificate(env.getProperty("beacon.x509.certificate"));
-        boolean verify = cipherSuite.verify(publicKey, sign, VdfPulseSerialize.serializeVdfDto(pulse));
+        boolean verify = cipherSuite.verify(publicKey, sign, VdfSerialize.serializeVdfDto(pulse));
 
         assertTrue(verify);
     }

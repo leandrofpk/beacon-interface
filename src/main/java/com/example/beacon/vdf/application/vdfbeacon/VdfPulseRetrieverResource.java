@@ -5,6 +5,7 @@ import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
 import com.example.beacon.vdf.application.vdfbeacon.dto.VdfSlothReturnVerifiedDto;
+import com.example.beacon.vdf.application.vdfpublic.SeedPostDto;
 import com.example.beacon.vdf.infra.LoadCertificateFromUriService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,7 +48,7 @@ class VdfPulseRetrieverResource {
 
 
             if (validateSignature(newVdfPulse)){
-                vdfPulseService.addSeed(newVdfPulse);
+                vdfPulseService.addSeed(new SeedPostDto(newVdfPulse.getSeed(), newVdfPulse.getOriginEnum().toString()));
             } else {
                 new ResponseEntity("Not allowed", HttpStatus.FORBIDDEN);
 
@@ -58,9 +59,8 @@ class VdfPulseRetrieverResource {
             new ResponseEntity("Internal server Error", HttpStatus.INTERNAL_SERVER_ERROR);
         }
 
-        vdfPulseService.addSeed(newVdfPulse);
+        vdfPulseService.addSeed(new SeedPostDto(newVdfPulse.getSeed(), newVdfPulse.getOriginEnum().toString()));
         return new ResponseEntity("Created", HttpStatus.CREATED);
-
     }
 
     private boolean validateSignature(final VdfPulseDtoPost newVdfPulse) throws Exception {
@@ -71,7 +71,7 @@ class VdfPulseRetrieverResource {
         PublicKey publicKey = x509Certificate.getPublicKey();
 
         final ICipherSuite suite = CipherSuiteBuilder.build(newVdfPulse.getCipherSuite());
-        return suite.verify(publicKey, newVdfPulse.getSignatureValue(), VdfPulseSerialize.serializeVdfDto(newVdfPulse));
+        return suite.verify(publicKey, newVdfPulse.getSignatureValue(), VdfSerialize.serializeVdfDto(newVdfPulse));
     }
 
 }

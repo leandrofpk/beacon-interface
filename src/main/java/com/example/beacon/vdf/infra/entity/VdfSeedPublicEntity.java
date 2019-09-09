@@ -9,10 +9,10 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "vdf_seed")
+@Table(name = "vdf_seed_public")
 @NoArgsConstructor
 @AllArgsConstructor
-public class VdfSeedEntity {
+public class VdfSeedPublicEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,15 +20,15 @@ public class VdfSeedEntity {
 
     private String seed;
 
-    private String origin;
+    private String description;
 
     @ManyToOne
-    @JoinColumn(name = "vdf_pulse_id")
-    private VdfPulseEntity vdfPulseEntity;
+    @JoinColumn(name = "vdf_public_id")
+    private VdfPublicEntity vdfPublicEntity;
 
-    public VdfSeedEntity(SeedPostDto dto, VdfPulseEntity vdfPulseEntity) {
+    public VdfSeedPublicEntity(SeedPostDto dto, VdfPublicEntity vdfPublicEntity) {
         this.seed = dto.getSeed();
-        this.origin = dto.getDescription();
-        this.vdfPulseEntity = vdfPulseEntity;
+        this.description = dto.getDescription();
+        this.vdfPublicEntity = vdfPublicEntity;
     }
 }

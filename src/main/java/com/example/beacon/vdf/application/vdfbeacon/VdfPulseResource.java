@@ -140,7 +140,6 @@ public class VdfPulseResource {
                  dto.addSeed(new VdfSeedDto(s.getSeed(), s.getOrigin().toString())));
 
         dto.setSlothDto(new VdfSlothDto(entity.getX(), entity.getY(), entity.getIterations()));
-        dto.setStatusCode(entity.getStatusCode());
 
         return dto;
     }
