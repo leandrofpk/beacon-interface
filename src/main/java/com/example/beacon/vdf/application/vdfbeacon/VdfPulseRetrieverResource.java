@@ -6,6 +6,7 @@ import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDtoPost;
 import com.example.beacon.vdf.application.vdfbeacon.dto.VdfSlothReturnVerifiedDto;
 import com.example.beacon.vdf.application.vdfpublic.SeedPostDto;
+import com.example.beacon.vdf.application.vdfpublic.VdfPublicService;
 import com.example.beacon.vdf.infra.LoadCertificateFromUriService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,9 +25,12 @@ class VdfPulseRetrieverResource {
 
     private final VdfPulseService vdfPulseService;
 
+    private final VdfPublicService vdfPublicService;
+
     @Autowired
-    VdfPulseRetrieverResource(VdfPulseService vdfPulseService) {
+    VdfPulseRetrieverResource(VdfPulseService vdfPulseService, VdfPublicService vdfPublicService) {
         this.vdfPulseService = vdfPulseService;
+        this.vdfPublicService = vdfPublicService;
     }
 
     @GetMapping("/beacon/2.0/pulse/vdf/verify")
@@ -62,6 +66,8 @@ class VdfPulseRetrieverResource {
         vdfPulseService.addSeed(new SeedPostDto(newVdfPulse.getSeed(), newVdfPulse.getOriginEnum().toString()));
         return new ResponseEntity("Created", HttpStatus.CREATED);
     }
+
+
 
     private boolean validateSignature(final VdfPulseDtoPost newVdfPulse) throws Exception {
         String baseUrl = "http://localhost:8080/beacon/2.0/certificate/";

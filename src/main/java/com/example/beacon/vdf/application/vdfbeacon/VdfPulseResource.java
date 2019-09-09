@@ -4,6 +4,7 @@ import com.example.beacon.vdf.application.vdfbeacon.dto.VdfPulseDto;
 import com.example.beacon.vdf.application.vdfbeacon.dto.VdfSeedDto;
 import com.example.beacon.vdf.application.vdfbeacon.dto.VdfSlothDto;
 import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
+import com.example.beacon.vdf.infra.util.DateUtil;
 import com.example.beacon.vdf.repository.VdfPulsesRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -132,7 +133,7 @@ public class VdfPulseResource {
         dto.setCertificateId(entity.getCertificateId());
         dto.setCipherSuite(entity.getCipherSuite());
         dto.setPulseIndex(entity.getPulseIndex());
-        dto.setTimeStamp(getTimeStampFormated(entity.getTimeStamp()));
+        dto.setTimeStamp(DateUtil.getTimeStampFormated(entity.getTimeStamp()));
         dto.setSignatureValue(entity.getSignatureValue());
         dto.setPeriod(entity.getPeriod());
 
@@ -142,12 +143,6 @@ public class VdfPulseResource {
         dto.setSlothDto(new VdfSlothDto(entity.getX(), entity.getY(), entity.getIterations()));
 
         return dto;
-    }
-
-    private String getTimeStampFormated(ZonedDateTime timestamp){
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz");
-        String format = timestamp.withZoneSameInstant((ZoneOffset.UTC).normalized()).format(dateTimeFormatter);
-        return format;
     }
 
 }

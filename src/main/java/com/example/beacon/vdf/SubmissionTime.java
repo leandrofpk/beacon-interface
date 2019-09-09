@@ -1,11 +1,11 @@
 package com.example.beacon.vdf;
 
-import lombok.Getter;
+import lombok.Data;
 
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 
-@Getter
+@Data
 public class SubmissionTime {
 
     private final ZonedDateTime start;

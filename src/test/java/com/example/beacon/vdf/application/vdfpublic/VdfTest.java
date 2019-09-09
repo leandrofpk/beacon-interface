@@ -25,27 +25,27 @@ public class VdfTest {
     }
 
 
-    @Test(expected = VdfException.class)
-    public void shouldThrowExceptionWhenTryingToAddSeedWithStatusOtherThanOpen() {
-        ZonedDateTime start = DateUtil.getTimestampOfNextRun(ZonedDateTime.parse("2019-08-23T13:04:00.000Z"));
+//    @Test(expected = VdfException.class)
+//    public void shouldThrowExceptionWhenTryingToAddSeedWithStatusOtherThanOpen() {
+//        ZonedDateTime start = DateUtil.getTimestampOfNextRun(ZonedDateTime.parse("2019-08-23T13:04:00.000Z"));
+//
+//        Vdf vdf = new Vdf();
+//        vdf.addSeed(seed1);
+//    }
 
-        Vdf vdf = new Vdf();
-        vdf.addSeed(seed1);
-    }
-
-    @Test
-    public void teste(){
-        Vdf vdf = new Vdf();
-        vdf.startSubmissions(15);
-
-        vdf.addSeed(seed1);
-        System.out.println(vdf.getCurrentHash());
-
-        vdf.addSeed(seed2);
-        System.out.println(vdf.getCurrentHash());
-
-        vdf.startProcessing();
-    }
+//    @Test
+//    public void teste(){
+//        Vdf vdf = new Vdf();
+//        vdf.startSubmissions(15);
+//
+//        vdf.addSeed(seed1);
+//        System.out.println(vdf.getCurrentHash());
+//
+//        vdf.addSeed(seed2);
+//        System.out.println(vdf.getCurrentHash());
+//
+//        vdf.startProcessing();
+//    }
 
     @Test
     public void test(){

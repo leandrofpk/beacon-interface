@@ -67,6 +67,55 @@
           <p class="lead">This is the prototype of a beacon combination service using VDF.
               There are 3 possible states. First, allowed submissions. Second, in processing. Third, finalized</p>
 
+          <p>
+          <p>The service is available via a public REST API.</p>
+
+          <br>
+
+          <strong>Previous Pulse: </strong> <br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/previous/&lt;timestamp&gt; <br>
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/public/previous/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/pulse/vdf/public/previous/${timestampPrevious}|"></a>
+          </span>
+
+          <br><br>
+
+          <strong>Next Pulse:</strong><br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/next/&lt;timestamp&gt; <br>
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/public/next/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/pulse/vdf/public/next/${timestampPrevious}|"></a>
+          </span>
+
+          <br><br>
+
+          <strong>Last Available Pulse:</strong><br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/last <br>
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/public/last}" th:text="|${uri}/beacon/2.0/pulse/vdf/public/last|"></a>
+          </span>
+
+          <br><br>
+
+          <strong>First Pulse:</strong><br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/first<br>
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/public/first}" th:text="|${uri}/beacon/2.0/pulse/vdf/public/first|"></a>
+          </span>
+
+          <br><br>
+
+          <strong>Verify Pulse:</strong><br>
+          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/verify?y=&lt;Y&gt;&x=&lt;X&gt;&iterations=&lt;iterations&gt;<br>
+          <span th:if="${timestampPrevious!=null}">
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/public/verify} + ${linkVerify}" th:text="|${uri}/beacon/2.0/pulse/vdf/verify${linkVerify}|"></a>
+          </span>
+
+          <br><br>
+
+          If a request for a Pulse results in no Pulse found, a 404 response is returned. <br>
+          If a request for a Pulse is not in RFC 3339 format, a 400 (BAD REQUEST) is returned.
+          </p>
+
           </p>
         </div>
       </div>
@@ -90,34 +139,51 @@
                     <p class="card-text" id="pNextSubmission">Next submissions in <span id="spanNextRunInMinutes"></span> minute(s)</p>
                     <p class="card-text"><strong>Start:</strong> <span id="spanStart">2019-08-31T11:30:00.000Z</span>  <strong>End:</strong> <span id="spanEnd">2019-08-31T11:30:00.000Z</span></p>
                     <p class="card-text"><strong>Current hash:</strong><span id="spanCurrentHash"></span></p>
-                    <p class="card-text"><strong>Output:</strong><span id="spanOutput"></span></p>
+<!--                    <p class="card-text"><strong>Output:</strong><span id="spanOutput"></span></p>-->
+<!--                    <p class="card-text"><strong>See details:</strong><span id="spanOutput"></span></p>-->
                     <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
                   </div>
                 </div>
+
             </div>
 
           <div class="card">
             <div class="card-header">
-              Seed List
+              Post seed value
             </div>
             <div class="card-body">
+
+              <strong>URI: </strong> <span th:text="${uri}"></span>beacon/2.0/pulse/vdf/public<br>
+              <strong>Method: </strong>POST
+              <br>
+              <strong>Content-Type: </strong>Content-Type: application/json
+              <br>
+
+              <strong>Body:</strong>
+              <p>
+              {
+                "seed": "myseedValue",
+                "description": "my description"
+              }
+              </p>
+
 <!--              <h5 class="card-title">Submissions: [<span id="spanStatus">[Status]</span>]</h5>-->
 
                 <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
                 <!--                    <a href="#" class="btn btn-primary">Show previous numbers</a>-->
 
-              <div>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Seed</th>
-                      <th scope="col">Uri</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table_seed">
-                  </tbody>
-                </table>
-              </div>
+<!--              <div>-->
+<!--                <table class="table">-->
+<!--                  <thead>-->
+<!--                    <tr>-->
+<!--                      <th scope="col">Seed</th>-->
+<!--                      <th scope="col">Uri</th>-->
+<!--                    </tr>-->
+<!--                  </thead>-->
+<!--                  <tbody id="table_seed">-->
+<!--                  </tbody>-->
+<!--                </table>-->
+<!--              </div>-->
 
             </div>
           </div>
@@ -163,7 +229,7 @@
 
   <!-- beacon -->
   <script th:src="@{/vendor/bootstrap/js/bootstrap-datetimepicker.min.js}"></script>
-  <script th:src="@{/js/vdf.js}"></script>
+  <script th:src="@{/js/vdf-public.js}"></script>
 </body>
 
 </html>

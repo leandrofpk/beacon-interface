@@ -61,6 +61,7 @@ public class VdfPulseService {
     }
 
     public void startTimeSlot(){
+        this.seedList.clear();
         this.statusEnum = StatusEnum.OPEN;
         this.timestamp = getCurrentTrucatedZonedDateTime();
         seedBuilder.getPreDefSeed().forEach(dto -> addSeed(dto));

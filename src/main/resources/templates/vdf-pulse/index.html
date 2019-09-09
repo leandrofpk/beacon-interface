@@ -100,7 +100,6 @@
 
           <strong>Last Available Pulse:</strong><br>
           <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/last <br>
-<!--          <span th:text="${uri}"></span>/beacon/2.0/chain/last/pulse/last <br>-->
           <span th:if="${timestampPrevious!=null}">
           Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/last}" th:text="|${uri}/beacon/2.0/pulse/vdf/last|"></a>
           </span>

@@ -3,14 +3,14 @@ package com.example.beacon.vdf.application.vdfpublic;
 import com.example.beacon.shared.CipherSuiteBuilder;
 import com.example.beacon.shared.CriptoUtilService;
 import com.example.beacon.shared.ICipherSuite;
+import com.example.beacon.vdf.SubmissionTime;
 import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.application.vdfbeacon.CombinatioEnum;
 import com.example.beacon.vdf.application.vdfbeacon.StatusEnum;
 import com.example.beacon.vdf.application.vdfbeacon.VdfSerialize;
 import com.example.beacon.vdf.infra.entity.VdfPublicEntity;
-import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
-import com.example.beacon.vdf.infra.entity.VdfSeedEntity;
 import com.example.beacon.vdf.infra.entity.VdfSeedPublicEntity;
+import com.example.beacon.vdf.infra.util.DateUtil;
 import com.example.beacon.vdf.repository.VdfPulsesPublicRepository;
 import com.example.beacon.vdf.sources.SeedBuilder;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
@@ -19,7 +19,6 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
@@ -28,13 +27,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.beacon.vdf.infra.util.DateUtil.getCurrentTrucatedZonedDateTime;
+import static com.example.beacon.vdf.infra.util.DateUtil.getTimestampOfNextRun;
 
 @Service
 public class VdfPublicService {
 
     private final Environment env;
-
-    private Vdf vdf;
 
     private StatusEnum statusEnum;
 
@@ -62,12 +60,13 @@ public class VdfPublicService {
         this.seedBuilder = seedBuilder;
         this.vdfPulsesPublicRepository = vdfPulsesPublicRepository;
         this.statusEnum = StatusEnum.STOPPED;
-        this.vdf = new Vdf();
         this.seedList = new ArrayList<>();
         this.cipherSuite = CipherSuiteBuilder.build(0);
+        this.timestamp = getTimestampOfNextRun(ZonedDateTime.now());
     }
 
-    public void startTimeSlot() throws Exception {
+    public void startTimeSlot() {
+        this.seedList.clear();
         this.statusEnum = StatusEnum.OPEN;
         this.timestamp = getCurrentTrucatedZonedDateTime();
 
@@ -76,6 +75,7 @@ public class VdfPublicService {
     }
 
     public void addSeed(SeedPostDto dto){
+        dto.setSeed(cipherSuite.getDigest(dto.getSeed()));
         this.seedList.add(dto);
         calcSeed(dto);
     }
@@ -103,12 +103,15 @@ public class VdfPublicService {
         persist(y,x, iterations);
         seedList.clear();
         this.statusEnum = StatusEnum.STOPPED;
-
+        this.timestamp = getTimestampOfNextRun(ZonedDateTime.now());
     }
 
-
     public Vdf getCurrentVdf(){
-        return this.vdf;
+        Vdf vdf = new Vdf();
+        vdf.setStatusEnum(this.statusEnum.getDescription());
+        vdf.setCurrentHash(this.currentHash);
+        vdf.setSubmissionTime(new SubmissionTime(this.timestamp, 15));
+        return vdf;
     }
 
     private void calcSeed(SeedPostDto dto) {

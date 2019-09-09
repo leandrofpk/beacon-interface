@@ -1,11 +1,11 @@
 $(document).ready(function() {
     getCurrent();
-    setInterval(function(){ getCurrent(); }, 5000);
+    setInterval(function(){ getCurrent(); }, 10000);
 });
 
 function getCurrent() {
     $.ajax({
-        url: "/vdf/current",
+        url: "/beacon/2.0/pulse/vdf/public/current/",
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -26,13 +26,12 @@ function updateFields(data) {
     document.getElementById("spanStart").textContent = vdf.start;
     document.getElementById("spanEnd").textContent = vdf.end;
     document.getElementById("spanCurrentHash").textContent = vdf.currentHash;
-    document.getElementById("spanOutput").textContent = vdf.output;
 
     var x = document.getElementById("pNextSubmission");
-    if (vdf.status === "Closed"){
-        x.style.display = "block";
-    } else {
+    if (vdf.status === "Running"){
         x.style.display = "none";
+    } else {
+        x.style.display = "block";
     }
 
     var seedList = vdf.seedList;
