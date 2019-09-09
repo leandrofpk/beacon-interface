@@ -11,6 +11,8 @@ import org.springframework.web.client.RestTemplate;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.security.PublicKey;
 import java.security.Security;
 import java.security.cert.X509Certificate;
@@ -19,6 +21,7 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
 import static com.example.beacon.shared.ByteSerializationFieldsUtil.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -35,7 +38,7 @@ public class LoadCertificateFromUriServiceTest {
         assertEquals("X.509", publicKey.getFormat());
     }
 
-//    @Test
+    @Test
     public void validatePulse() throws Exception {
         Security.addProvider(new BouncyCastleProvider());
 
@@ -70,13 +73,27 @@ public class LoadCertificateFromUriServiceTest {
         return pulse;
     }
 
-    private static ByteArrayOutputStream serialize(PulseDto pulse){
+    private static ByteArrayOutputStream serializeDOIS(PulseDto pulse) throws IOException {
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream(8192); // should be enough
+        int lengthUri = pulse.getUri().getBytes(UTF_8).length;
+        baos.write(ByteBuffer.allocate(4).putInt(lengthUri).array());
+        baos.write(pulse.getUri().getBytes(UTF_8));
+
+
+
+        return baos;
+    }
+
+
+        private static ByteArrayOutputStream serialize(PulseDto pulse){
         final ByteArrayOutputStream baos = new ByteArrayOutputStream(8192); // should be enough
         System.out.println(getTimeStampFormated(pulse.getTimeStamp()));
 
         try {
 
+            System.out.println(baos.size());
             baos.write(byteSerializeString(pulse.getUri()));
+
             baos.write(byteSerializeString(pulse.getVersion()));
             baos.write(encode4(pulse.getCipherSuite()));
             baos.write(encode4(pulse.getPeriod()));

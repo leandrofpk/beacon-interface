@@ -17,7 +17,10 @@ public class ByteSerializationFieldsUtil {
     }
 
     public static byte[] byteSerializeHash(String hash){
-        int bLenHash = 64;
+//        System.out.println("hash: " + hash.length());
+        System.out.println("hash bytes: " + hash.getBytes(UTF_8).length);
+//        int bLenHash = 64;
+        int bLenHash = hash.getBytes(UTF_8).length;
         byte[] bytes1 = ByteBuffer.allocate(4).putInt(bLenHash).array();
         byte[] bytes2 = ByteUtils.fromHexString(hash);
         byte[] concatenate = ByteUtils.concatenate(bytes1, bytes2);
@@ -28,6 +31,7 @@ public class ByteSerializationFieldsUtil {
     // conferir
     public static byte[] byteSerializeString(String value){
         int bytLen = value.getBytes(UTF_8).length;
+        System.out.println(value + " - " + bytLen);
         byte[] bytes1 = ByteBuffer.allocate(4).putInt(bytLen).array();
         byte[] bytes2 = value.getBytes(UTF_8);
 
