@@ -22,7 +22,7 @@ public class CipherSuiteZero implements ICipherSuite {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
             byte[] encodedhash = digest.digest(input.getBytes(UTF_8));
-            return Hex.toHexString(encodedhash).toUpperCase();
+            return Hex.toHexString(encodedhash);
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
@@ -35,7 +35,7 @@ public class CipherSuiteZero implements ICipherSuite {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-512");
             byte[] encodedhash = digest.digest(input);
-            return Hex.toHexString(encodedhash).toUpperCase();
+            return Hex.toHexString(encodedhash);
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

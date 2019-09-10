@@ -1,6 +1,5 @@
 package com.example.beacon.vdf.sources;
 
-import com.example.beacon.vdf.application.vdfpublic.SeedPostDto;
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -22,13 +21,13 @@ public class SeedLocalRng implements SeedInterface {
     }
 
     @Override
-    public SeedPostDto getSeed() {
+    public SeedSourceDto getSeed() {
         byte[] bytes = new byte[64];
         try {
             SecureRandom.getInstance(env.getProperty("vdf.seed.rng")).nextBytes(bytes);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return new SeedPostDto(Hex.toHexString(bytes),DESCRIPTION);
+        return new SeedSourceDto("", Hex.toHexString(bytes),DESCRIPTION);
     }
 }

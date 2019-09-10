@@ -1,6 +1,5 @@
 package com.example.beacon.vdf.sources;
 
-import com.example.beacon.vdf.application.vdfpublic.SeedPostDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
@@ -17,7 +16,7 @@ public class SeedBuilder {
 
     private final Environment env;
 
-    private final List<SeedPostDto> seedList = new ArrayList<>();
+    private final List<SeedSourceDto> seedList = new ArrayList<>();
 
     @Autowired
     public SeedBuilder(ApplicationContext context, Environment env) {
@@ -25,22 +24,29 @@ public class SeedBuilder {
         this.env = env;
     }
 
-    /// configuraçoes diferentes
-
-    public List<SeedPostDto> getPreDefSeed(){
+    // Beacon Combination
+    public List<SeedSourceDto> getPreDefSeedCombination(){
         seedList.clear();
-        seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
         seedList.add(context.getBean(SeedLastNist.class).getSeed());
         seedList.add(context.getBean(SeedLastChile.class).getSeed());
+        return Collections.unmodifiableList(seedList);
+    }
+
+    public List<SeedSourceDto> getHonestPartyCombination(){
+        seedList.clear();
+        seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
+        return Collections.unmodifiableList(seedList);
+    }
+
+    // VDF / Unicorn
+    public List<SeedSourceDto> getPreDefSeedUnicord(){
+        seedList.clear();
         seedList.add(context.getBean(SeedLocalRng.class).getSeed());
         return Collections.unmodifiableList(seedList);
     }
 
-    public List<SeedPostDto> getHonestParty(){
+    public List<SeedSourceDto> getHonestPartyUnicord(){
         seedList.clear();
-        seedList.add(context.getBean(SeedLastNist.class).getSeed());
-        seedList.add(context.getBean(SeedLastChile.class).getSeed());
-        seedList.add(context.getBean(SeedLocalRng.class).getSeed());
         seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
         return Collections.unmodifiableList(seedList);
     }

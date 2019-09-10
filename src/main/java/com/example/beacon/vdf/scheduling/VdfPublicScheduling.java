@@ -1,6 +1,6 @@
 package com.example.beacon.vdf.scheduling;
 
-import com.example.beacon.vdf.application.vdfpublic.VdfPublicService;
+import com.example.beacon.vdf.application.vdfunicorn.VdfUnicornService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -12,24 +12,24 @@ import java.time.ZonedDateTime;
 @EnableScheduling
 public class VdfPublicScheduling implements VdfSchedulingInterface{
 
-    private final VdfPublicService vdfPublicService;
+    private final VdfUnicornService vdfUnicornService;
 
     @Autowired
-    public VdfPublicScheduling(VdfPublicService vdfPublicService) {
-        this.vdfPublicService = vdfPublicService;
+    public VdfPublicScheduling(VdfUnicornService vdfUnicornService) {
+        this.vdfUnicornService = vdfUnicornService;
     }
 
-    @Scheduled(cron = "${vdf.public.start.submission}")
+    @Scheduled(cron = "${beacon.unicorn.start.submission}")
     public void startTimeSlot() throws Exception {
         System.out.println("START submission:" + ZonedDateTime.now());
-        vdfPublicService.startTimeSlot();
+        vdfUnicornService.startTimeSlot();
     }
 
-    @Scheduled(cron = "${vdf.public.end.submission}")
+    @Scheduled(cron = "${beacon.unicorn.end.submission}")
     public void endTimeSlot() throws Exception {
         System.out.println("END submission:" + ZonedDateTime.now());
-        if (vdfPublicService.isOpen()){
-            vdfPublicService.endTimeSlot();
+        if (vdfUnicornService.isOpen()){
+            vdfUnicornService.endTimeSlot();
         }
     }
 

@@ -1,10 +1,10 @@
 package com.example.beacon.vdf.application;
 
 import com.example.beacon.interfac.infra.AppUri;
-import com.example.beacon.vdf.infra.entity.VdfPublicEntity;
-import com.example.beacon.vdf.infra.entity.VdfPulseEntity;
-import com.example.beacon.vdf.repository.VdfPulsesPublicRepository;
-import com.example.beacon.vdf.repository.VdfPulsesRepository;
+import com.example.beacon.vdf.infra.entity.VdfUnicornEntity;
+import com.example.beacon.vdf.infra.entity.CombinationEntity;
+import com.example.beacon.vdf.repository.VdfUnicornRepository;
+import com.example.beacon.vdf.repository.CombinationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,15 +22,15 @@ public class VdfController {
 
     private final AppUri appUri;
 
-    private final VdfPulsesRepository vdfPulsesRepository;
+    private final CombinationRepository combinationRepository;
 
-    private final VdfPulsesPublicRepository vdfPulsesPublicRepository;
+    private final VdfUnicornRepository vdfUnicornRepository;
 
     @Autowired
-    public VdfController(AppUri appUri, VdfPulsesRepository vdfPulsesRepository, VdfPulsesPublicRepository vdfPulsesPublicRepository) {
+    public VdfController(AppUri appUri, CombinationRepository combinationRepository, VdfUnicornRepository vdfUnicornRepository) {
         this.appUri = appUri;
-        this.vdfPulsesRepository = vdfPulsesRepository;
-        this.vdfPulsesPublicRepository = vdfPulsesPublicRepository;
+        this.combinationRepository = combinationRepository;
+        this.vdfUnicornRepository = vdfUnicornRepository;
     }
 
     @GetMapping
@@ -39,7 +39,7 @@ public class VdfController {
 
         mv.addObject("uri", appUri.getUri());
 
-        VdfPulseEntity previous = vdfPulsesRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
+        CombinationEntity previous = combinationRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
 
         if (previous != null) {
             mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));
@@ -58,7 +58,7 @@ public class VdfController {
 
         mv.addObject("uri", appUri.getUri());
 
-        VdfPublicEntity previous = vdfPulsesPublicRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
+        VdfUnicornEntity previous = vdfUnicornRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
 
         if (previous != null) {
             mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));
