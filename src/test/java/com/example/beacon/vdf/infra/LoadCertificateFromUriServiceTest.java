@@ -1,6 +1,7 @@
 package com.example.beacon.vdf.infra;
 
 import com.example.beacon.interfac.api.dto.PulseDto;
+import com.example.beacon.shared.ByteSerializationFieldsUtil2;
 import com.example.beacon.shared.CipherSuiteBuilder;
 import com.example.beacon.shared.ICipherSuite;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
@@ -45,11 +46,11 @@ public class LoadCertificateFromUriServiceTest {
         final PublicKey publicKey = getCertificate();
         final PulseDto pulse = getPulse();
 
-        final ByteArrayOutputStream serialize = serialize(pulse);
+        ByteArrayOutputStream baos = new ByteSerializationFieldsUtil2(pulse).getBaos();
 
         String sign = pulse.getSignatureValue();
         final ICipherSuite cipherSuite = CipherSuiteBuilder.build(0);
-        boolean verify = cipherSuite.verify(publicKey, sign, serialize.toByteArray());
+        boolean verify = cipherSuite.verify(publicKey, sign, baos.toByteArray());
         System.out.println("Verify:" + verify);
 
         assertTrue(verify);
@@ -73,51 +74,9 @@ public class LoadCertificateFromUriServiceTest {
         return pulse;
     }
 
-    private static ByteArrayOutputStream serializeDOIS(PulseDto pulse) throws IOException {
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream(8192); // should be enough
-        int lengthUri = pulse.getUri().getBytes(UTF_8).length;
-        baos.write(ByteBuffer.allocate(4).putInt(lengthUri).array());
-        baos.write(pulse.getUri().getBytes(UTF_8));
-
-
-
-        return baos;
-    }
-
-
-        private static ByteArrayOutputStream serialize(PulseDto pulse){
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream(8192); // should be enough
-        System.out.println(getTimeStampFormated(pulse.getTimeStamp()));
-
-        try {
-
-            System.out.println(baos.size());
-            baos.write(byteSerializeString(pulse.getUri()));
-
-            baos.write(byteSerializeString(pulse.getVersion()));
-            baos.write(encode4(pulse.getCipherSuite()));
-            baos.write(encode4(pulse.getPeriod()));
-            baos.write(byteSerializeHash(pulse.getCertificateId()));
-            baos.write(encode8(pulse.getChainIndex()));
-            baos.write(encode8(pulse.getPulseIndex()));
-            baos.write(byteSerializeString(getTimeStampFormated(pulse.getTimeStamp())));
-            baos.write(byteSerializeHash(pulse.getLocalRandomValue()));
-            baos.write(byteSerializeHash(pulse.getExternal().getSourceId()));
-            baos.write(encode8(pulse.getExternal().getStatusCode()));
-            baos.write(byteSerializeHash(pulse.getExternal().getValue()));
-            baos.write(byteSerializeHash(pulse.getListValues().get(0).getValue()));
-            baos.write(byteSerializeHash(pulse.getListValues().get(1).getValue()));
-            baos.write(byteSerializeHash(pulse.getListValues().get(2).getValue()));
-            baos.write(byteSerializeHash(pulse.getListValues().get(3).getValue()));
-            baos.write(byteSerializeHash(pulse.getListValues().get(4).getValue()));
-            baos.write(byteSerializeHash(pulse.getPrecommitmentValue()));
-            baos.write(encode4(pulse.getStatusCode()));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return baos;
-    }
+//    private static ByteArrayOutputStream serialize(PulseDto pulse) throws IOException {
+//        return new ByteSerializationFieldsUtil2(pulse).getBaos();
+//    }
 
     private static String getTimeStampFormated(ZonedDateTime timeStamp){
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz");

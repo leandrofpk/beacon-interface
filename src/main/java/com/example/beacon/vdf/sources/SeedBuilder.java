@@ -25,6 +25,8 @@ public class SeedBuilder {
         this.env = env;
     }
 
+    /// configuraçoes diferentes
+
     public List<SeedPostDto> getPreDefSeed(){
         seedList.clear();
         seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
