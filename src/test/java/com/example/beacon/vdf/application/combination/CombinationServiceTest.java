@@ -16,8 +16,8 @@ public class CombinationServiceTest {
 
 //    @Test
     public void precommitSeedOnly() throws Exception {
-        combinationService.startTimeSlot();
-        combinationService.endTimeSlot();
+//        combinationService.startTimeSlot();
+//        combinationService.endTimeSlot();
 
 //        assertEquals(true, vdfPulseService.);
 
@@ -36,9 +36,9 @@ public class CombinationServiceTest {
 //                OriginEnum.NIST.toString());
 
 
-        combinationService.startTimeSlot();
+//        combinationService.startTimeSlot();
 //        combinationService.addSeed(seedPostDto);
-        combinationService.endTimeSlot();
+//        combinationService.endTimeSlot();
 
 //        assertEquals(true, vdfPulseService.);
 

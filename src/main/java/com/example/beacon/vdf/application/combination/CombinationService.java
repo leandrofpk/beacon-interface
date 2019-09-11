@@ -4,10 +4,12 @@ import com.example.beacon.shared.CipherSuiteBuilder;
 import com.example.beacon.shared.CriptoUtilService;
 import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.VdfSloth;
+import com.example.beacon.vdf.application.combination.dto.SeedUnicordCombinationVo;
 import com.example.beacon.vdf.application.vdfunicorn.SeedPostDto;
 import com.example.beacon.vdf.infra.entity.CombinationEntity;
 import com.example.beacon.vdf.repository.CombinationRepository;
 import com.example.beacon.vdf.sources.SeedBuilder;
+import com.example.beacon.vdf.sources.SeedSourceDto;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -28,7 +30,7 @@ public class CombinationService {
 
     private final Environment env;
 
-    private StatusEnum statusEnum;
+//    private StatusEnum statusEnum;
 
     private List<SeedPostDto> seedList;
 
@@ -46,83 +48,87 @@ public class CombinationService {
 
     private String currentConcatValue;
 
-    private String currentHash;
+//    private String currentHash;
 
     @Autowired
     public CombinationService(Environment env, CombinationRepository combinationRepository, SeedBuilder seedBuilder) {
         this.env = env;
         this.combinationRepository = combinationRepository;
         this.seedBuilder = seedBuilder;
-        this.statusEnum = StatusEnum.STOPPED;
+//        this.statusEnum = StatusEnum.STOPPED;
         this.cipherSuite = CipherSuiteBuilder.build(0);
 
         this.seedList = new ArrayList<>();
     }
 
-    public void startTimeSlot(){
-        this.seedList.clear();
-        this.statusEnum = StatusEnum.OPEN;
-        this.timestamp = getCurrentTrucatedZonedDateTime();
-//        seedBuilder.getPreDefSeedCombination().forEach(dto -> addSeed(dto));
-    }
+//    private void calcSeed(SeedPostDto dto) {
+//
+//        CombinationEnum combination = CombinationEnum.valueOf(env.getProperty("vdf.combination").toUpperCase());
+//
+//        if (seedList.size() == 0) {
+//            if (combination.equals(CombinationEnum.XOR)) {
+//                this.currentXorValue = dto.getSeed().getBytes(StandardCharsets.UTF_8);
+//            } else {
+//                this.currentConcatValue = dto.getSeed();
+//            }
+//        } else {
+//            if (combination.equals(CombinationEnum.XOR)) {
+//                this.currentXorValue = ByteUtils.xor(this.currentXorValue, dto.getSeed().getBytes(StandardCharsets.UTF_8));
+//            } else {
+//                this.currentConcatValue = currentConcatValue + dto.getSeed();
+//            }
+//        }
+//
+//        if (combination.equals(CombinationEnum.XOR)) {
+//            this.currentHash = cipherSuite.getDigest(currentXorValue);
+//        } else {
+//            this.currentHash = cipherSuite.getDigest(currentConcatValue);
+//        }
+//
+//        this.seedList.add(dto);
+//
+//    }
 
-    public void addSeed(SeedPostDto dto){
-        this.seedList.add(dto);
-        calcSeed(dto);
-    }
+    public void run() throws Exception {
+        List<SeedSourceDto> seeds = seedBuilder.getPreDefSeedCombination();
+        seeds.addAll(seedBuilder.getHonestPartyCombination());
+        List<SeedUnicordCombinationVo> seedUnicordCombinationVos = calcSeedConcat(seeds);
 
-    public void endTimeSlot() throws Exception {
-//        this.statusEnum = StatusEnum.RUNNING;
-//        seedBuilder.getHonestPartyCombination()
-//                .forEach(dto -> calcSeed(dto));
-//        run();
-    }
-
-    public boolean isOpen(){
-        return this.statusEnum.equals(StatusEnum.OPEN);
-    }
-
-    private void calcSeed(SeedPostDto dto) {
-
-        CombinationEnum combination = CombinationEnum.valueOf(env.getProperty("vdf.combination").toUpperCase());
-
-        if (seedList.size() == 0) {
-            if (combination.equals(CombinationEnum.XOR)) {
-                this.currentXorValue = dto.getSeed().getBytes(StandardCharsets.UTF_8);
-            } else {
-                this.currentConcatValue = dto.getSeed();
-            }
-        } else {
-            if (combination.equals(CombinationEnum.XOR)) {
-                this.currentXorValue = ByteUtils.xor(this.currentXorValue, dto.getSeed().getBytes(StandardCharsets.UTF_8));
-            } else {
-                this.currentConcatValue = currentConcatValue + dto.getSeed();
-            }
-        }
-
-        if (combination.equals(CombinationEnum.XOR)) {
-            this.currentHash = cipherSuite.getDigest(currentXorValue);
-        } else {
-            this.currentHash = cipherSuite.getDigest(currentConcatValue);
-        }
-
-        this.seedList.add(dto);
-
-    }
-
-    private void run() throws Exception {
-        final BigInteger x = new BigInteger(this.currentHash, 16);
-        int iterations = Integer.parseInt(env.getProperty("vdf.public.iterations"));
+        final BigInteger x = new BigInteger(seedUnicordCombinationVos.get(seedUnicordCombinationVos.size() - 1).getCumulativeHash(), 16);
+        int iterations = Integer.parseInt(env.getProperty("beacon.combination.iterations"));
 
         BigInteger y = VdfSloth.mod_op(x, iterations);
 
         persist(y,x, iterations);
         seedList.clear();
-        this.statusEnum = StatusEnum.STOPPED;
+//        this.statusEnum = StatusEnum.STOPPED;
+    }
+
+    private List<SeedUnicordCombinationVo> calcSeedConcat(List<SeedSourceDto> seedList) {
+
+        String currentValue = "";
+        List<SeedUnicordCombinationVo> out = new ArrayList<>();
+
+        for (SeedSourceDto dto : seedList) {
+            currentValue = currentValue + dto.getSeed();
+            String cumulativeDigest = cipherSuite.getDigest(currentValue);
+            out.add(new SeedUnicordCombinationVo(dto.getUri(), dto.getSeed(), dto.getDescription(), cumulativeDigest, ZonedDateTime.now()));
+        }
+
+        return out;
+
+//        if (seedList.size() == 0) {
+//            currentValue = dtoNew.getSeed();
+//        } else {
+//            SeedUnicordCombinationVo lastSeed = seedList.get(seedList.size() - 1);
+//            currentValue = lastSeed + dtoNew.getSeed();
+//        }
+//        String cumulativeDigest = cipherSuite.getDigest(currentValue);
+//        return new SeedUnicordCombinationVo(dtoNew.getUri(), dtoNew.getSeed(), dtoNew.getDescription(), cumulativeDigest, now);
     }
 
     @Transactional
-    public void persist(BigInteger y, BigInteger x, int iterations) throws Exception {
+    protected void persist(BigInteger y, BigInteger x, int iterations) throws Exception {
         Long maxPulseIndex = combinationRepository.findMaxId();
 
         if (maxPulseIndex==null){

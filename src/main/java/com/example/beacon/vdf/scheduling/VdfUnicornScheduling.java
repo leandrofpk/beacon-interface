@@ -10,12 +10,12 @@ import java.time.ZonedDateTime;
 
 @Component
 @EnableScheduling
-public class VdfPublicScheduling implements VdfSchedulingInterface{
+public class VdfUnicornScheduling implements VdfSchedulingInterface{
 
     private final VdfUnicornService vdfUnicornService;
 
     @Autowired
-    public VdfPublicScheduling(VdfUnicornService vdfUnicornService) {
+    public VdfUnicornScheduling(VdfUnicornService vdfUnicornService) {
         this.vdfUnicornService = vdfUnicornService;
     }
 
