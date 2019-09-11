@@ -32,6 +32,8 @@ public class CombinationEntity {
 
     private int period;
 
+    private String combination;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "combinationEntity", cascade = CascadeType.ALL)
     private List<CombinationSeedEntity> seedList = new ArrayList<>();
 

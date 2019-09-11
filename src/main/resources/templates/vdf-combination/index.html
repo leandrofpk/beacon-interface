@@ -69,12 +69,12 @@
 <!--          <p style="color: darkred" align="device">PLEASE, DO NOT USE THE BEACON GENERATED VALUES AS CRYPTOGRAPHIC KEYS.</p>-->
 
 <!--          <p>Inmetro's Randomness Beacon is a web service, part of the <a href="https://siccciber.com.br/">SICCCiber</a> project's effort to generate reliable and public sources of random numbers.  <a href="#contact">Contact us</a> for more details</p>-->
-          <p>Este serviço funciona da seguite forma:</p>
+          <p>A combinação é realizada da seguinte forma:</p>
           <ul>
-            <li>A cada 5 minutos uma nova submissão é aberta(Ex.: 13:30 - 13:35).  O período de submissão dura 60 segundos.</li>
-            <li>Após o término do periodo de submissão, o sistema adiciona o precommit do próximo número juntamente com as contribuições anteriores.</li>
+            <li>A cada minuto o sistema concatena(ou faz um Xor - este parâmetero é configurável) recupera o precommit do último pulso do beacon do Chile e do Nist.</li>
+            <li>O precommitment local é gerado e a função de computação lenta inicia antes da publicação do próximo pulso do beacon</li>
             <li>O sistema inicia Sloth com "X" iterações.</li>
-            <li>Os resultados são publicados juntamente com os parÃmetros de configuração</li>
+            <li>Os resultados são publicados juntamente com os parâmetros de configuração</li>
           </ul>
 
           <p>

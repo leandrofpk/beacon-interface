@@ -135,9 +135,13 @@ public class CombinationResource {
         dto.setTimeStamp(DateUtil.getTimeStampFormated(entity.getTimeStamp()));
         dto.setSignatureValue(entity.getSignatureValue());
         dto.setPeriod(entity.getPeriod());
+        dto.setCombination(entity.getCombination());
 
         entity.getSeedList().forEach(s ->
-                 dto.addSeed(new VdfSeedDto(s.getSeed(), s.getDescription())));
+                                dto.addSeed(new VdfSeedDto(s.getSeed(),
+                                DateUtil.getTimeStampFormated(s.getTimeStamp()),
+                                s.getDescription(), s.getUri(),
+                                s.getCumulativeHash())));
 
         dto.setSlothDto(new VdfSlothDto(entity.getX(), entity.getY(), entity.getIterations()));
 

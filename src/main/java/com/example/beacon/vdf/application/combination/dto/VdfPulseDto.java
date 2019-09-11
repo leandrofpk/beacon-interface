@@ -26,11 +26,13 @@ public class VdfPulseDto {
 
     private String timeStamp;
 
-    private String signatureValue;
-
     private int period;
 
+    private String combination;
+
     private List<VdfSeedDto> seedList = new ArrayList<>();
+
+    private String signatureValue;
 
     @JsonProperty("sloth")
     private VdfSlothDto slothDto;

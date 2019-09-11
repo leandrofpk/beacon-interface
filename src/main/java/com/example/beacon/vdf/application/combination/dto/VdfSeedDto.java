@@ -1,18 +1,22 @@
 package com.example.beacon.vdf.application.combination.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class VdfSeedDto {
 
     private String seed;
 
-    private String origin;
+    private String timeStamp;
 
-    public VdfSeedDto(String seed, String origin) {
-        this.seed = seed;
-        this.origin = origin;
-    }
+    private String description;
+
+    private String uri;
+
+    private String cumulativeHash;
+
 }

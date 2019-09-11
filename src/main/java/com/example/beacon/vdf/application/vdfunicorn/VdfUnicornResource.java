@@ -186,7 +186,10 @@ public class VdfUnicornResource {
         dto.setPeriod(entity.getPeriod());
 
         entity.getSeedList().forEach(s ->
-                dto.addSeed(new VdfSeedDto(s.getSeed(), s.getDescription())));
+                dto.addSeed(new VdfSeedDto(s.getSeed(),
+                        DateUtil.getTimeStampFormated(s.getTimeStamp()),
+                        s.getDescription(), s.getUri(),
+                        s.getCumulativeHash())));
 
         dto.setSlothDto(new VdfSlothDto(entity.getX(), entity.getY(), entity.getIterations()));
 

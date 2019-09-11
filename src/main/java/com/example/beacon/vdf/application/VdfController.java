@@ -35,7 +35,7 @@ public class VdfController {
 
     @GetMapping
     public ModelAndView home() {
-        ModelAndView mv = new ModelAndView("vdf-pulse/index");
+        ModelAndView mv = new ModelAndView("vdf-combination/index");
 
         mv.addObject("uri", appUri.getUri());
 

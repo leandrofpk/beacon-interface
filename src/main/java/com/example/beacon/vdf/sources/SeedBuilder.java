@@ -29,25 +29,25 @@ public class SeedBuilder {
         seedList.clear();
         seedList.add(context.getBean(SeedLastNist.class).getSeed());
         seedList.add(context.getBean(SeedLastChile.class).getSeed());
-        return Collections.unmodifiableList(seedList);
+        return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 
     public List<SeedSourceDto> getHonestPartyCombination(){
         seedList.clear();
         seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
-        return Collections.unmodifiableList(seedList);
+        return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 
     // VDF / Unicorn
     public List<SeedSourceDto> getPreDefSeedUnicord(){
         seedList.clear();
         seedList.add(context.getBean(SeedLocalRng.class).getSeed());
-        return Collections.unmodifiableList(seedList);
+        return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 
     public List<SeedSourceDto> getHonestPartyUnicord(){
         seedList.clear();
         seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
-        return Collections.unmodifiableList(seedList);
+        return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 }
