@@ -10,7 +10,7 @@ import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import java.util.Set;
 
-public class VdfPulseDtoTest {
+public class UnicornCurrentDtoPulseDtoTest {
 
     private static Validator validator;
 

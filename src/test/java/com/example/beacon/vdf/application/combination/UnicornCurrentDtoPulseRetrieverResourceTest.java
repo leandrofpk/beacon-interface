@@ -29,7 +29,7 @@ import static org.junit.Assert.assertTrue;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource("classpath:application-test.properties")
-public class VdfPulseRetrieverResourceTest {
+public class UnicornCurrentDtoPulseRetrieverResourceTest {
 
     @Autowired
     Environment env;

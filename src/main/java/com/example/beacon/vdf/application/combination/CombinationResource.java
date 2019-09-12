@@ -1,7 +1,7 @@
 package com.example.beacon.vdf.application.combination;
 
-import com.example.beacon.vdf.application.combination.dto.VdfPulseDto;
-import com.example.beacon.vdf.application.combination.dto.VdfSeedDto;
+import com.example.beacon.vdf.application.VdfPulseDto;
+import com.example.beacon.vdf.application.VdfSeedDto;
 import com.example.beacon.vdf.application.combination.dto.VdfSlothDto;
 import com.example.beacon.vdf.infra.entity.CombinationEntity;
 import com.example.beacon.vdf.infra.util.DateUtil;

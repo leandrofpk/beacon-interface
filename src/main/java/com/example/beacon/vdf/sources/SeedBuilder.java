@@ -47,7 +47,8 @@ public class SeedBuilder {
 
     public List<SeedSourceDto> getHonestPartyUnicord(){
         seedList.clear();
-        seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
+//        seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
+        seedList.add(context.getBean(SeedLocalRng.class).getSeed());
         return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 }

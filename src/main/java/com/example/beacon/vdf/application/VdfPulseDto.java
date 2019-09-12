@@ -1,5 +1,6 @@
-package com.example.beacon.vdf.application.combination.dto;
+package com.example.beacon.vdf.application;
 
+import com.example.beacon.vdf.application.combination.dto.VdfSlothDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;

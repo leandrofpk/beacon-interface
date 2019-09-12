@@ -1,4 +1,4 @@
-package com.example.beacon.vdf.application.combination.dto;
+package com.example.beacon.vdf.application;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,15 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VdfSeedDto {
-
     private String seed;
-
     private String timeStamp;
-
     private String description;
-
     private String uri;
-
     private String cumulativeHash;
-
 }

@@ -9,19 +9,19 @@ import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.time.ZonedDateTime;
 
-public class VdfTest {
+public class UnicornCurrentDtoTest {
 
-    private VdfSeed seed1;
-
-    private VdfSeed seed2;
+//    private VdfSeed seed1;
+//
+//    private VdfSeed seed2;
 
     @Before
     public void setup(){
-        ZonedDateTime t1 = DateUtil.getTimestampOfNextRun(ZonedDateTime.parse("2019-08-23T13:31:00.000Z"));
-        seed1 = new VdfSeed(t1, "E90B7075493F84181B7220BA2907363ABDA076BFE9AFD3FBCA19B3259350213F038814BE1575CD83F7EBEC6C5FDD0347B33236390E991A6673056217AD26DD91", "https://beacon.nist.gov/beacon/2.0/chain/1/pulse/524971");
-
-        ZonedDateTime t2 = DateUtil.getTimestampOfNextRun(ZonedDateTime.parse("2019-08-23T13:32:00.000Z"));
-        seed2 = new VdfSeed(t2, "0281181ce3342936a94316846851ef420023744aaa687aa9594e48fc52869e865aed29cef426db27ae8e62d56ec32f0beb19fc6ca36d98b96198b75f6c5e671b", "https://random.uchile.cl/beacon/2.0/chain/4/pulse/538310");
+//        ZonedDateTime t1 = DateUtil.getTimestampOfNextRun(ZonedDateTime.parse("2019-08-23T13:31:00.000Z"));
+//        seed1 = new VdfSeed(t1, "E90B7075493F84181B7220BA2907363ABDA076BFE9AFD3FBCA19B3259350213F038814BE1575CD83F7EBEC6C5FDD0347B33236390E991A6673056217AD26DD91", "https://beacon.nist.gov/beacon/2.0/chain/1/pulse/524971");
+//
+//        ZonedDateTime t2 = DateUtil.getTimestampOfNextRun(ZonedDateTime.parse("2019-08-23T13:32:00.000Z"));
+//        seed2 = new VdfSeed(t2, "0281181ce3342936a94316846851ef420023744aaa687aa9594e48fc52869e865aed29cef426db27ae8e62d56ec32f0beb19fc6ca36d98b96198b75f6c5e671b", "https://random.uchile.cl/beacon/2.0/chain/4/pulse/538310");
     }
 
 
@@ -29,13 +29,13 @@ public class VdfTest {
 //    public void shouldThrowExceptionWhenTryingToAddSeedWithStatusOtherThanOpen() {
 //        ZonedDateTime start = DateUtil.getTimestampOfNextRun(ZonedDateTime.parse("2019-08-23T13:04:00.000Z"));
 //
-//        Vdf vdf = new Vdf();
+//        UnicornCurrentDto vdf = new UnicornCurrentDto();
 //        vdf.addSeed(seed1);
 //    }
 
 //    @Test
 //    public void teste(){
-//        Vdf vdf = new Vdf();
+//        UnicornCurrentDto vdf = new UnicornCurrentDto();
 //        vdf.startSubmissions(15);
 //
 //        vdf.addSeed(seed1);

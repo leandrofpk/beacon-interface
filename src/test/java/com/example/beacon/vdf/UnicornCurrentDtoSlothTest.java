@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 
-public class VdfSlothTest {
+public class UnicornCurrentDtoSlothTest {
 
     @Test
     public void testVdfSloth() {
@@ -54,10 +54,13 @@ public class VdfSlothTest {
         System.out.println(b6);
 
         String x7 = "723920245827210330710571930189147084766575680729191669369781468565716325629662978509949355527916347475295284359275643718196626872161621364872891182969113";
+        String x7Modificado = "823920245827210330710571930189147084766575680729191669369781468565716325629662978509949355527916347475295284359275643718196626872161621364872891182969113";
+
+
         BigInteger y7 = VdfSloth.mod_op(new BigInteger(x7), iterations);
         System.out.println("y7:" + y7);
 
-        boolean b7 = VdfSloth.mod_verif(y7, new BigInteger(x7), 10);
+        boolean b7 = VdfSloth.mod_verif(y7, new BigInteger(x7Modificado), 10);
         System.out.println(b7);
     }
 

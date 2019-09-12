@@ -44,9 +44,10 @@ public class VdfQueueConsumer {
         logger.warn(String.format("combination released: %s - iterations: %s",  dto.getTimeStamp(), env.getProperty("beacon.combination.iterations")));
     }
 
-//    @RabbitListener(queues = {"pulses_unicorn_queue"})
-//    public void receiveUnicorn(EntropyDto entropyDto) {
-//        System.out.println("UNICORN-QUEUE: NAO IMPLEMENTADA");
-//    }
+    @RabbitListener(queues = {"pulses_unicorn_queue"})
+    public void receiveUnicorn(PrecommitmentQueueDto dto) {
+        System.out.println("UNICORN-QUEUE: NAO IMPLEMENTADA");
+        System.out.println(dto);
+    }
 
 }

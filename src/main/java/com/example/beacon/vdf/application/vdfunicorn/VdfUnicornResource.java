@@ -1,7 +1,7 @@
 package com.example.beacon.vdf.application.vdfunicorn;
 
-import com.example.beacon.vdf.application.combination.dto.VdfPulseDto;
-import com.example.beacon.vdf.application.combination.dto.VdfSeedDto;
+import com.example.beacon.vdf.application.VdfPulseDto;
+import com.example.beacon.vdf.application.VdfSeedDto;
 import com.example.beacon.vdf.application.combination.dto.VdfSlothDto;
 import com.example.beacon.vdf.infra.entity.VdfUnicornEntity;
 import com.example.beacon.vdf.infra.util.DateUtil;
@@ -38,7 +38,9 @@ public class VdfUnicornResource {
     @GetMapping("/current")
     public ResponseEntity submission(){
         try {
-            VdfDtoOld dto = converterCurrent(vdfUnicornService.getCurrentVdf());
+//            VdfPulseDto dto = converterCurrent(vdfUnicornService.getCurrentVdf());
+            UnicornCurrentDto dto = vdfUnicornService.getUnicornState();
+
             return new ResponseEntity(dto, HttpStatus.OK);
         } catch (Exception e){
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
@@ -124,7 +126,6 @@ public class VdfUnicornResource {
 
     }
 
-
     @GetMapping("/last")
     @ResponseBody
     public ResponseEntity last(){
@@ -163,17 +164,17 @@ public class VdfUnicornResource {
         return new ResponseEntity("Created", HttpStatus.CREATED);
     }
 
-    private VdfDtoOld converterCurrent(Vdf vdf){
-        VdfDtoOld dto = new VdfDtoOld();
-        dto.setStart(getTimeStampFormated(vdf.getSubmissionTime().getStart()));
-        dto.setEnd(getTimeStampFormated(vdf.getSubmissionTime().getEnd()));
-        dto.setStatus(vdf.getStatusEnum());
-        dto.setCurrentHash(vdf.getCurrentHash());
-//        dto.setOutput(vdf.getOutput());
-        dto.setNextRunInMinutes(DateUtil.getMinutesForNextRun(ZonedDateTime.now(), vdf.getSubmissionTime().getStart()));
-        dto.setSeedList(vdf.getSeedList());
-        return dto;
-    }
+//    private UnicornCurrentDto converterCurrent(UnicornCurrentDto unicornCurrentDto){
+//        UnicornCurrentDto dto = new UnicornCurrentDto();
+//        dto.setStart(getTimeStampFormated(unicornCurrentDto.getSubmissionTime().getStart()));
+//        dto.setEnd(getTimeStampFormated(unicornCurrentDto.getSubmissionTime().getEnd()));
+//        dto.setStatus(unicornCurrentDto.getStatusEnum());
+//        dto.setCurrentHash(unicornCurrentDto.getCurrentHash());
+////        dto.setOutput(unicornCurrentDto.getOutput());
+//        dto.setNextRunInMinutes(DateUtil.getMinutesForNextRun(ZonedDateTime.now(), unicornCurrentDto.getSubmissionTime().getStart()));
+//        dto.setSeedList(unicornCurrentDto.getSeedList());
+//        return dto;
+//    }
 
     private VdfPulseDto convertToDto(VdfUnicornEntity entity){
         VdfPulseDto dto = new VdfPulseDto();

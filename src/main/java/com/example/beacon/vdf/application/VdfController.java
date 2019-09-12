@@ -17,7 +17,8 @@ import java.time.temporal.ChronoUnit;
 import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
 
 @Controller
-@RequestMapping("/vdf")
+//@RequestMapping("/vdf")
+@RequestMapping
 public class VdfController {
 
     private final AppUri appUri;
@@ -33,7 +34,7 @@ public class VdfController {
         this.vdfUnicornRepository = vdfUnicornRepository;
     }
 
-    @GetMapping
+    @GetMapping("/combination")
     public ModelAndView home() {
         ModelAndView mv = new ModelAndView("vdf-combination/index");
 
@@ -52,9 +53,9 @@ public class VdfController {
         return mv;
     }
 
-    @GetMapping("/public")
+    @GetMapping("/unicorn")
     public ModelAndView homeClassic() {
-        ModelAndView mv = new ModelAndView("vdf-public/index");
+        ModelAndView mv = new ModelAndView("vdf-unicorn/index");
 
         mv.addObject("uri", appUri.getUri());
 

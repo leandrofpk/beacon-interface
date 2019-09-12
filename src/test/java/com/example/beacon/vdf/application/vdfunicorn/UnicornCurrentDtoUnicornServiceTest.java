@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource("classpath:application-test.properties")
-public class VdfUnicornServiceTest {
+public class UnicornCurrentDtoUnicornServiceTest {
 
     @Autowired
     VdfUnicornService vdfUnicornService;

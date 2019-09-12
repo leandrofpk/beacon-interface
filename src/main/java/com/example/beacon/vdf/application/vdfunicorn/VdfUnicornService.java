@@ -5,11 +5,13 @@ import com.example.beacon.shared.CriptoUtilService;
 import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.SubmissionTime;
 import com.example.beacon.vdf.VdfSloth;
+import com.example.beacon.vdf.application.VdfSeedDto;
 import com.example.beacon.vdf.application.combination.StatusEnum;
 import com.example.beacon.vdf.application.combination.VdfSerialize;
 import com.example.beacon.vdf.application.combination.dto.SeedUnicordCombinationVo;
 import com.example.beacon.vdf.infra.entity.VdfUnicornEntity;
 import com.example.beacon.vdf.infra.entity.VdfUnicornSeedEntity;
+import com.example.beacon.vdf.infra.util.DateUtil;
 import com.example.beacon.vdf.repository.VdfUnicornRepository;
 import com.example.beacon.vdf.sources.SeedBuilder;
 import com.example.beacon.vdf.sources.SeedSourceDto;
@@ -111,13 +113,25 @@ public class VdfUnicornService {
         this.timestamp = getTimestampOfNextRun(ZonedDateTime.now());
     }
 
-    public Vdf getCurrentVdf(){
-        Vdf vdf = new Vdf();
-        vdf.setStatusEnum(this.statusEnum.getDescription());
-        vdf.setCurrentHash(this.seedList.get(seedList.size() - 1).getCumulativeHash());
+    public UnicornCurrentDto getUnicornState(){
+        UnicornCurrentDto unicornCurrentDto = new UnicornCurrentDto();
+        unicornCurrentDto.setStatusEnum(this.statusEnum.getDescription());
+//        unicornCurrentDto.setCurrentHash(this.seedList.get(seedList.size() - 1).getCumulativeHash());
         //TODO Verificar o horário
-        vdf.setSubmissionTime(new SubmissionTime(this.timestamp, 15));
-        return vdf;
+        unicornCurrentDto.setStart(this.timestamp);
+        unicornCurrentDto.setEnd(this.timestamp);
+
+        ZonedDateTime nextRun = getTimestampOfNextRun(ZonedDateTime.now());
+        long minutesForNextRun = DateUtil.getMinutesForNextRun(ZonedDateTime.now(), nextRun);
+        unicornCurrentDto.setNextRunInMinutes(minutesForNextRun);
+
+        this.seedList.forEach(s ->
+                unicornCurrentDto.addSeed(new VdfSeedDto(s.getSeed(),
+                        DateUtil.getTimeStampFormated(s.getTimeStamp()),
+                        s.getDescription(), s.getUri(),
+                        s.getCumulativeHash())));
+
+        return unicornCurrentDto;
     }
 
     private SeedUnicordCombinationVo calcSeedConcat(SeedPostDto dtoNew, List<SeedUnicordCombinationVo> seedList, ZonedDateTime now) {

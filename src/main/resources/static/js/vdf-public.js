@@ -1,6 +1,6 @@
 $(document).ready(function() {
     getCurrent();
-    setInterval(function(){ getCurrent(); }, 10000);
+    // setInterval(function(){ getCurrent(); }, 10000);
 });
 
 function getCurrent() {

@@ -26,14 +26,9 @@ public class VdfSloth {
     }
 
     private static BigInteger mod_sqrt_op(BigInteger x, BigInteger p) {
-        if (quad_res(x, p)){
-//            pass
-            return new BigInteger("0");
-        } else {
-            BigInteger pmais1duv4 = p.add(BIG_INT_UM).divide( BIG_INT_QUATRO);
-            BigInteger y = x.modPow(pmais1duv4,p);
-            return y ;
-        }
+         BigInteger pmais1duv4 = p.add(BIG_INT_UM).divide( BIG_INT_QUATRO);
+         BigInteger y = x.modPow(pmais1duv4,p);
+         return y ;
     }
 
     private static boolean quad_res(BigInteger x, BigInteger p) {
