@@ -4,7 +4,7 @@ $(document).ready(function() {
 
 function getLastPulse() {
     $.ajax({
-        url: "/beacon/2.0/pulse/vdf/last",
+        url: "/beacon/2.0/combination/last",
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -19,7 +19,7 @@ function getLastPulse() {
 
 function getFirstPulse() {
     $.ajax({
-        url: "/beacon/2.0/pulse/vdf/first",
+        url: "/beacon/2.0/combination/first",
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -34,7 +34,7 @@ function getFirstPulse() {
 
 function getPreviousPulse() {
     $.ajax({
-        url: "/beacon/2.0/pulse/vdf/previous/" + document.getElementById("input-datetime").value ,
+        url: "/beacon/2.0/combination/previous/" + document.getElementById("input-datetime").value ,
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -49,7 +49,7 @@ function getPreviousPulse() {
 
 function getNextPulse() {
     $.ajax({
-        url: "/beacon/2.0/pulse/vdf/next/" + document.getElementById("input-datetime").value,
+        url: "/beacon/2.0/combination/next/" + document.getElementById("input-datetime").value,
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -103,6 +103,9 @@ function atualizarRecord(data) {
 
     lista += '<tr><td>Time:</td>';
     lista += '<td>' + pulse.timeStamp + '</td></tr>';
+
+    lista += '<tr><td>Vdf p:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.sloth.p + '</td></tr>';
 
     lista += '<tr><td>Vdf x:</td>';
     lista += '<td style="word-break: break-word">' + pulse.sloth.x + '</td></tr>';

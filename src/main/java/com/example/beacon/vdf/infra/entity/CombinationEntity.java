@@ -37,6 +37,8 @@ public class CombinationEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "combinationEntity", cascade = CascadeType.ALL)
     private List<CombinationSeedEntity> seedList = new ArrayList<>();
 
+    private String p;
+
     private String x;
 
     private String y;

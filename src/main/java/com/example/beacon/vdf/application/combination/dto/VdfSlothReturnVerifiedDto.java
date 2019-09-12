@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT ,use = JsonTypeInfo.Id.NAME)
 public class VdfSlothReturnVerifiedDto {
 
+    private String p;
+
     private String y;
 
     private String x;
@@ -19,7 +21,8 @@ public class VdfSlothReturnVerifiedDto {
 
     private boolean verified;
 
-    public VdfSlothReturnVerifiedDto(String x, String y, int iterations, boolean verified) {
+    public VdfSlothReturnVerifiedDto(String p, String x, String y, int iterations, boolean verified) {
+        this.p = p;
         this.x = x;
         this.y = y;
         this.iterations = iterations;

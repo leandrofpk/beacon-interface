@@ -86,41 +86,41 @@
           <br>
 
           <strong>Previous Pulse: </strong> <br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/previous/&lt;timestamp&gt; <br>
+          <span th:text="${uri}"></span>/beacon/2.0/combination/previous/&lt;timestamp&gt; <br>
           <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/previous/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/pulse/vdf/previous/${timestampPrevious}|"></a>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/combination/previous/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/combination/previous/${timestampPrevious}|"></a>
           </span>
 
           <br><br>
 
           <strong>Next Pulse:</strong><br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/next/&lt;timestamp&gt; <br>
+          <span th:text="${uri}"></span>/beacon/2.0/combination/next/&lt;timestamp&gt; <br>
           <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/next/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/pulse/vdf/next/${timestampPrevious}|"></a>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/combination/next/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/combination/next/${timestampPrevious}|"></a>
           </span>
 
           <br><br>
 
           <strong>Last Available Pulse:</strong><br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/last <br>
+          <span th:text="${uri}"></span>/beacon/2.0/combination/last <br>
           <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/last}" th:text="|${uri}/beacon/2.0/pulse/vdf/last|"></a>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/combination/last}" th:text="|${uri}/beacon/2.0/combination/last|"></a>
           </span>
 
           <br><br>
 
           <strong>First Pulse:</strong><br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/first<br>
+          <span th:text="${uri}"></span>/beacon/2.0/combination/first<br>
           <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/first}" th:text="|${uri}/beacon/2.0/pulse/vdf/first|"></a>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/combination/first}" th:text="|${uri}/beacon/2.0/combination/first|"></a>
           </span>
 
           <br><br>
 
           <strong>Verify Pulse:</strong><br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/verify?y=&lt;Y&gt;&x=&lt;X&gt;&iterations=&lt;iterations&gt;<br>
+          <span th:text="${uri}"></span>/beacon/2.0/combination/verify?y=&lt;Y&gt;&x=&lt;X&gt;&iterations=&lt;iterations&gt;<br>
           <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/verify} + ${linkVerify}" th:text="|${uri}/beacon/2.0/pulse/vdf/verify${linkVerify}|"></a>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/combination/verify} + ${linkVerify}" th:text="|${uri}/beacon/2.0/combination/verify${linkVerify}|"></a>
           </span>
 
          <br><br>
@@ -237,7 +237,7 @@
 
   <!-- beacon -->
   <script th:src="@{/vendor/bootstrap/js/bootstrap-datetimepicker.min.js}"></script>
-  <script th:src="@{js/vdf-pulse.js}"></script>
+  <script th:src="@{js/vdf-combination.js}"></script>
 </body>
 
 </html>

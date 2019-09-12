@@ -18,7 +18,7 @@ import java.time.format.DateTimeParseException;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
-@RequestMapping(value = "/beacon/2.0/pulse/vdf/", produces= MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/beacon/2.0/combination/", produces= MediaType.APPLICATION_JSON_VALUE)
 public class CombinationResource {
 
     private final CombinationRepository combinationRepository;
@@ -127,6 +127,7 @@ public class CombinationResource {
     }
 
     private VdfPulseDto convertToDto(CombinationEntity entity){
+
         VdfPulseDto dto = new VdfPulseDto();
 
         dto.setCertificateId(entity.getCertificateId());
@@ -143,7 +144,7 @@ public class CombinationResource {
                                 s.getDescription(), s.getUri(),
                                 s.getCumulativeHash())));
 
-        dto.setSlothDto(new VdfSlothDto(entity.getX(), entity.getY(), entity.getIterations()));
+        dto.setSlothDto(new VdfSlothDto(entity.getP(), entity.getX(), entity.getY(), entity.getIterations()));
 
         return dto;
     }

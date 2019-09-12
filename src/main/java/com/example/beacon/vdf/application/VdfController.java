@@ -1,10 +1,10 @@
 package com.example.beacon.vdf.application;
 
 import com.example.beacon.interfac.infra.AppUri;
-import com.example.beacon.vdf.infra.entity.VdfUnicornEntity;
 import com.example.beacon.vdf.infra.entity.CombinationEntity;
-import com.example.beacon.vdf.repository.VdfUnicornRepository;
+import com.example.beacon.vdf.infra.entity.VdfUnicornEntity;
 import com.example.beacon.vdf.repository.CombinationRepository;
+import com.example.beacon.vdf.repository.VdfUnicornRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,7 +17,6 @@ import java.time.temporal.ChronoUnit;
 import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
 
 @Controller
-//@RequestMapping("/vdf")
 @RequestMapping
 public class VdfController {
 
@@ -40,7 +39,8 @@ public class VdfController {
 
         mv.addObject("uri", appUri.getUri());
 
-        CombinationEntity previous = combinationRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
+        Long maxId = combinationRepository.findMaxId();
+        CombinationEntity previous = combinationRepository.findByPulseIndex(--maxId);
 
         if (previous != null) {
             mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));

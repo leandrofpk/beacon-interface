@@ -15,13 +15,15 @@ import java.math.BigInteger;
 @RestController
 class VdfVerifyerResource {
 
-    @GetMapping("/beacon/2.0/pulse/vdf/verify")
+    private final String p = "9325099249067051137110237972241325094526304716592954055103859972916682236180445434121127711536890366634971622095209473411013065021251467835799907856202363";
+
+    @GetMapping("/beacon/2.0/combination/verify")
     ResponseEntity verify(@RequestParam(name = "y") String y,
                           @RequestParam(name = "x") String x,
                           @RequestParam(name = "iterations") int iterations){
 
         boolean verified = VdfSloth.mod_verif(new BigInteger(y), new BigInteger(x), iterations);
-        return new ResponseEntity(new VdfSlothReturnVerifiedDto(y, x, iterations, verified), HttpStatus.OK);
+        return new ResponseEntity(new VdfSlothReturnVerifiedDto(p,y, x, iterations, verified), HttpStatus.OK);
     }
 
 }

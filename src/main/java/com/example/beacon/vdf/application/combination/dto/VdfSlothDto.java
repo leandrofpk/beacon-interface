@@ -7,13 +7,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class VdfSlothDto {
 
+    private String p;
+
     private String x;
 
     private String y;
 
     private int iterations;
 
-    public VdfSlothDto(String x, String y, int iterations) {
+    public VdfSlothDto(String p, String x, String y, int iterations) {
+        this.p = p;
         this.x = x;
         this.y = y;
         this.iterations = iterations;

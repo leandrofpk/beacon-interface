@@ -39,7 +39,7 @@ public class LoadCertificateFromUriServiceTest {
         assertEquals("X.509", publicKey.getFormat());
     }
 
-    @Test
+//    @Test
     public void validatePulse() throws Exception {
         Security.addProvider(new BouncyCastleProvider());
 

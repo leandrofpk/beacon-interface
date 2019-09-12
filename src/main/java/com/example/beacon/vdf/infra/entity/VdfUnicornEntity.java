@@ -35,6 +35,8 @@ public class VdfUnicornEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "vdfUnicornEntity", cascade = CascadeType.ALL)
     private List<VdfUnicornSeedEntity> seedList = new ArrayList<>();
 
+    private String p;
+
     private String x;
 
     private String y;

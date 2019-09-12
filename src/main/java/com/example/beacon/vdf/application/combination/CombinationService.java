@@ -109,6 +109,7 @@ public class CombinationService {
         combinationEntity.setCombination(env.getProperty("vdf.combination").toUpperCase());
         combinationEntity.setPeriod(Integer.parseInt(env.getProperty("beacon.combination.period")));
 
+        combinationEntity.setP("9325099249067051137110237972241325094526304716592954055103859972916682236180445434121127711536890366634971622095209473411013065021251467835799907856202363");
         combinationEntity.setX(x.toString());
         combinationEntity.setY(y.toString());
         combinationEntity.setIterations(iterations);

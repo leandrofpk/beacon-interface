@@ -165,6 +165,7 @@ public class VdfUnicornService {
         unicornEntity.setCipherSuite(0);
         unicornEntity.setPeriod(Integer.parseInt(env.getProperty("vdf.public.period")));
 
+        unicornEntity.setP("9325099249067051137110237972241325094526304716592954055103859972916682236180445434121127711536890366634971622095209473411013065021251467835799907856202363");
         unicornEntity.setX(x.toString());
         unicornEntity.setY(y.toString());
         unicornEntity.setIterations(iterations);
