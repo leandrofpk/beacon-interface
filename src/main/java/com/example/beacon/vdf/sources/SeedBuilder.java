@@ -39,16 +39,15 @@ public class SeedBuilder {
     }
 
     // VDF / Unicorn
-    public List<SeedSourceDto> getPreDefSeedUnicord(){
+    public List<SeedSourceDto> getPreDefSeedUnicorn(){
         seedList.clear();
         seedList.add(context.getBean(SeedLocalRng.class).getSeed());
         return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 
-    public List<SeedSourceDto> getHonestPartyUnicord(){
+    public List<SeedSourceDto> getHonestPartyUnicorn(){
         seedList.clear();
-//        seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
-        seedList.add(context.getBean(SeedLocalRng.class).getSeed());
+        seedList.add(context.getBean(SeedLocalPrecommitmentUnicorn.class).getSeed());
         return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 }

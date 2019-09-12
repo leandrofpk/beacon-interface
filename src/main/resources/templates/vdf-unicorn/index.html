@@ -112,6 +112,24 @@
 
           <br><br>
 
+
+          <strong>Post a value:</strong><br>
+          <strong>URI: </strong> <span th:text="${uri}"></span>beacon/2.0/pulse/vdf/public<br>
+          <strong>Method: </strong>POST
+          <br>
+          <strong>Content-Type: </strong>Content-Type: application/json
+          <br>
+
+          <strong>Body:</strong>
+          <p>
+            {
+            "seed": "myseedValue",
+            "description": "my description"
+            }
+          </p>
+
+          <br><br>
+
           If a request for a Pulse results in no Pulse found, a 404 response is returned. <br>
           If a request for a Pulse is not in RFC 3339 format, a 400 (BAD REQUEST) is returned.
           </p>
@@ -141,7 +159,7 @@
                     <p class="card-text"><strong>Current hash:</strong><span id="spanCurrentHash"></span></p>
 <!--                    <p class="card-text"><strong>Output:</strong><span id="spanOutput"></span></p>-->
 <!--                    <p class="card-text"><strong>See details:</strong><span id="spanOutput"></span></p>-->
-                    <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Post a new value</a>
                   </div>
                 </div>
 
@@ -153,37 +171,40 @@
             </div>
             <div class="card-body">
 
-              <strong>URI: </strong> <span th:text="${uri}"></span>beacon/2.0/pulse/vdf/public<br>
-              <strong>Method: </strong>POST
-              <br>
-              <strong>Content-Type: </strong>Content-Type: application/json
-              <br>
 
-              <strong>Body:</strong>
-              <p>
-              {
-                "seed": "myseedValue",
-                "description": "my description"
-              }
-              </p>
+
+<!--              <strong>URI: </strong> <span th:text="${uri}"></span>beacon/2.0/pulse/vdf/public<br>-->
+<!--              <strong>Method: </strong>POST-->
+<!--              <br>-->
+<!--              <strong>Content-Type: </strong>Content-Type: application/json-->
+<!--              <br>-->
+
+<!--              <strong>Body:</strong>-->
+<!--              <p>-->
+<!--              {-->
+<!--                "seed": "myseedValue",-->
+<!--                "description": "my description"-->
+<!--              }-->
+<!--              </p>-->
 
 <!--              <h5 class="card-title">Submissions: [<span id="spanStatus">[Status]</span>]</h5>-->
 
                 <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
                 <!--                    <a href="#" class="btn btn-primary">Show previous numbers</a>-->
 
-<!--              <div>-->
-<!--                <table class="table">-->
-<!--                  <thead>-->
-<!--                    <tr>-->
-<!--                      <th scope="col">Seed</th>-->
-<!--                      <th scope="col">Uri</th>-->
-<!--                    </tr>-->
-<!--                  </thead>-->
-<!--                  <tbody id="table_seed">-->
-<!--                  </tbody>-->
-<!--                </table>-->
-<!--              </div>-->
+              <div>
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Timestamp</th>
+                      <th scope="col">Seed</th>
+                      <th scope="col">Uri</th>
+                    </tr>
+                  </thead>
+                  <tbody id="table_seed">
+                  </tbody>
+                </table>
+              </div>
 
             </div>
           </div>
@@ -193,6 +214,39 @@
         </div>
 
       </div>
+
+<!--  MODAL  INICIO  -->
+
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <input type="email" class="form-control" id="formSeed" placeholder="seed">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" id="formUri" placeholder="uri (optional)">
+              </div>
+
+            </div>
+            <div class="modal-footer">
+<!--              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
+              <button type="button" class="btn btn-primary" onclick="sendForm(this);">Save changes</button>
+<!--              <button type="button" class="btn btn-primary">Save changes</button>-->
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+<!--  MODAL FIM   -->
 
     </div>
   </section>
@@ -229,7 +283,7 @@
 
   <!-- beacon -->
   <script th:src="@{/vendor/bootstrap/js/bootstrap-datetimepicker.min.js}"></script>
-  <script th:src="@{/js/vdf-public.js}"></script>
+  <script th:src="@{/js/vdf-unicorn.js}"></script>
 </body>
 
 </html>

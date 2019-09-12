@@ -32,6 +32,8 @@ public class VdfUnicornEntity {
 
     private int period;
 
+    private String combination;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "vdfUnicornEntity", cascade = CascadeType.ALL)
     private List<VdfUnicornSeedEntity> seedList = new ArrayList<>();
 

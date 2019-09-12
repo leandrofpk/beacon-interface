@@ -1,6 +1,7 @@
 package com.example.beacon.vdf.application.vdfunicorn;
 
 import com.example.beacon.vdf.application.VdfSeedDto;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.List;
 @Data @NoArgsConstructor @AllArgsConstructor
 public class UnicornCurrentDto {
 
+    @JsonProperty("status")
     private String statusEnum;
     private ZonedDateTime start;
     private ZonedDateTime end;

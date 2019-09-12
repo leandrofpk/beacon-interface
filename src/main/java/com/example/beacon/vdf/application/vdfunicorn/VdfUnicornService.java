@@ -64,7 +64,7 @@ public class VdfUnicornService {
         this.statusEnum = StatusEnum.OPEN;
         this.timestamp = getCurrentTrucatedZonedDateTime();
 
-        List<SeedSourceDto> preDefinedSeeds = seedBuilder.getPreDefSeedUnicord();
+        List<SeedSourceDto> preDefinedSeeds = seedBuilder.getPreDefSeedUnicorn();
         preDefinedSeeds.forEach(dto -> {
             this.seedList.add(
                     calcSeedConcat(new SeedPostDto(dto.getSeed(),
@@ -83,7 +83,7 @@ public class VdfUnicornService {
 
     public void endTimeSlot() throws Exception {
         this.statusEnum = StatusEnum.RUNNING;
-        List<SeedSourceDto> honestSeeds = seedBuilder.getHonestPartyUnicord();
+        List<SeedSourceDto> honestSeeds = seedBuilder.getHonestPartyUnicorn();
         honestSeeds.forEach(dto -> {
             this.seedList.add(
                     calcSeedConcat(new SeedPostDto(dto.getSeed(),
@@ -163,7 +163,9 @@ public class VdfUnicornService {
         unicornEntity.setTimeStamp(this.timestamp);
         unicornEntity.setCertificateId(this.certificateId);
         unicornEntity.setCipherSuite(0);
-        unicornEntity.setPeriod(Integer.parseInt(env.getProperty("vdf.public.period")));
+        unicornEntity.setCombination(env.getProperty("vdf.combination").toUpperCase());
+        unicornEntity.setPeriod(Integer.parseInt(env.getProperty("beacon.unicorn.period")));
+
 
         unicornEntity.setP("9325099249067051137110237972241325094526304716592954055103859972916682236180445434121127711536890366634971622095209473411013065021251467835799907856202363");
         unicornEntity.setX(x.toString());

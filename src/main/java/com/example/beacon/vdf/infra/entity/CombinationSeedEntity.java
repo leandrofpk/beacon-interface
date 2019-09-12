@@ -9,7 +9,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "combination_seed")
+@Table(name = "vdf_combination_seed")
 @NoArgsConstructor
 @AllArgsConstructor
 public class CombinationSeedEntity {

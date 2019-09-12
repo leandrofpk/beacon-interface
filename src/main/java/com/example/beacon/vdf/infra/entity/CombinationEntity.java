@@ -11,7 +11,7 @@ import java.util.List;
 
 @Entity
 @Data
-@Table(name = "combination")
+@Table(name = "vdf_combination")
 @NoArgsConstructor
 @AllArgsConstructor
 public class CombinationEntity {
