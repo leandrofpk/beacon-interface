@@ -166,7 +166,7 @@ public class VdfUnicornService {
 
         VdfUnicornEntity unicornEntity = new VdfUnicornEntity();
         unicornEntity.setPulseIndex(maxPulseIndex);
-        unicornEntity.setTimeStamp(this.timestamp);
+        unicornEntity.setTimeStamp(this.timestamp.truncatedTo(ChronoUnit.MINUTES));
         unicornEntity.setCertificateId(this.certificateId);
         unicornEntity.setCipherSuite(0);
         unicornEntity.setCombination(env.getProperty("vdf.combination").toUpperCase());
