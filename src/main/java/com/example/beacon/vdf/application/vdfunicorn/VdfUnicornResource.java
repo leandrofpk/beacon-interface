@@ -21,7 +21,7 @@ import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
-@RequestMapping(value = "/beacon/2.0/pulse/vdf/public", produces= MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/beacon/2.0/vdf/unicorn", produces= MediaType.APPLICATION_JSON_VALUE)
 public class VdfUnicornResource {
 
     private final VdfUnicornService vdfUnicornService;
@@ -38,7 +38,6 @@ public class VdfUnicornResource {
     @GetMapping("/current")
     public ResponseEntity submission(){
         try {
-//            VdfPulseDto dto = converterCurrent(vdfUnicornService.getCurrentVdf());
             UnicornCurrentDto dto = vdfUnicornService.getUnicornState();
 
             return new ResponseEntity(dto, HttpStatus.OK);

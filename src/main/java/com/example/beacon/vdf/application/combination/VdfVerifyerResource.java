@@ -26,4 +26,13 @@ class VdfVerifyerResource {
         return new ResponseEntity(new VdfSlothReturnVerifiedDto(p,y, x, iterations, verified), HttpStatus.OK);
     }
 
+    @GetMapping("/beacon/2.0/vdf/unicorn/verify")
+    ResponseEntity verifyUnicorn(@RequestParam(name = "y") String y,
+                          @RequestParam(name = "x") String x,
+                          @RequestParam(name = "iterations") int iterations){
+
+        boolean verified = VdfSloth.mod_verif(new BigInteger(y), new BigInteger(x), iterations);
+        return new ResponseEntity(new VdfSlothReturnVerifiedDto(p,y, x, iterations, verified), HttpStatus.OK);
+    }
+
 }

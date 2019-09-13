@@ -3,7 +3,6 @@ package com.example.beacon.vdf.application.vdfunicorn;
 import com.example.beacon.shared.CipherSuiteBuilder;
 import com.example.beacon.shared.CriptoUtilService;
 import com.example.beacon.shared.ICipherSuite;
-import com.example.beacon.vdf.SubmissionTime;
 import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.application.VdfSeedDto;
 import com.example.beacon.vdf.application.combination.StatusEnum;
@@ -22,12 +21,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.security.PrivateKey;
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.example.beacon.vdf.infra.util.DateUtil.getCurrentTrucatedZonedDateTime;
-import static com.example.beacon.vdf.infra.util.DateUtil.getTimestampOfNextRun;
+import static com.example.beacon.vdf.infra.util.DateUtil.*;
 
 @Service
 public class VdfUnicornService {
@@ -116,14 +116,21 @@ public class VdfUnicornService {
     public UnicornCurrentDto getUnicornState(){
         UnicornCurrentDto unicornCurrentDto = new UnicornCurrentDto();
         unicornCurrentDto.setStatusEnum(this.statusEnum.getDescription());
-//        unicornCurrentDto.setCurrentHash(this.seedList.get(seedList.size() - 1).getCumulativeHash());
+
+        if (!this.seedList.isEmpty()){
+            unicornCurrentDto.setCurrentHash(this.seedList.get(seedList.size() - 1).getCumulativeHash());
+        }
+
         //TODO Verificar o horário
-        unicornCurrentDto.setStart(this.timestamp);
-        unicornCurrentDto.setEnd(this.timestamp);
+        unicornCurrentDto.setStart(getTimeStampFormated(this.timestamp));
+
 
         ZonedDateTime nextRun = getTimestampOfNextRun(ZonedDateTime.now());
         long minutesForNextRun = DateUtil.getMinutesForNextRun(ZonedDateTime.now(), nextRun);
         unicornCurrentDto.setNextRunInMinutes(minutesForNextRun);
+
+        DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(15, ChronoUnit.MINUTES);
+        unicornCurrentDto.setEnd(getTimeStampFormated(DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(15, ChronoUnit.MINUTES)));
 
         this.seedList.forEach(s ->
                 unicornCurrentDto.addSeed(new VdfSeedDto(s.getSeed(),

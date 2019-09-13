@@ -62,7 +62,16 @@
   <section id="about">
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 mx-auto">
+        <div class="col-lg-12 mx-auto">
+
+          <div class="alert alert-success" role="alert"  th:if="${not #strings.isEmpty(message)}">
+            <span th:text="${message}"></span>
+          </div>
+
+          <div class="alert alert-danger" role="alert"  th:if="${not #strings.isEmpty(error)}">
+            <span th:text="${error}"></span>
+          </div>
+
           <h2>About this page</h2>
           <p class="lead">This is the prototype of a beacon combination service using VDF.
               There are 3 possible states. First, allowed submissions. Second, in processing. Third, finalized</p>
@@ -73,9 +82,9 @@
           <br>
 
           <strong>Previous Pulse: </strong> <br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/previous/&lt;timestamp&gt; <br>
+          <span th:text="${uri}"></span>/beacon/2.0/vdf/unicorn/previous/&lt;timestamp&gt; <br>
           <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/public/previous/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/pulse/vdf/public/previous/${timestampPrevious}|"></a>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/vdf/unicorn/previous/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/vdf/unicorn/previous/${timestampPrevious}|"></a>
           </span>
 
           <br><br>
@@ -83,23 +92,23 @@
           <strong>Next Pulse:</strong><br>
           <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/next/&lt;timestamp&gt; <br>
           <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/public/next/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/pulse/vdf/public/next/${timestampPrevious}|"></a>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/vdf/unicorn/next/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/vdf/unicorn/next/${timestampPrevious}|"></a>
           </span>
 
           <br><br>
 
           <strong>Last Available Pulse:</strong><br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/last <br>
+          <span th:text="${uri}"></span>/beacon/2.0/vdf/unicorn/last <br>
           <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/public/last}" th:text="|${uri}/beacon/2.0/pulse/vdf/public/last|"></a>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/vdf/unicorn/last}" th:text="|${uri}/beacon/2.0/vdf/unicorn/last|"></a>
           </span>
 
           <br><br>
 
           <strong>First Pulse:</strong><br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/first<br>
+          <span th:text="${uri}"></span>/beacon/2.0/vdf/unicorn/first<br>
           <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/public/first}" th:text="|${uri}/beacon/2.0/pulse/vdf/public/first|"></a>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/vdf/unicorn/first}" th:text="|${uri}/beacon/2.0/vdf/unicorn/first|"></a>
           </span>
 
           <br><br>
@@ -107,14 +116,14 @@
           <strong>Verify Pulse:</strong><br>
           <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/verify?y=&lt;Y&gt;&x=&lt;X&gt;&iterations=&lt;iterations&gt;<br>
           <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/vdf/public/verify} + ${linkVerify}" th:text="|${uri}/beacon/2.0/pulse/vdf/verify${linkVerify}|"></a>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/vdf/unicorn/verify} + ${linkVerify}" th:text="|${uri}/beacon/2.0/vdf/unicorn/verify${linkVerify}|"></a>
           </span>
 
           <br><br>
 
 
           <strong>Post a value:</strong><br>
-          <strong>URI: </strong> <span th:text="${uri}"></span>beacon/2.0/pulse/vdf/public<br>
+          <strong>URI: </strong> <span th:text="${uri}"></span>beacon/2.0/vdf/unicorn<br>
           <strong>Method: </strong>POST
           <br>
           <strong>Content-Type: </strong>Content-Type: application/json
@@ -143,7 +152,7 @@
   <section id="prototype" class="bg-light">
     <div class="container">
       <div class="row">
-        <div class="col-lg-8 mx-auto">
+        <div class="col-lg-12 mx-auto">
           <h2>Prototype</h2>
 
             <div class="card">
@@ -159,7 +168,12 @@
                     <p class="card-text"><strong>Current hash:</strong><span id="spanCurrentHash"></span></p>
 <!--                    <p class="card-text"><strong>Output:</strong><span id="spanOutput"></span></p>-->
 <!--                    <p class="card-text"><strong>See details:</strong><span id="spanOutput"></span></p>-->
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Post a new value</a>
+                    <a th:href="@{/beacon/2.0/unicorn/seeds/new}" class="btn btn-primary">Post a new value</a>
+
+<!--                    <a class="btn  btn-link  btn-xs" title="Editar perfil" aria-label="Editar perfil" th:href="@{/cadastro/passo-1/{id}(id=${ep.id + '/editar'})}">-->
+<!--                      <i class="glyphicon glyphicon-user" aria-hidden="true"></i>-->
+<!--                    </a>-->
+
                   </div>
                 </div>
 
@@ -167,30 +181,9 @@
 
           <div class="card">
             <div class="card-header">
-              Post seed value
+              Seed List
             </div>
             <div class="card-body">
-
-
-
-<!--              <strong>URI: </strong> <span th:text="${uri}"></span>beacon/2.0/pulse/vdf/public<br>-->
-<!--              <strong>Method: </strong>POST-->
-<!--              <br>-->
-<!--              <strong>Content-Type: </strong>Content-Type: application/json-->
-<!--              <br>-->
-
-<!--              <strong>Body:</strong>-->
-<!--              <p>-->
-<!--              {-->
-<!--                "seed": "myseedValue",-->
-<!--                "description": "my description"-->
-<!--              }-->
-<!--              </p>-->
-
-<!--              <h5 class="card-title">Submissions: [<span id="spanStatus">[Status]</span>]</h5>-->
-
-                <!--                    <a href="#" class="btn btn-primary">Go somewhere</a>-->
-                <!--                    <a href="#" class="btn btn-primary">Show previous numbers</a>-->
 
               <div>
                 <table class="table">
@@ -198,6 +191,7 @@
                     <tr>
                       <th scope="col">Timestamp</th>
                       <th scope="col">Seed</th>
+                      <th scope="col">Description</th>
                       <th scope="col">Uri</th>
                     </tr>
                   </thead>
@@ -215,70 +209,15 @@
 
       </div>
 
-<!--  MODAL  INICIO  -->
-
-      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="form-group">
-                <input type="email" class="form-control" id="formSeed" placeholder="seed">
-              </div>
-              <div class="form-group">
-                <input type="email" class="form-control" id="formUri" placeholder="uri (optional)">
-              </div>
-
-            </div>
-            <div class="modal-footer">
-<!--              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>-->
-              <button type="button" class="btn btn-primary" onclick="sendForm(this);">Save changes</button>
-<!--              <button type="button" class="btn btn-primary">Save changes</button>-->
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-<!--  MODAL FIM   -->
-
     </div>
   </section>
 
-  <section id="contact">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto">
-          <h2>Contact us</h2>
-<!--          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>-->
-          <p class="lead"><a href="mailto:lainf@inmetro.gov.br">Inmetro Technology Lab.</a><br>Instituto Nacional de Metrologia e qualidade INMETRO</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div th:replace="fragments/contact :: contact">&copy; 2016 The Static Templates</div>
+  <div th:replace="fragments/footer :: footer">&copy; 2016 The Static Templates</div>
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Inmetro &copy; 1993 - 2019.  Todos os direitos reservados</p>
-    </div>
-    <!-- /.container -->
-  </footer>
-
-  <!-- Bootstrap core JavaScript -->
   <script th:src="@{/vendor/jquery/jquery.min.js}"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Plugin JavaScript -->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom JavaScript for this theme -->
   <script src="js/scrolling-nav.js"></script>
 
   <!-- beacon -->

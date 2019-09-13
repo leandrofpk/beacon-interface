@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +14,8 @@ public class UnicornCurrentDto {
 
     @JsonProperty("status")
     private String statusEnum;
-    private ZonedDateTime start;
-    private ZonedDateTime end;
+    private String start;
+    private String end;
     private List<VdfSeedDto> seedList = new ArrayList<>();
     private String currentHash;
     private long nextRunInMinutes;

@@ -59,7 +59,9 @@ public class VdfController {
 
         mv.addObject("uri", appUri.getUri());
 
-        VdfUnicornEntity previous = vdfUnicornRepository.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
+        Long maxId = vdfUnicornRepository.findMaxId();
+        VdfUnicornEntity previous = vdfUnicornRepository.findByPulseIndex(--maxId);
+
 
         if (previous != null) {
             mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));

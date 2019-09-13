@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Brazilian Beacon</title>
+
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link th:href="@{/css/scrolling-nav.css}" rel="stylesheet">
+
+    <!-- datetimepicker  -->
+    <link th:href="@{/vendor/bootstrap/css/bootstrap-datetimepicker.min.css}" rel="stylesheet">
+    <link th:href="@{/css/beacon.css}" rel="stylesheet">
+
+
+</head>
+
+<body id="page-top">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Randomness Beacon - Unicorn</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div th:replace="fragments/header-unicorn :: header-unicorn">&copy; 2016 The Static Templates</div>
+
+
+<!--<header class="bg-primary text-white">-->
+<!--    <div class="container text-center">-->
+<!--        <h1>Inmetro's VDF Applications</h1>-->
+<!--        &lt;!&ndash;      <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>&ndash;&gt;-->
+<!--        <p class="lead">Inmetro's Randomness Beacon is a web service, part of the  SICCCiber project's effort to generate reliable and public sources of random numbers</p>-->
+
+<!--        &lt;!&ndash;      Please note, this is the first beta release. More details about this project is available at <a href="https://siccciber.com.br/">SICCCiber</a> or by contacting the <a href="mailto:lainf@inmetro.gov.br">Inmetro Technology Lab</a>.&ndash;&gt;-->
+<!--    </div>-->
+<!--</header>-->
+
+<section id="prototype" class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <h2>New Seed Value</h2>
+
+
+                <div class="card">
+                    <div class="card-header">
+                        Post seed value
+                    </div>
+                    <div class="card-body">
+
+<!--                        <div class="alert alert-danger" role="alert"  th:if="${not #strings.isEmpty(message)}">-->
+<!--                            <span th:text="${message}"></span>-->
+<!--                        </div>-->
+
+                        <form action="#" th:action="@{/beacon/2.0/unicorn/seeds/new}" th:object="${seedPostDto}"
+                              method="post">
+
+                            <h2 class="text-center">Seed</h2>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="seed">Seed</label>
+                                    <input type="text" class="form-control" id="seed"
+                                           placeholder="Seed" th:field="*{seed}">
+                                </div>
+
+                                <span class="alert alert-danger" th:if="${#fields.hasErrors('seed')}"
+                                      th:errors="*{seed}"></span>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="description">Description</label>
+                                    <input type="text" class="form-control" id="description"
+                                           placeholder="Description" th:field="*{description}">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-12">
+                                    <label for="description">Uri</label>
+                                    <input type="text" class="form-control" id="uri"
+                                           placeholder="Uri" th:field="*{uri}">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary login-btn btn-block">Save</button>
+                            </div>
+                        </form>
+
+
+                    </div>
+                </div>
+
+                <!--          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>-->
+
+            </div>
+
+        </div>
+
+
+    </div>
+</section>
+
+<div th:replace="fragments/contact :: contact">&copy; 2016 The Static Templates</div>
+<div th:replace="fragments/footer :: footer">&copy; 2016 The Static Templates</div>
+
+<!-- Bootstrap core JavaScript -->
+<script th:src="@{/vendor/jquery/jquery.min.js}"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+<!-- Custom JavaScript for this theme -->
+<script src="js/scrolling-nav.js"></script>
+
+<!-- beacon -->
+<script th:src="@{/vendor/bootstrap/js/bootstrap-datetimepicker.min.js}"></script>
+<script th:src="@{/js/vdf-unicorn.js}"></script>
+</body>
+
+</html>

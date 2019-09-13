@@ -5,7 +5,7 @@ $(document).ready(function() {
 
 function getCurrent() {
     $.ajax({
-        url: "/beacon/2.0/pulse/vdf/public/current/",
+        url: "/beacon/2.0/vdf/unicorn/current/",
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -46,38 +46,9 @@ function updateSeedTable(seedList) {
         lista += '<tr>';
         lista += '<td style="word-break: break-word">' + seed.timeStamp + '</td>';
         lista += '<td style="word-break: break-word">' + seed.seed + '</td>';
+        lista += '<td style="word-break: break-word">' + seed.description + '</td>';
         lista += '<td style="word-break: break-word">' + seed.uri + '</td></tr>';
     });
 
     $('#table_seed').html(lista);
 }
-
-function sendForm(data) {
-
-    console.log(data);
-
-    console.log("AQUIi");
-
-    var seed = document.getElementById("formSeed").innerText;
-    var uri = document.getElementById("formUri");
-
-    console.log(seed);
-    console.log(uri);
-
-
-}
-
-
-// $('.exampleModal').click(function() {
-$('.exampleModal').click(function() {
-    //alert('called');
-    // we want to copy the 'id' from the button to the modal
-    var href = $(this).data('seed');
-    var id = $(this).data('uri');
-
-    // since the value of href is what we want, so I just did it like so
-    alert(href);
-    // used it as the selector for the modal
-    alert(id);
-    $(href).data('id', id);
-})

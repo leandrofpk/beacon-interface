@@ -4,13 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotEmpty;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SeedPostDto {
-    @NotNull
+    @NotEmpty(message = "this field cannot be blank")
     private String seed;
     private String description;
     private String uri;
