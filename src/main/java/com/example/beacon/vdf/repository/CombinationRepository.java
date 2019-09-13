@@ -11,10 +11,10 @@ import java.util.List;
 @Repository
 public interface CombinationRepository extends JpaRepository<CombinationEntity, Long> {
 
-    @Query(value = "SELECT * FROM combination c where c.time_stamp > ?1 order by c.time_stamp limit 1;", nativeQuery = true)
+    @Query(value = "SELECT * FROM vdf_combination c where c.time_stamp > ?1 order by c.time_stamp limit 1;", nativeQuery = true)
     CombinationEntity findNext(ZonedDateTime timeStamp);
 
-    @Query(value = "SELECT * FROM combination c where c.time_stamp < ?1 order by c.time_stamp desc limit 1;", nativeQuery = true)
+    @Query(value = "SELECT * FROM vdf_combination c where c.time_stamp < ?1 order by c.time_stamp desc limit 1;", nativeQuery = true)
     CombinationEntity findPrevious(ZonedDateTime timeStamp);
 
     @Query(value = "SELECT distinct p from CombinationEntity p left join fetch p.seedList l where p.timeStamp >= ?1 and p.timeStamp <=?2 order by p.timeStamp")

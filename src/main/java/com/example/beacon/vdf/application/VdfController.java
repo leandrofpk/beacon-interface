@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
@@ -40,7 +41,8 @@ public class VdfController {
         mv.addObject("uri", appUri.getUri());
 
         Long maxId = combinationRepository.findMaxId();
-        CombinationEntity previous = combinationRepository.findByPulseIndex(--maxId);
+        CombinationEntity byPulseIndex = combinationRepository.findByPulseIndex(maxId);
+        CombinationEntity previous = combinationRepository.findPrevious(byPulseIndex.getTimeStamp());
 
         if (previous != null) {
             mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));
@@ -60,8 +62,8 @@ public class VdfController {
         mv.addObject("uri", appUri.getUri());
 
         Long maxId = vdfUnicornRepository.findMaxId();
-        VdfUnicornEntity previous = vdfUnicornRepository.findByPulseIndex(--maxId);
-
+        VdfUnicornEntity byPulseIndex = vdfUnicornRepository.findByPulseIndex(maxId);
+        VdfUnicornEntity previous = vdfUnicornRepository.findPrevious(byPulseIndex.getTimeStamp());
 
         if (previous != null) {
             mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));
