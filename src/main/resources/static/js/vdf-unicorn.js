@@ -47,7 +47,10 @@ function updateSeedTable(seedList) {
         lista += '<td style="word-break: break-word">' + seed.timeStamp + '</td>';
         lista += '<td style="word-break: break-word">' + seed.seed + '</td>';
         lista += '<td style="word-break: break-word">' + seed.description + '</td>';
-        lista += '<td style="word-break: break-word">' + seed.uri + '</td></tr>';
+        lista += '<td style="word-break: break-word">' + seed.uri + '</td>';
+        lista += '<td style="word-break: break-word">' + seed.cumulativeHash + '</td>';
+        lista += '</tr>';
+
     });
 
     $('#table_seed').html(lista);

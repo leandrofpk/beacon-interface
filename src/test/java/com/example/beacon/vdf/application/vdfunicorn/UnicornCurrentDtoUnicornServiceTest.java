@@ -9,15 +9,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@TestPropertySource("classpath:application-test.properties")
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
+//@TestPropertySource("classpath:application-test.properties")
 public class UnicornCurrentDtoUnicornServiceTest {
 
-    @Autowired
+//    @Autowired
     VdfUnicornService vdfUnicornService;
 
-    @Test
+//    @Test
     public void startTimeSlot() throws Exception {
         vdfUnicornService.startTimeSlot();
         vdfUnicornService.addSeed(new SeedPostDto("abc", "minha contribuicao", "http://virus.com"));

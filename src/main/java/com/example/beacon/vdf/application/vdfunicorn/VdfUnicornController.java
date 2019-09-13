@@ -24,10 +24,10 @@ public class VdfUnicornController implements WebMvcConfigurer {
 
     private final SmartValidator validator;
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/unicorn").setViewName("unicorn");
-    }
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry registry) {
+//        registry.addViewController("/unicorn").setViewName("unicorn");
+//    }
 
     @Autowired
     public VdfUnicornController(VdfUnicornService vdfUnicornService, VdfUnicornRepository vdfUnicornRepository, SmartValidator validator) {

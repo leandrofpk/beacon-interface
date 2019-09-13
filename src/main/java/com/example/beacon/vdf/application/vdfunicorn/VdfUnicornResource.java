@@ -163,18 +163,6 @@ public class VdfUnicornResource {
         return new ResponseEntity("Created", HttpStatus.CREATED);
     }
 
-//    private UnicornCurrentDto converterCurrent(UnicornCurrentDto unicornCurrentDto){
-//        UnicornCurrentDto dto = new UnicornCurrentDto();
-//        dto.setStart(getTimeStampFormated(unicornCurrentDto.getSubmissionTime().getStart()));
-//        dto.setEnd(getTimeStampFormated(unicornCurrentDto.getSubmissionTime().getEnd()));
-//        dto.setStatus(unicornCurrentDto.getStatusEnum());
-//        dto.setCurrentHash(unicornCurrentDto.getCurrentHash());
-////        dto.setOutput(unicornCurrentDto.getOutput());
-//        dto.setNextRunInMinutes(DateUtil.getMinutesForNextRun(ZonedDateTime.now(), unicornCurrentDto.getSubmissionTime().getStart()));
-//        dto.setSeedList(unicornCurrentDto.getSeedList());
-//        return dto;
-//    }
-
     private VdfPulseDto convertToDto(VdfUnicornEntity entity){
         VdfPulseDto dto = new VdfPulseDto();
 
@@ -184,6 +172,7 @@ public class VdfUnicornResource {
         dto.setTimeStamp(getTimeStampFormated(entity.getTimeStamp()));
         dto.setSignatureValue(entity.getSignatureValue());
         dto.setPeriod(entity.getPeriod());
+        dto.setCombination(entity.getCombination());
 
         entity.getSeedList().forEach(s ->
                 dto.addSeed(new VdfSeedDto(s.getSeed(),

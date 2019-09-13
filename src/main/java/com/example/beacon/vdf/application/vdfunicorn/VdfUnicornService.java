@@ -76,14 +76,26 @@ public class VdfUnicornService {
     }
 
     public void addSeed(SeedPostDto dto){
-        dto.setSeed(cipherSuite.getDigest(dto.getSeed()));
         SeedUnicordCombinationVo seedUnicordCombinationVo = calcSeedConcat(dto, this.seedList,  ZonedDateTime.now());
         this.seedList.add(seedUnicordCombinationVo);
+    }
+
+    private SeedUnicordCombinationVo calcSeedConcat(SeedPostDto dtoNew, List<SeedUnicordCombinationVo> seedList, ZonedDateTime now) {
+        String currentValue = "";
+        if (seedList.size() == 0) {
+            currentValue = dtoNew.getSeed();
+        } else {
+            SeedUnicordCombinationVo lastSeed = seedList.get(seedList.size() - 1);
+            currentValue = lastSeed + dtoNew.getSeed();
+        }
+        String cumulativeDigest = cipherSuite.getDigest(currentValue);
+        return new SeedUnicordCombinationVo(dtoNew.getUri(), dtoNew.getSeed(), dtoNew.getDescription(), cumulativeDigest, now);
     }
 
     public void endTimeSlot() throws Exception {
         this.statusEnum = StatusEnum.RUNNING;
         List<SeedSourceDto> honestSeeds = seedBuilder.getHonestPartyUnicorn();
+
         honestSeeds.forEach(dto -> {
             this.seedList.add(
                     calcSeedConcat(new SeedPostDto(dto.getSeed(),
@@ -139,19 +151,6 @@ public class VdfUnicornService {
                         s.getCumulativeHash())));
 
         return unicornCurrentDto;
-    }
-
-    private SeedUnicordCombinationVo calcSeedConcat(SeedPostDto dtoNew, List<SeedUnicordCombinationVo> seedList, ZonedDateTime now) {
-//        CombinatioEnum combination = CombinatioEnum.valueOf(env.getProperty("vdf.combination").toUpperCase());
-        String currentValue = "";
-        if (seedList.size() == 0) {
-            currentValue = dtoNew.getSeed();
-        } else {
-            SeedUnicordCombinationVo lastSeed = seedList.get(seedList.size() - 1);
-            currentValue = lastSeed + dtoNew.getSeed();
-        }
-        String cumulativeDigest = cipherSuite.getDigest(currentValue);
-        return new SeedUnicordCombinationVo(dtoNew.getUri(), dtoNew.getSeed(), dtoNew.getDescription(), cumulativeDigest, now);
     }
 
     @Transactional

@@ -41,7 +41,6 @@ public class SeedBuilder {
     // VDF / Unicorn
     public List<SeedSourceDto> getPreDefSeedUnicorn(){
         seedList.clear();
-        seedList.add(context.getBean(SeedLocalRng.class).getSeed());
         return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 
