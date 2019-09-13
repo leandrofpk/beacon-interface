@@ -40,7 +40,7 @@ public class VdfUnicornSeedEntity {
         this.description = dto.getDescription();
         this.uri = dto.getUri();
         this.cumulativeHash = dto.getCumulativeHash();
-        this.timeStamp = ZonedDateTime.now();
+        this.timeStamp = dto.getTimeStamp();
         this.vdfUnicornEntity = vdfUnicornEntity;
     }
 }
