@@ -20,6 +20,10 @@ public class VdfUnicornEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String uri;
+
+    private String version;
+
     private String certificateId;
 
     private int cipherSuite;
@@ -45,8 +49,15 @@ public class VdfUnicornEntity {
 
     private int iterations;
 
+    private ZonedDateTime createdAt;
+
+
     public void addSeed(VdfUnicornSeedEntity seed){
         this.seedList.add(seed);
     }
 
+    @PrePersist
+    public void prePersist() {
+        createdAt = ZonedDateTime.now();
+    }
 }

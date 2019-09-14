@@ -164,14 +164,17 @@ public class VdfUnicornService {
             maxPulseIndex = maxPulseIndex + 1L ;
         }
 
+        String uri = env.getProperty("beacon.url") +  "/beacon/vdf/unicorn/pulse/" + maxPulseIndex;
+
         VdfUnicornEntity unicornEntity = new VdfUnicornEntity();
+        unicornEntity.setUri(uri);
+        unicornEntity.setVersion("1.0");
         unicornEntity.setPulseIndex(maxPulseIndex);
         unicornEntity.setTimeStamp(this.timestamp.truncatedTo(ChronoUnit.MINUTES));
         unicornEntity.setCertificateId(this.certificateId);
         unicornEntity.setCipherSuite(0);
         unicornEntity.setCombination(env.getProperty("vdf.combination").toUpperCase());
         unicornEntity.setPeriod(Integer.parseInt(env.getProperty("beacon.unicorn.period")));
-
 
         unicornEntity.setP("9325099249067051137110237972241325094526304716592954055103859972916682236180445434121127711536890366634971622095209473411013065021251467835799907856202363");
         unicornEntity.setX(x.toString());

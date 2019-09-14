@@ -27,6 +27,19 @@ public class CombinationResource {
         this.combinationRepository = combinationRepository;
     }
 
+    @GetMapping("pulse/{pulseIndex}")
+    public ResponseEntity byPulseIndex(@PathVariable String pulseIndex) {
+        try {
+            CombinationEntity byPulseIndex = combinationRepository.findByPulseIndex(Long.parseLong(pulseIndex));
+            if (byPulseIndex == null) {
+                return new ResponseEntity("Pulse Not Available.", HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity(convertToDto(byPulseIndex), HttpStatus.OK);
+        } catch (Exception e){
+            return new ResponseEntity("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @GetMapping("time/{timeStamp}")
     @ResponseBody
     public ResponseEntity specificTime(@PathVariable String timeStamp){
@@ -130,6 +143,8 @@ public class CombinationResource {
 
         VdfPulseDto dto = new VdfPulseDto();
 
+        dto.setUri(entity.getUri());
+        dto.setVersion(entity.getVersion());
         dto.setCertificateId(entity.getCertificateId());
         dto.setCipherSuite(entity.getCipherSuite());
         dto.setPulseIndex(entity.getPulseIndex());

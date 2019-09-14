@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 
 @Component
 @Transactional
@@ -40,29 +42,36 @@ public class VdfQueueConsumer {
 
     @RabbitListener(queues = {"pulses_combination_queue"})
     public void receiveCombination(PrecommitmentQueueDto dto) throws Exception {
-        logger.warn("PrecommitmentQueueDto received:  " + dto);
-        seedLocalPrecommitmentCombination.setPrecommitment(dto.getPrecommitment());
-        logger.warn("Start combination: " + ZonedDateTime.now());
-        combinationService.run(dto.getTimeStamp());
-        logger.warn(String.format("combination released: %s - iterations: %s",  dto.getTimeStamp(), env.getProperty("beacon.combination.iterations")));
+        ZonedDateTime parse = ZonedDateTime.parse(dto.getTimeStamp(), DateTimeFormatter.ISO_DATE_TIME);
+        ZonedDateTime now = ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+        long between = ChronoUnit.MINUTES.between(parse, now);
+        if (between==0){
+            logger.warn("PrecommitmentQueueDto received:  " + dto);
+            seedLocalPrecommitmentCombination.setPrecommitment(dto);
+            logger.warn("Start combination: " + ZonedDateTime.now());
+            combinationService.run(dto.getTimeStamp());
+            logger.warn(String.format("combination released: %s - iterations: %s",  dto.getTimeStamp(), env.getProperty("beacon.combination.iterations")));
+        } else {
+            logger.warn("Discarded:" + dto);
+        }
     }
 
-//    @RabbitListener(queues = {"pulses_unicorn_queue"})
-//    public void receiveUnicorn(PrecommitmentQueueDto dto) throws Exception {
-//        List<Integer> minutes = new ArrayList(Arrays.asList(29,31,33,35,37,39));
-//
-//        ZonedDateTime now = ZonedDateTime.now();
-//        if (!minutes.contains(now.getMinute())){
-//            return;
-//        }
-//
-//        if (!vdfUnicornService.isOpen()){
-//            return;
-//        }
-//
-//        seedLocalPrecommitmentUnicorn.setPrecommitment(dto.getPrecommitment());
-//        vdfUnicornService.endTimeSlot();
-//        System.out.println(dto);
-//    }
+    @RabbitListener(queues = {"pulses_unicorn_queue"})
+    public void receiveUnicorn(PrecommitmentQueueDto dto) throws Exception {
+        ZonedDateTime parse = ZonedDateTime.parse(dto.getTimeStamp(), DateTimeFormatter.ISO_DATE_TIME);
+        ZonedDateTime now = ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+
+        long between = ChronoUnit.MINUTES.between(parse, now);
+
+        if (!vdfUnicornService.isOpen()){
+            return;
+        }
+        if (between==0){
+            seedLocalPrecommitmentUnicorn.setPrecommitment(dto);
+            vdfUnicornService.endTimeSlot();
+        }
+
+    }
 
 }

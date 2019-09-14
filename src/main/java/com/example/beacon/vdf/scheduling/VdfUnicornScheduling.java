@@ -18,16 +18,10 @@ public class VdfUnicornScheduling {
 
     private final VdfUnicornService vdfUnicornService;
 
-    private final PrecomRepository precomRepository;
-
-    private final SeedLocalPrecommitmentUnicorn seedLocalPrecommitmentUnicorn;
-
     @Autowired
-    public VdfUnicornScheduling(VdfUnicornService vdfUnicornService, PrecomRepository precomRepository,
-                                SeedLocalPrecommitmentUnicorn seedLocalPrecommitmentUnicorn) {
+    public VdfUnicornScheduling(VdfUnicornService vdfUnicornService, PrecomRepository precomRepository
+                                ) {
         this.vdfUnicornService = vdfUnicornService;
-        this.precomRepository = precomRepository;
-        this.seedLocalPrecommitmentUnicorn = seedLocalPrecommitmentUnicorn;
     }
 
     @Scheduled(cron = "${beacon.unicorn.start.submission}")
@@ -35,23 +29,21 @@ public class VdfUnicornScheduling {
         vdfUnicornService.startTimeSlot();
     }
 
-    @Scheduled(cron = "${beacon.unicorn.end.submission}")
-    public void endTimeSlot() throws Exception {
-        if (!vdfUnicornService.isOpen()){
-            return;
-        }
-
-        ZonedDateTime now = ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-
-        System.out.println(now);
-
-        PrecomEntity byTimeStamp = precomRepository.findByTimeStamp(now);
-
-
-        if (byTimeStamp != null) {
-            seedLocalPrecommitmentUnicorn.setPrecommitment(byTimeStamp.getPrecommitment());
-            vdfUnicornService.endTimeSlot();
-        }
-    }
+//    @Scheduled(cron = "${beacon.unicorn.end.submission}")
+//    public void endTimeSlot() throws Exception {
+//        if (!vdfUnicornService.isOpen()){
+//            return;
+//        }
+//
+//        ZonedDateTime now = ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+//        System.out.println(now);
+//        PrecomEntity byTimeStamp = precomRepository.findByTimeStamp(now);
+//
+//
+//        if (byTimeStamp != null) {
+//            seedLocalPrecommitmentUnicorn.setPrecommitment(byTimeStamp.getPrecommitment());
+//            vdfUnicornService.endTimeSlot();
+//        }
+//    }
 
 }

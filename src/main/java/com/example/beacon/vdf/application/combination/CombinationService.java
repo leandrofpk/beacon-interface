@@ -101,7 +101,12 @@ public class CombinationService {
             maxPulseIndex = maxPulseIndex + 1L ;
         }
 
+        String uri = env.getProperty("beacon.url") +  "/beacon/2.0/combination/pulse/" + maxPulseIndex;
+
         CombinationEntity combinationEntity = new CombinationEntity();
+        combinationEntity.setUri(uri);
+        combinationEntity.setVersion("1.0");
+
         combinationEntity.setPulseIndex(maxPulseIndex);
         combinationEntity.setTimeStamp(ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME));
         combinationEntity.setCertificateId(this.certificateId);

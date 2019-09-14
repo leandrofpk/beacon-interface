@@ -19,6 +19,10 @@ import java.util.List;
  */
 public class VdfPulseDto {
 
+    private String uri;
+
+    private String version;
+
     private String certificateId;
 
     private int cipherSuite;

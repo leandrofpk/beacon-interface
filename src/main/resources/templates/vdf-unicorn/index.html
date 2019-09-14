@@ -11,16 +11,13 @@
 
   <title>Brazilian Beacon</title>
 
-  <!-- Bootstrap core CSS -->
   <link th:href="@{/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
   <link th:href="@{/css/scrolling-nav.css}" rel="stylesheet">
 
   <!-- datetimepicker  -->
   <link th:href="@{/vendor/bootstrap/css/bootstrap-datetimepicker.min.css}" rel="stylesheet">
   <link th:href="@{/css/beacon.css}" rel="stylesheet">
-
 
 </head>
 
@@ -184,23 +181,9 @@
               Seed List
             </div>
             <div class="card-body">
-
               <div>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Timestamp</th>
-                      <th scope="col">Seed</th>
-                      <th scope="col">Description</th>
-                      <th scope="col">Uri</th>
-                      <th scope="col">CumulativeHash</th>
-                    </tr>
-                  </thead>
-                  <tbody id="table_seed">
-                  </tbody>
-                </table>
+                <div th:replace="fragments/table-seed-list :: table-seed-list">&copy; 2016 The Static Templates</div>
               </div>
-
             </div>
           </div>
 

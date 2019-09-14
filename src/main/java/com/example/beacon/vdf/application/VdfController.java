@@ -41,8 +41,11 @@ public class VdfController {
         mv.addObject("uri", appUri.getUri());
 
         Long maxId = combinationRepository.findMaxId();
-        CombinationEntity byPulseIndex = combinationRepository.findByPulseIndex(maxId);
-        CombinationEntity previous = combinationRepository.findPrevious(byPulseIndex.getTimeStamp());
+        CombinationEntity previous = null;
+        if (maxId!=null) {
+            CombinationEntity byPulseIndex = combinationRepository.findByPulseIndex(maxId);
+            previous = combinationRepository.findPrevious(byPulseIndex.getTimeStamp());
+        }
 
         if (previous != null) {
             mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));
@@ -62,8 +65,11 @@ public class VdfController {
         mv.addObject("uri", appUri.getUri());
 
         Long maxId = vdfUnicornRepository.findMaxId();
-        VdfUnicornEntity byPulseIndex = vdfUnicornRepository.findByPulseIndex(maxId);
-        VdfUnicornEntity previous = vdfUnicornRepository.findPrevious(byPulseIndex.getTimeStamp());
+        VdfUnicornEntity previous = null;
+        if (maxId!=null){
+            VdfUnicornEntity byPulseIndex = vdfUnicornRepository.findByPulseIndex(maxId);
+            previous = vdfUnicornRepository.findPrevious(byPulseIndex.getTimeStamp());
+        }
 
         if (previous != null) {
             mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));
@@ -75,4 +81,6 @@ public class VdfController {
 
         return mv;
     }
+
+
 }

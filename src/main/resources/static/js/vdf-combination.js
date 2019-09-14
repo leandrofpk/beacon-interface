@@ -89,8 +89,11 @@ function atualizarRecord(data) {
 
     var lista = '';
 
-    lista += '<tr><td>Cipher Suite:</td>';
-    lista += '<td>' + pulse.cipherSuite + '</td></tr>';
+    lista += '<tr><td>Uri:</td>';
+    lista += '<td>' + pulse.uri + '</td></tr>';
+
+    lista += '<tr><td>Version:</td>';
+    lista += '<td>' + pulse.version + '</td></tr>';
 
     lista += '<tr><td>Period:</td>';
     lista += '<td>' + pulse.period + '</td></tr>';
@@ -103,6 +106,14 @@ function atualizarRecord(data) {
 
     lista += '<tr><td>Time:</td>';
     lista += '<td>' + pulse.timeStamp + '</td></tr>';
+
+    // pulse.seedList.forEach(function (seed) {
+    //     lista += '<tr><td>Seed:</td>';
+    //     lista += '<td style="word-break: break-word">' + seed.seed + '</td></tr>';
+    //
+    //     lista += '<tr><td>Timestamp Uri:</td>';
+    //     lista += '<td style="word-break: break-word">' + seed.uri + '</td></tr>';
+    // });
 
     lista += '<tr><td>Vdf p:</td>';
     lista += '<td style="word-break: break-word">' + pulse.sloth.p + '</td></tr>';
@@ -120,4 +131,23 @@ function atualizarRecord(data) {
     lista += '<td style="word-break: break-word">' + pulse.signatureValue + '</td></tr>';
 
     $('#table_pulse').html(lista);
+
+    updateSeedTable(pulse.seedList);
+}
+
+function updateSeedTable(seedList) {
+    var lista = '';
+    seedList.forEach(function (seed) {
+        // lista += '<tr><td style="word-break: break-word">' + seed.timestamp + '</td>';
+        lista += '<tr>';
+        lista += '<td style="word-break: break-word">' + seed.timeStamp + '</td>';
+        lista += '<td style="word-break: break-word">' + seed.seed + '</td>';
+        lista += '<td style="word-break: break-word">' + seed.description + '</td>';
+        lista += '<td style="word-break: break-word">' + seed.uri + '</td>';
+        lista += '<td style="word-break: break-word">' + seed.cumulativeHash + '</td>';
+        lista += '</tr>';
+
+    });
+
+    $('#table_seed').html(lista);
 }

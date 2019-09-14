@@ -11,16 +11,12 @@
 
   <title>Brazilian Beacon</title>
 
-  <!-- Bootstrap core CSS -->
   <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-
-  <!-- Custom styles for this template -->
   <link th:href="@{css/scrolling-nav.css}" rel="stylesheet">
 
   <!-- datetimepicker  -->
   <link th:href="@{vendor/bootstrap/css/bootstrap-datetimepicker.min.css}" rel="stylesheet">
   <link th:href="@{css/beacon.css}" rel="stylesheet">
-
 
 </head>
 
@@ -143,12 +139,6 @@
 
             <div class="card-header">
               Pulse
-
-<!--              <div id="status" style="display:none;" class="spinner-border m-0 float-right" role="status" align="rig">-->
-<!--                <span class="sr-only">Loading...</span>-->
-<!--              </div>-->
-
-
             </div>
             <div class="card-body">
 
@@ -194,48 +184,38 @@
               <table class="table" id="table_pulse">
               </table>
 
+              <p>
+                <a class="btn btn-primary" data-toggle="collapse" href="#collapseTable" role="button" aria-expanded="false" aria-controls="collapseTable">
+                  Show seeds
+                </a>
+              </p>
+              <div class="collapse" id="collapseTable">
+                <div class="card card-body">
+                  <div th:replace="fragments/table-seed-list :: table-seed-list">&copy; 2016 The Static Templates</div>
+                </div>
+              </div>
+
             </div>
+
           </div>
 
         </div>
 
-
       </div>
 
     </div>
   </section>
 
-  <section id="contact" class="bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-12 mx-auto">
-          <h2>Contact us</h2>
-<!--          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero odio fugiat voluptatem dolor, provident officiis, id iusto! Obcaecati incidunt, qui nihil beatae magnam et repudiandae ipsa exercitationem, in, quo totam.</p>-->
-          <p class="lead"><a href="mailto:lainf@inmetro.gov.br">Inmetro Technology Lab.</a><br>Instituto Nacional de Metrologia e qualidade INMETRO</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <div th:replace="fragments/contact :: contact">&copy; 2016 The Static Templates</div>
+  <div th:replace="fragments/footer :: footer">&copy; 2016 The Static Templates</div>
 
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
-    <div class="container">
-      <p class="m-0 text-center text-white">Inmetro &copy; 1993 - 2019.  Todos os direitos reservados</p>
-    </div>
-    <!-- /.container -->
-  </footer>
-
-  <!-- Bootstrap core JavaScript -->
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <!-- Plugin JavaScript -->
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
-  <!-- Custom JavaScript for this theme -->
   <script src="js/scrolling-nav.js"></script>
 
-  <!-- beacon -->
   <script th:src="@{/vendor/bootstrap/js/bootstrap-datetimepicker.min.js}"></script>
   <script th:src="@{js/vdf-combination.js}"></script>
 </body>

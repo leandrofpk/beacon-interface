@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class PrecommitmentQueueDto {
     private String timeStamp;
     private String precommitment;
+    private String uri;
 }
