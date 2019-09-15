@@ -28,7 +28,7 @@ function updateFields(data) {
     document.getElementById("spanCurrentHash").textContent = data.currentHash;
 
     var x = document.getElementById("pNextSubmission");
-    if (data.status === "Running"){
+    if (data.status === "RUNNING" || data.status === "OPEN"){
         x.style.display = "none";
     } else {
         x.style.display = "block";

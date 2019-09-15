@@ -21,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
 import java.security.PrivateKey;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -38,7 +37,9 @@ public class VdfUnicornService {
 
     private ZonedDateTime timestamp;
 
-    private List<SeedUnicordCombinationVo> seedList;
+//    private List<SeedPostDto> seedList;
+
+    private List<SeedUnicordCombinationVo> seedListUnicordCombination;
 
     private final ICipherSuite cipherSuite;
 
@@ -54,30 +55,32 @@ public class VdfUnicornService {
         this.seedBuilder = seedBuilder;
         this.vdfUnicornRepository = vdfUnicornRepository;
         this.statusEnum = StatusEnum.STOPPED;
-        this.seedList = new ArrayList<>();
+//        this.seedList = new ArrayList<>();
+        this.seedListUnicordCombination = new ArrayList<>();
         this.cipherSuite = CipherSuiteBuilder.build(0);
         this.timestamp = getTimestampOfNextRun(ZonedDateTime.now());
     }
 
     public void startTimeSlot() {
-        this.seedList.clear();
+//        this.seedList.clear();
+        this.seedListUnicordCombination.clear();
         this.statusEnum = StatusEnum.OPEN;
         this.timestamp = getCurrentTrucatedZonedDateTime();
 
         List<SeedSourceDto> preDefinedSeeds = seedBuilder.getPreDefSeedUnicorn();
         preDefinedSeeds.forEach(dto -> {
-            this.seedList.add(
+            this.seedListUnicordCombination.add(
                     calcSeedConcat(new SeedPostDto(dto.getSeed(),
                             dto.getDescription(),
                             dto.getUri()),
-                            this.seedList,
+                            this.seedListUnicordCombination,
                             timestamp));
         });
     }
 
     public void addSeed(SeedPostDto dto){
-        SeedUnicordCombinationVo seedUnicordCombinationVo = calcSeedConcat(dto, this.seedList,  ZonedDateTime.now());
-        this.seedList.add(seedUnicordCombinationVo);
+        SeedUnicordCombinationVo seedUnicordCombinationVo = calcSeedConcat(dto, this.seedListUnicordCombination,  ZonedDateTime.now());
+        this.seedListUnicordCombination.add(seedUnicordCombinationVo);
     }
 
     private SeedUnicordCombinationVo calcSeedConcat(SeedPostDto dtoNew, List<SeedUnicordCombinationVo> seedList, ZonedDateTime now) {
@@ -93,15 +96,21 @@ public class VdfUnicornService {
     }
 
     public void endTimeSlot() throws Exception {
+
+        if (this.seedListUnicordCombination.isEmpty()){
+            this.statusEnum = StatusEnum.STOPPED;
+            return;
+        }
+
         this.statusEnum = StatusEnum.RUNNING;
         List<SeedSourceDto> honestSeeds = seedBuilder.getHonestPartyUnicorn();
 
         honestSeeds.forEach(dto -> {
-            this.seedList.add(
+            this.seedListUnicordCombination.add(
                     calcSeedConcat(new SeedPostDto(dto.getSeed(),
                                     dto.getDescription(),
                                     dto.getUri()),
-                            this.seedList,
+                            this.seedListUnicordCombination,
                             ZonedDateTime.now()));
         });
         run();
@@ -112,7 +121,7 @@ public class VdfUnicornService {
     }
 
     private void run() throws Exception {
-        SeedUnicordCombinationVo last = this.seedList.get(seedList.size() - 1);
+        SeedUnicordCombinationVo last = this.seedListUnicordCombination.get(this.seedListUnicordCombination.size() - 1);
         final BigInteger x = new BigInteger(last.getCumulativeHash(), 16);
 
         int iterations = Integer.parseInt(env.getProperty("beacon.unicorn.iterations"));
@@ -120,22 +129,21 @@ public class VdfUnicornService {
         BigInteger y = VdfSloth.mod_op(x, iterations);
 
         persist(y,x, iterations);
-        seedList.clear();
+        seedListUnicordCombination.clear();
         this.statusEnum = StatusEnum.STOPPED;
         this.timestamp = getTimestampOfNextRun(ZonedDateTime.now());
     }
 
     public UnicornCurrentDto getUnicornState(){
         UnicornCurrentDto unicornCurrentDto = new UnicornCurrentDto();
-        unicornCurrentDto.setStatusEnum(this.statusEnum.getDescription());
+        unicornCurrentDto.setStatusEnum(this.statusEnum.toString());
 
-        if (!this.seedList.isEmpty()){
-            unicornCurrentDto.setCurrentHash(this.seedList.get(seedList.size() - 1).getCumulativeHash());
+        if (!this.seedListUnicordCombination.isEmpty()){
+            unicornCurrentDto.setCurrentHash(this.seedListUnicordCombination.get(this.seedListUnicordCombination.size() - 1).getCumulativeHash());
         }
 
         //TODO Verificar o horário
         unicornCurrentDto.setStart(getTimeStampFormated(this.timestamp));
-
 
         ZonedDateTime nextRun = getTimestampOfNextRun(ZonedDateTime.now());
         long minutesForNextRun = DateUtil.getMinutesForNextRun(ZonedDateTime.now(), nextRun);
@@ -144,7 +152,7 @@ public class VdfUnicornService {
         DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(15, ChronoUnit.MINUTES);
         unicornCurrentDto.setEnd(getTimeStampFormated(DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(15, ChronoUnit.MINUTES)));
 
-        this.seedList.forEach(s ->
+        this.seedListUnicordCombination.forEach(s ->
                 unicornCurrentDto.addSeed(new VdfSeedDto(s.getSeed(),
                         DateUtil.getTimeStampFormated(s.getTimeStamp()),
                         s.getDescription(), s.getUri(),
@@ -181,7 +189,7 @@ public class VdfUnicornService {
         unicornEntity.setY(y.toString());
         unicornEntity.setIterations(iterations);
 
-        seedList.forEach(SeedUnicordCombinationVo ->
+        this.seedListUnicordCombination.forEach(SeedUnicordCombinationVo ->
                 unicornEntity.addSeed(new VdfUnicornSeedEntity(SeedUnicordCombinationVo, unicornEntity)));
 
         signPulse(VdfSerialize.serializeVdfPublic(unicornEntity), unicornEntity);

@@ -1,6 +1,8 @@
 package com.example.beacon.vdf.application.vdfunicorn;
 
+import com.example.beacon.vdf.scheduling.PrecommitmentQueueDto;
 import com.example.beacon.vdf.sources.SeedLocalPrecommitmentUnicorn;
+import com.example.beacon.vdf.sources.SeedSourceDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +26,7 @@ public class VdfUnicornServiceTest {
         vdfUnicornService.startTimeSlot();
         SeedPostDto seedPostDto = new SeedPostDto("meu seed", "description de teste", "uri de teste");
         vdfUnicornService.addSeed(seedPostDto);
-        seedLocalPrecommitmentUnicorn.setPrecommitment("a");
+        seedLocalPrecommitmentUnicorn.setPrecommitmentUnicorn(new PrecommitmentQueueDto("dto.getUri()", "dto.getPrecommitment()", "DESCRIPTION"));
         vdfUnicornService.endTimeSlot();
     }
 

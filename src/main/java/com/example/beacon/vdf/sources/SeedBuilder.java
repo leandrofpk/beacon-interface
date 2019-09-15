@@ -16,8 +16,6 @@ public class SeedBuilder {
 
     private final Environment env;
 
-    private final List<SeedSourceDto> seedList = new ArrayList<>();
-
     @Autowired
     public SeedBuilder(ApplicationContext context, Environment env) {
         this.context = context;
@@ -26,26 +24,27 @@ public class SeedBuilder {
 
     // Beacon Combination
     public List<SeedSourceDto> getPreDefSeedCombination(){
-        seedList.clear();
+        final List<SeedSourceDto> seedList = new ArrayList<>();
         seedList.add(context.getBean(SeedLastNist.class).getSeed());
         seedList.add(context.getBean(SeedLastChile.class).getSeed());
         return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 
     public List<SeedSourceDto> getHonestPartyCombination(){
-        seedList.clear();
+        final List<SeedSourceDto> seedList = new ArrayList<>();
         seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
         return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 
     // VDF / Unicorn
     public List<SeedSourceDto> getPreDefSeedUnicorn(){
-        seedList.clear();
+        final List<SeedSourceDto> seedList = new ArrayList<>();
+        // do something
         return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 
     public List<SeedSourceDto> getHonestPartyUnicorn(){
-        seedList.clear();
+        final List<SeedSourceDto> seedList = new ArrayList<>();
         seedList.add(context.getBean(SeedLocalPrecommitmentUnicorn.class).getSeed());
         return Collections.unmodifiableList(new ArrayList<>(seedList));
     }

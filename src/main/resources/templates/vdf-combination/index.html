@@ -190,8 +190,21 @@
                 </a>
               </p>
               <div class="collapse" id="collapseTable">
+                <!--                  <div th:insert="fragments/table-seed-list :: table-seed-list">&copy; 2016 The Static Templates</div>-->
                 <div class="card card-body">
-                  <div th:replace="fragments/table-seed-list :: table-seed-list">&copy; 2016 The Static Templates</div>
+                  <table class="table">
+                    <thead>
+                    <tr>
+                      <th scope="col">Timestamp</th>
+                      <th scope="col">Seed</th>
+                      <th scope="col">Description</th>
+                      <th scope="col">Uri</th>
+                      <th scope="col">CumulativeHash</th>
+                    </tr>
+                    </thead>
+                    <tbody id="table_seed">
+                    </tbody>
+                  </table>
                 </div>
               </div>
 

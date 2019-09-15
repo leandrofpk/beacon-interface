@@ -3,6 +3,7 @@ package com.example.beacon.vdf.scheduling;
 import com.example.beacon.vdf.application.combination.CombinationService;
 import com.example.beacon.vdf.application.vdfunicorn.VdfUnicornService;
 import com.example.beacon.vdf.sources.SeedLocalPrecommitment;
+import com.example.beacon.vdf.sources.SeedLocalPrecommitmentUnicorn;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -25,14 +26,14 @@ public class VdfQueueConsumer {
 
     private final SeedLocalPrecommitment seedLocalPrecommitmentCombination;
 
-    private final SeedLocalPrecommitment seedLocalPrecommitmentUnicorn;
+    private final SeedLocalPrecommitmentUnicorn seedLocalPrecommitmentUnicorn;
 
     private final Environment env;
 
     private static final Logger logger = LoggerFactory.getLogger(VdfQueueConsumer.class);
 
     @Autowired
-    public VdfQueueConsumer(CombinationService combinationService, VdfUnicornService vdfUnicornService, SeedLocalPrecommitment seedLocalPrecommitmentCombination, SeedLocalPrecommitment seedLocalPrecommitmentUnicorn, Environment env) {
+    public VdfQueueConsumer(CombinationService combinationService, VdfUnicornService vdfUnicornService, SeedLocalPrecommitment seedLocalPrecommitmentCombination, SeedLocalPrecommitmentUnicorn seedLocalPrecommitmentUnicorn, Environment env) {
         this.combinationService = combinationService;
         this.vdfUnicornService = vdfUnicornService;
         this.seedLocalPrecommitmentCombination = seedLocalPrecommitmentCombination;
@@ -68,7 +69,7 @@ public class VdfQueueConsumer {
             return;
         }
         if (between==0){
-            seedLocalPrecommitmentUnicorn.setPrecommitment(dto);
+            seedLocalPrecommitmentUnicorn.setPrecommitmentUnicorn(dto);
             vdfUnicornService.endTimeSlot();
         }
 
