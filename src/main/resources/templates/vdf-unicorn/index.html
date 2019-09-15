@@ -39,6 +39,9 @@
             <a class="nav-link js-scroll-trigger" href="#prototype">Prototype</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link js-scroll-trigger" href="#viewer">Viewer</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
           </li>
         </ul>
@@ -192,7 +195,7 @@
                        <th scope="col">CumulativeHash</th>
                      </tr>
                      </thead>
-                     <tbody id="table_seed">
+                     <tbody id="table_seed_current">
                      </tbody>
                    </table>
                  <div>
@@ -209,7 +212,14 @@
     </div>
   </section>
 
-  <div th:replace="fragments/contact :: contact">&copy; 2016 The Static Templates</div>
+  <section id="viewer" th:fragment="viewer-vdf">
+     <div th:replace="fragments/viewer-vdf :: viewer-vdf">&copy; 2016 The Static Templates</div>
+  </section>
+
+  <section id="contact" class="bg-light" th:fragment="contact">
+    <div th:replace="fragments/contact :: contact">&copy; 2016 The Static Templates</div>
+  </section>
+
   <div th:replace="fragments/footer :: footer">&copy; 2016 The Static Templates</div>
 
   <script th:src="@{/vendor/jquery/jquery.min.js}"></script>

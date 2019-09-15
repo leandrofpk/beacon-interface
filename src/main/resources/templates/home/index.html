@@ -238,7 +238,10 @@
     </div>
   </section>
 
-  <div th:replace="fragments/contact :: contact">&copy; 2016 The Static Templates</div>
+  <section id="contact" class="bg-light" th:fragment="contact">
+    <div th:replace="fragments/contact :: contact">&copy; 2016 The Static Templates</div>
+  </section>
+
   <div th:replace="fragments/footer :: footer">&copy; 2016 The Static Templates</div>
 
   <!-- Bootstrap core JavaScript -->

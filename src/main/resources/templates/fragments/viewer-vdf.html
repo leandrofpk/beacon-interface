@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+</head>
+<body>
+
+<!--<section id="viewer" class="bg-light"  th:fragment="viewer-vdf">-->
+    <div class="container" th:fragment="viewer-vdf">
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <h2>Viewer</h2>
+                <!--          <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut optio velit inventore, expedita quo laboriosam possimus ea consequatur vitae, doloribus consequuntur ex. Nemo assumenda laborum vel, labore ut velit dignissimos.</p>-->
+                <div class="card">
+
+                    <div class="card-header">
+                        Pulse
+                    </div>
+                    <div class="card-body">
+
+                        <!--              <h5 class="card-title">Special title treatment</h5>-->
+                        <!--              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+                        <!--              <a href="#" class="btn btn-primary">Go somewhere</a>-->
+
+                        <button class="btn btn-primary" onclick="getFirstPulse();" type="button">First</button>
+                        <button class="btn btn-primary" onclick="getPreviousPulse();" type="button">Previous</button>
+                        <input class="btn btn-primary" onclick="getNextPulse();" type="button" value="Next">
+                        <input class="btn btn-primary" onclick="getLastPulse()" type="reset" value="Last">
+
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        Record
+                    </div>
+                    <div class="card-body">
+                        <!--              <h5 class="card-title">Special title treatment</h5>-->
+                        <!--              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>-->
+
+                        <input id="input-datetime" size="46" type="text" value="2019-08-14T17:24:00.000Z">
+
+                        <br>
+                        <br>
+
+                        <table class="table" id="table_pulse">
+                        </table>
+
+                        <p>
+                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseTable" role="button" aria-expanded="false" aria-controls="collapseTable">
+                                Show seeds
+                            </a>
+                        </p>
+                        <div class="collapse" id="collapseTable">
+                            <!--                  <div th:insert="fragments/table-seed-list :: table-seed-list">&copy; 2016 The Static Templates</div>-->
+                            <div class="card card-body">
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th scope="col">Timestamp</th>
+                                        <th scope="col">Seed</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Uri</th>
+                                        <th scope="col">CumulativeHash</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="table_seed">
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+<!--</section>-->
+
+</body>
+</html>
