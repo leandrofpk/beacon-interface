@@ -21,7 +21,7 @@ public class ByteSerializationFieldsUtil2 {
         this.pulse = pulse;
 
         byteSerializeString(pulse.getUri());
-        byteSerializeString("2.0");
+        byteSerializeString(pulse.getVersion());
         encode4(pulse.getCipherSuite());
         encode4(pulse.getPeriod());
         byteSerializeHash(pulse.getCertificateId());
@@ -53,21 +53,17 @@ public class ByteSerializationFieldsUtil2 {
         baos.write(ByteBuffer.allocate(8).putLong(value).array());
     }
 
-
     // TODO REVER o tamanho o no documento
     public void byteSerializeHash(String hash) throws IOException {
-//        int bLenHash = hash.getBytes(UTF_8).length;
-//        System.out.println("bLenHash:" + bLenHash);
-
-        int bLenHash = 64;
+        int bLenHash =  ByteUtils.fromHexString(hash).length;
         baos.write(ByteBuffer.allocate(4).putInt(bLenHash).array());
         baos.write(ByteUtils.fromHexString(hash));
-
 //        System.out.println(ByteUtils.fromHexString(hash).length);
     }
 
     public void byteSerializeString(String value) throws IOException {
         int bytLen = value.getBytes(UTF_8).length;
+        System.out.println(bytLen);
         baos.write(ByteBuffer.allocate(4).putInt(bytLen).array());
         baos.write(value.getBytes(UTF_8));
     }
