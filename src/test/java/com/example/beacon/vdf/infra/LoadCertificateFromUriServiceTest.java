@@ -1,19 +1,13 @@
 package com.example.beacon.vdf.infra;
 
 import com.example.beacon.interfac.api.dto.PulseDto;
-import com.example.beacon.shared.ByteSerializationFieldsUtil2;
-import com.example.beacon.shared.CipherSuiteBuilder;
-import com.example.beacon.shared.ICipherSuite;
+import com.example.beacon.shared.*;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
 import java.security.PublicKey;
 import java.security.Security;
 import java.security.cert.X509Certificate;
@@ -21,8 +15,6 @@ import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static com.example.beacon.shared.ByteSerializationFieldsUtil.*;
-import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -39,8 +31,8 @@ public class LoadCertificateFromUriServiceTest {
         assertEquals("X.509", publicKey.getFormat());
     }
 
-//    @Test
-    public void validatePulse() throws Exception {
+    @Test
+    public void validatePulseOld() throws Exception {
         Security.addProvider(new BouncyCastleProvider());
 
         final PublicKey publicKey = getCertificate();
@@ -50,11 +42,10 @@ public class LoadCertificateFromUriServiceTest {
 
         String sign = pulse.getSignatureValue();
         final ICipherSuite cipherSuite = CipherSuiteBuilder.build(0);
-        boolean verify = cipherSuite.verify(publicKey, sign, baos.toByteArray());
+        boolean verify = cipherSuite.verifyPkcs15(publicKey, sign, baos.toByteArray());
         System.out.println("Verify:" + verify);
 
         assertTrue(verify);
-
     }
 
     private static PublicKey getCertificate() throws Exception {

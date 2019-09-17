@@ -9,14 +9,7 @@ import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.util.ASN1Dump;
 import org.bouncycastle.util.encoders.Hex;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.env.Environment;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
@@ -52,13 +45,13 @@ public class UnicornCurrentDtoPulseRetrieverResourceTest {
         PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
 
         byte[] bytes = VdfSerialize.serializeVdfDto(pulse);
-        String sign = cipherSuite.sign(privateKey, bytes);
+        String sign = cipherSuite.signPkcs15(privateKey, bytes);
 
         pulse.setSignatureValue(sign);
         System.out.println(pulse);
 
         PublicKey publicKey = CriptoUtilService.loadPublicKeyFromCertificate(env.getProperty("beacon.x509.certificate"));
-        boolean verify = cipherSuite.verify(publicKey, sign, VdfSerialize.serializeVdfDto(pulse));
+        boolean verify = cipherSuite.verifyPkcs15(publicKey, sign, VdfSerialize.serializeVdfDto(pulse));
 
         assertTrue(verify);
     }

@@ -9,27 +9,19 @@ import com.example.beacon.vdf.application.vdfunicorn.SeedPostDto;
 import com.example.beacon.vdf.infra.entity.CombinationEntity;
 import com.example.beacon.vdf.infra.entity.CombinationSeedEntity;
 import com.example.beacon.vdf.repository.CombinationRepository;
-import com.example.beacon.vdf.scheduling.VdfQueueConsumer;
 import com.example.beacon.vdf.sources.SeedBuilder;
 import com.example.beacon.vdf.sources.SeedSourceDto;
-import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigInteger;
-import java.nio.charset.StandardCharsets;
 import java.security.PrivateKey;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import static com.example.beacon.vdf.infra.util.DateUtil.getCurrentTrucatedZonedDateTime;
 
 @Service
 public class CombinationService {
@@ -128,7 +120,7 @@ public class CombinationService {
 
     private void signPulse(byte[] bytes, CombinationEntity vdfPulseEntity) throws Exception {
         PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
-        vdfPulseEntity.setSignatureValue(cipherSuite.sign(privateKey, bytes));
+        vdfPulseEntity.setSignatureValue(cipherSuite.signPkcs15(privateKey, bytes));
     }
 
 }

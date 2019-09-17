@@ -19,7 +19,7 @@ public class ByteSerializationFieldsUtil {
     public static byte[] byteSerializeHash(String hash){
 //        System.out.println("hash: " + hash.length());
 //        int bLenHash = 64;
-        int bLenHash = hash.getBytes(UTF_8).length;
+        int bLenHash = ByteUtils.fromHexString(hash).length;
         byte[] bytes1 = ByteBuffer.allocate(4).putInt(bLenHash).array();
         byte[] bytes2 = ByteUtils.fromHexString(hash);
         byte[] concatenate = ByteUtils.concatenate(bytes1, bytes2);

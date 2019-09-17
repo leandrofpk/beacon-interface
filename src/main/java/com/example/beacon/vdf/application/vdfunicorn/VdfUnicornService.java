@@ -105,6 +105,9 @@ public class VdfUnicornService {
         this.statusEnum = StatusEnum.RUNNING;
         List<SeedSourceDto> honestSeeds = seedBuilder.getHonestPartyUnicorn();
 
+        System.out.println("Precom received:" + honestSeeds.get(0).getSeed());
+
+
         honestSeeds.forEach(dto -> {
             this.seedListUnicordCombination.add(
                     calcSeedConcat(new SeedPostDto(dto.getSeed(),
@@ -199,7 +202,7 @@ public class VdfUnicornService {
 
     private void signPulse(byte[] bytes, VdfUnicornEntity vdfPulseEntity) throws Exception {
         PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
-        vdfPulseEntity.setSignatureValue(cipherSuite.sign(privateKey, bytes));
+        vdfPulseEntity.setSignatureValue(cipherSuite.signPkcs15(privateKey, bytes));
     }
 
 }
