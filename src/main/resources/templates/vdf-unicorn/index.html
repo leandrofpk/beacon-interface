@@ -51,10 +51,8 @@
 
   <header class="bg-primary text-white">
     <div class="container text-center">
-      <h1>Inmetro's VDF Applications</h1>
-<!--      <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>-->
+      <h1>Inmetro Unicorn Application</h1>
       <p class="lead">Inmetro's Randomness Beacon is a web service, part of the  SICCCiber project's effort to generate reliable and public sources of random numbers</p>
-
 <!--      Please note, this is the first beta release. More details about this project is available at <a href="https://siccciber.com.br/">SICCCiber</a> or by contacting the <a href="mailto:lainf@inmetro.gov.br">Inmetro Technology Lab</a>.-->
     </div>
   </header>
@@ -73,13 +71,41 @@
           </div>
 
           <h2>About this page</h2>
-          <p class="lead">This is the prototype of a beacon combination service using VDF.
-              There are 3 possible states. First, allowed submissions. Second, in processing. Third, finalized</p>
+          <p class="lead">This is a prototype of a random number service using the Unicorn protocol.
+            The application allows for any given period for any user to publish their own seeds and at the end all received values ​​are combined and the slow computation function is performed.
+          </p>
+
+          <p>
+            There are 3 possible states
+          <ul>
+            <li><strong>Closed: </strong> Waiting for next 15-minute time slot for contributions</li>
+            <li><strong>Open: </strong>Open for external contributions</li>
+            <li><strong>Running: </strong>Verifiable Delay Funcition is running</li>
+          </ul>
+
+          <p>Comments:</p>
+          <ul>
+            <li>The Inmetro precommitment value (honest part) is combined with all contributions received and then a VDF is started a few moments before the next Inmetro beacon number is published</li>
+            <li>After the running state, the results are signed, stored and published together with all parameters used to execute the algorithm</li>
+            <li>A route has been added to the API that allows you to check all generated numbers</li>
+            <li>Nothing runs if there are no contributions</li>
+
+          </ul>
+
+          </p>
 
           <p>
           <p>The service is available via a public REST API.</p>
 
           <br>
+
+          <strong>Current State: </strong> <br>
+          <span th:text="${uri}"></span>/beacon/2.0/vdf/unicorn/current<br>
+          <span>
+          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/vdf/unicorn/current}" th:text="|${uri}/beacon/2.0/vdf/unicorn/current|"></a>
+          </span>
+
+          <br><br>
 
           <strong>Previous Pulse: </strong> <br>
           <span th:text="${uri}"></span>/beacon/2.0/vdf/unicorn/previous/&lt;timestamp&gt; <br>
@@ -90,7 +116,7 @@
           <br><br>
 
           <strong>Next Pulse:</strong><br>
-          <span th:text="${uri}"></span>/beacon/2.0/pulse/vdf/next/&lt;timestamp&gt; <br>
+          <span th:text="${uri}"></span>/beacon/2.0/vdf/unicorn/next/&lt;timestamp&gt; <br>
           <span th:if="${timestampPrevious!=null}">
           Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/vdf/unicorn/next/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/vdf/unicorn/next/${timestampPrevious}|"></a>
           </span>
@@ -123,7 +149,7 @@
 
 
           <strong>Post a value:</strong><br>
-          <strong>URI: </strong> <span th:text="${uri}"></span>beacon/2.0/vdf/unicorn<br>
+          <strong>URI: </strong> <span th:text="${uri}"></span>/beacon/2.0/vdf/unicorn<br>
           <strong>Method: </strong>POST
           <br>
           <strong>Content-Type: </strong>Content-Type: application/json
@@ -133,7 +159,8 @@
           <p>
             {
             "seed": "myseedValue",
-            "description": "my description"
+            "description": "my description",
+            "uri": "my uri"
             }
           </p>
 

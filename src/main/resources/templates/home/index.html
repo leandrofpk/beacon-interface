@@ -54,7 +54,7 @@
 
   <header class="bg-primary text-white">
     <div class="container text-center">
-      <h1>Inmetro's Randomness Beacon</h1>
+      <h1>Inmetro Randomness Beacon</h1>
 <!--      <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>-->
       <p class="lead">Inmetro's Randomness Beacon is a web service, part of the  SICCCiber project's effort to generate reliable and public sources of random numbers</p>
 
@@ -71,7 +71,9 @@
 
           <p style="color: darkred" align="device">PLEASE, DO NOT USE THE BEACON GENERATED VALUES AS CRYPTOGRAPHIC KEYS.</p>
 
-          <p>Inmetro's Randomness Beacon is a web service, part of the <a href="https://siccciber.com.br/">SICCCiber</a> project's effort to generate reliable and public sources of random numbers.  <a href="#contact">Contact us</a> for more details</p>
+          <p>Inmetro's Randomness Beacon is a web service, part of the <a href="https://siccciber.com.br/">SICCCiber</a> project's effort to generate reliable and public sources of random numbers.  <a class="js-scroll-trigger" href="#contact">Contact us</a> for more details</p>
+          <p>In addition to the beacon, we developed two application prototypes using VDF. A prototype for combining beacons and a public api where any user can contribute values to generate a new random number. Both can be found <a  class="js-scroll-trigger" href="#applications">here</a>.</p>
+
           <p>The service is available via a public REST API.  The API Documentation can be found <a href="/docs/index.html">here</a>.</p>
 <!--          <ul>-->
 <!--            <li>Clickable nav links that smooth scroll to page sections</li>-->
@@ -212,9 +214,25 @@
       <div class="row">
         <div class="col-lg-12 mx-auto">
           <h2>Applications</h2>
-          <p class="lead">The combination of beacons using VDF can be found <a href="/combination">here</a>.</p>
-          <br>
-          <p class="lead">Combinação de beacons usando funções de computação lenta.  Aberto ao públicopara postagens de números  <a href="/unicorn">here</a>.</p>
+          <ul>
+            <li>
+<!--              Inmetro's Combination Beacon is a proposal for combining beacons built on the NISTR reference.-->
+<!--              The prototype uses Verification Delay Funcion(VDF) and can be found <a href="/combination">here</a>.-->
+
+              Inmetro's Combination Beacon is a proposal for combining beacons built on the NISTR reference.
+              The prototype uses Verification Delay Funcion(VDF) to combine random numbers from NIST, Chile and Brazil to generate a safe and reliable random number.
+              <a href="/combination">See more details</a>.
+
+            </li>
+            <li>
+              Inmetro's Unicorn App is a prototype that uses slow computing functions.
+              The application allows any user to submit contributions for the publication of
+              the new random number. <a href="/unicorn">See more details</a>.
+            </li>
+          </ul>
+<!--          <p class="lead">Inmetro's Combination Beacon is a proposal for combining beacons built on the NISTR reference. The prototype uses Verification Delay Funcion(VDF) and can be found <a href="/combination">here</a>.</p>-->
+<!--          <br>-->
+<!--          <p class="lead">Combinação de beacons usando funções de computação lenta.  Aberto ao público para postagens de números  <a href="/unicorn">here</a>.</p>-->
         </div>
       </div>
 

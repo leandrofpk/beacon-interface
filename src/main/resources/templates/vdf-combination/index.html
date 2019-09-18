@@ -47,7 +47,7 @@
 
   <header class="bg-primary text-white">
     <div class="container text-center">
-      <h1>Beacon combination</h1>
+      <h1>Inmetro Combination Beacon</h1>
 <!--      <p class="lead">A landing page template freshly redesigned for Bootstrap 4</p>-->
       <p class="lead">Inmetro's Randomness Beacon is a web service, part of the  SICCCiber project's effort to generate reliable and public sources of random numbers</p>
 
@@ -60,20 +60,23 @@
       <div class="row">
         <div class="col-lg-12 mx-auto">
           <h2>About this page</h2>
-          <p class="lead">Combinação de beacons utilizando funções de computação lenta.</p>
+          <p class="lead">Combining beacons using Verifiable Delay Functions(VDF).</p>
 
-<!--          <p style="color: darkred" align="device">PLEASE, DO NOT USE THE BEACON GENERATED VALUES AS CRYPTOGRAPHIC KEYS.</p>-->
+          <p style="color: darkred" align="device">PLEASE, DO NOT USE THE BEACON GENERATED VALUES AS CRYPTOGRAPHIC KEYS.</p>
 
-          <p>Inmetro's Combination Beacon foi construído com o objetivo de propor uma forma de combinação segura de beacons utilizando uma função de computação de lenta.
-            Este protótipo foi construído com base na proposta de Lenstra e Wesoloski.
-            </p>
+<!--          Inmetro's Combination Beacon is a proposal for combining beacons built on the NISTR reference. The prototype uses slow computation functions to combine random numbers from NIST, Chile and Brazil to generate a safe and reliable random number.-->
 
-          <p>A cada minuto, um novo número aleatório é gerado com resultado da combinação dos Beacons do Nist, Chile e Inmetro, conforme descrito abaixo:</p>
+          <p>Inmetro's Combination Beacon was built with the objective of proposing a safe combination of beacons
+            using a slow computation function. This prototype was built based on the proposal of Lenstra and Wesoloski.
+          </p>
+
+          <p>Every minute, a new random number is generated as a result of combining the Nist, Chile, and
+            Inmetro Beacons, as described below:</p>
           <ul>
-            <li>A cada minuto, o Inmmetro's Beacon recupera dos Nist e do Chile o precomit do último número gerado.</li>
-            <li>Os valores de precommitmente são combinados (Xor ou CONCAT)</li>
-            <li>O valor de precommitment do Inmetro(parte honesta) é combinado aos anteriores e a função de computação lenta é iniciada sempre antes da publicação externa.</li>
-            <li>Os resultados são publicados juntamente com os parâmetros de configuração</li>
+            <li>Every minute Inmmetro's Beacon recovers and concatenates the latest precommitment published by the Nist and Chile beacons</li>
+            <li>The Inmetro precommitment value (honest part) is combined with the previous values and then a VDF is started a few moments before the next Inmetro beacon number is published</li>
+            <li>Results are signed, stored and published together with all parameters used to execute the algorithm</li>
+            <li>A route has been added to the API that allows you to check all generated numbers</li>
           </ul>
 
           <p>
