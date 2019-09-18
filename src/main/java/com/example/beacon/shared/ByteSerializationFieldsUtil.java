@@ -1,51 +1,63 @@
 package com.example.beacon.shared;
 
+import com.example.beacon.interfac.api.dto.PulseDto;
 import org.bouncycastle.pqc.math.linearalgebra.ByteUtils;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.nio.ByteBuffer;
 
+import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 public class ByteSerializationFieldsUtil {
 
-    public static byte[] encode4(int value){
-        return ByteBuffer.allocate(4).putInt(value).array();
+    private final ByteArrayOutputStream baos = new ByteArrayOutputStream(); // should be enough
+
+    public ByteSerializationFieldsUtil(PulseDto pulse) throws IOException {
+        byteSerializeString(pulse.getUri());
+        byteSerializeString(pulse.getVersion());
+        encode4(pulse.getCipherSuite());
+        encode4(pulse.getPeriod());
+        byteSerializeHash(pulse.getCertificateId());
+        encode8(pulse.getChainIndex());
+        encode8(pulse.getPulseIndex());
+        byteSerializeString(getTimeStampFormated(pulse.getTimeStamp()));
+        byteSerializeHash(pulse.getLocalRandomValue());
+        byteSerializeHash(pulse.getExternal().getSourceId());
+        encode4(pulse.getExternal().getStatusCode());
+        byteSerializeHash(pulse.getExternal().getValue());
+        byteSerializeHash(pulse.getListValues().get(0).getValue());
+        byteSerializeHash(pulse.getListValues().get(1).getValue());
+        byteSerializeHash(pulse.getListValues().get(2).getValue());
+        byteSerializeHash(pulse.getListValues().get(3).getValue());
+        byteSerializeHash(pulse.getListValues().get(4).getValue());
+        byteSerializeHash(pulse.getPrecommitmentValue());
+        encode4(pulse.getStatusCode());
     }
 
-    public static byte[] encode8(long value){
-        return ByteBuffer.allocate(8).putLong(value).array();
+    public ByteArrayOutputStream getBaos(){
+        return baos;
     }
 
-    public static byte[] byteSerializeHash(String hash){
-//        System.out.println("hash: " + hash.length());
-//        int bLenHash = 64;
-        int bLenHash = ByteUtils.fromHexString(hash).length;
-        byte[] bytes1 = ByteBuffer.allocate(4).putInt(bLenHash).array();
-        byte[] bytes2 = ByteUtils.fromHexString(hash);
-        byte[] concatenate = ByteUtils.concatenate(bytes1, bytes2);
-
-        return concatenate;
+    private void encode4(int value) throws IOException {
+        baos.write(ByteBuffer.allocate(4).putInt(value).array());
     }
 
-    // conferir
-    public static byte[] byteSerializeString(String value){
+    private void encode8(long value) throws IOException {
+        baos.write(ByteBuffer.allocate(8).putLong(value).array());
+    }
+
+    private void byteSerializeHash(String hash) throws IOException {
+        int bLenHash =  ByteUtils.fromHexString(hash).length;
+        baos.write(ByteBuffer.allocate(4).putInt(bLenHash).array());
+        baos.write(ByteUtils.fromHexString(hash));
+    }
+
+    private void byteSerializeString(String value) throws IOException {
         int bytLen = value.getBytes(UTF_8).length;
-        byte[] bytes1 = ByteBuffer.allocate(4).putInt(bytLen).array();
-        byte[] bytes2 = value.getBytes(UTF_8);
-
-        byte[] concatenate = ByteUtils.concatenate(bytes1, bytes2);
-
-        return concatenate;
+        baos.write(ByteBuffer.allocate(4).putInt(bytLen).array());
+        baos.write(value.getBytes(UTF_8));
     }
-
-    public static byte[] byteSerializeSig(String hexString){
-        int bLenHash = 512;
-        byte[] bytes1 = ByteBuffer.allocate(4).putInt(bLenHash).array();
-        byte[] bytes2 = ByteUtils.fromHexString(hexString);
-        byte[] concatenate = ByteUtils.concatenate(bytes1, bytes2);
-
-        return concatenate;
-    }
-
 
 }

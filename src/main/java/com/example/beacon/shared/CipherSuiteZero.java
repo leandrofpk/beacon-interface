@@ -43,7 +43,6 @@ public class CipherSuiteZero implements ICipherSuite {
         return null;
     }
 
-//    http://www.java2s.com/Tutorial/Java/0490__Security/BasicclassforexploringPKCS1V15Signatures.htm
     @Override
     public String signPkcs15(PrivateKey privateKey, byte[] message) throws Exception {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
@@ -57,7 +56,6 @@ public class CipherSuiteZero implements ICipherSuite {
         return Hex.toHexString(sigBytes);
     }
 
-//    http://www.java2s.com/Tutorial/Java/0490__Security/BasicclassforexploringPKCS1V15Signatures.htm
     @Override
     public boolean verifyPkcs15(PublicKey publicKey, String sign, byte[] message) throws Exception {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
@@ -65,7 +63,6 @@ public class CipherSuiteZero implements ICipherSuite {
         Cipher cipher = Cipher.getInstance("RSA/None/PKCS1Padding", "BC");
         cipher.init(Cipher.DECRYPT_MODE, publicKey);
 
-//        ByteUtils.fromHexString(hash)
         byte[] decSig = cipher.doFinal(ByteUtils.fromHexString(sign));
         ASN1InputStream aIn = new ASN1InputStream(decSig);
         ASN1Sequence seq = (ASN1Sequence) aIn.readObject();
@@ -76,23 +73,5 @@ public class CipherSuiteZero implements ICipherSuite {
         ASN1OctetString sigHash = (ASN1OctetString) seq.getObjectAt(1);
         return MessageDigest.isEqual(hash.digest(), sigHash.getOctets());
     }
-
-
-//    public static boolean pkcs1Verify(PublicKey key, byte[] text,
-//                                      byte[] signature) {
-////        String algName = sha256 ? "SHA256withRSA" : "SHA1withRSA";
-//        String algName = "SHA512withRSA";
-////        String algName = "SHA1withRSAandMGF1";
-//        try {
-//            Signature s = Signature.getInstance(algName);
-//            s.initVerify(key);
-//            s.update(text);
-//            return s.verify(signature);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            return false;
-//        }
-//    }
-
 
 }

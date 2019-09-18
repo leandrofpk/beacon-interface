@@ -97,10 +97,10 @@ public class UnicornCurrentDtoPulseRetrieverResourceTest {
 
     private ByteArrayOutputStream serialize(VdfPulseDtoPost pulse) throws IOException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream(2048); // should be enough
-        baos.write(byteSerializeHash(pulse.getCertificateId()));
-        baos.write(encode4(pulse.getCipherSuite()));
-        baos.write(byteSerializeString(pulse.getOriginEnum().toString()));
-        baos.write(byteSerializeHash(pulse.getSeed()));
+//        baos.write(byteSerializeHash(pulse.getCertificateId()));
+//        baos.write(encode4(pulse.getCipherSuite()));
+//        baos.write(byteSerializeString(pulse.getOriginEnum().toString()));
+//        baos.write(byteSerializeHash(pulse.getSeed()));
         return baos;
     }
 

@@ -11,9 +11,6 @@ import java.net.URL;
 import java.security.PublicKey;
 import java.security.Security;
 import java.security.cert.X509Certificate;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -32,18 +29,17 @@ public class LoadCertificateFromUriServiceTest {
     }
 
     @Test
-    public void validatePulseOld() throws Exception {
+    public void validateSignaturePulseNist() throws Exception {
         Security.addProvider(new BouncyCastleProvider());
 
         final PublicKey publicKey = getCertificate();
         final PulseDto pulse = getPulse();
 
-        ByteArrayOutputStream baos = new ByteSerializationFieldsUtil2(pulse).getBaos();
+        ByteArrayOutputStream baos = new ByteSerializationFieldsUtil(pulse).getBaos();
 
         String sign = pulse.getSignatureValue();
         final ICipherSuite cipherSuite = CipherSuiteBuilder.build(0);
         boolean verify = cipherSuite.verifyPkcs15(publicKey, sign, baos.toByteArray());
-        System.out.println("Verify:" + verify);
 
         assertTrue(verify);
     }
@@ -61,18 +57,8 @@ public class LoadCertificateFromUriServiceTest {
 
     private static PulseDto getPulse(){
         RestTemplate restTemplate = new RestTemplate();
-        PulseDto pulse = restTemplate.getForObject("https://beacon.nist.gov/beacon/2.0/chain/1/pulse/532453", PulseDto.class);
+        PulseDto pulse = restTemplate.getForObject("https://beacon.nist.gov/beacon/2.0/chain/1/pulse/548829", PulseDto.class);
         return pulse;
-    }
-
-//    private static ByteArrayOutputStream serialize(PulseDto pulse) throws IOException {
-//        return new ByteSerializationFieldsUtil2(pulse).getBaos();
-//    }
-
-    private static String getTimeStampFormated(ZonedDateTime timeStamp){
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz");
-        String format = timeStamp.withZoneSameInstant((ZoneOffset.UTC).normalized()).format(dateTimeFormatter);
-        return format;
     }
 
 }
