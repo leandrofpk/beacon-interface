@@ -1,7 +1,7 @@
 package com.example.beacon.interfac.domain.service;
 
-import com.example.beacon.interfac.domain.repository.ChainRepository;
 import com.example.beacon.interfac.domain.chain.ChainValueObject;
+import com.example.beacon.interfac.domain.repository.ChainRepository;
 import com.example.beacon.interfac.infra.ChainEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class ActiveChainService {
 
     public ChainValueObject get(){
         ChainEntity entity = chainRepository.findTop1ByActive(true);
-        return new ChainValueObject(entity.getVersion(), entity.getCipherSuite(), entity.getPeriod(), entity.getChainIndex());
+        return new ChainValueObject(entity.getVersionUri(), entity.getVersionPulse(), entity.getCipherSuite(), entity.getPeriod(), entity.getChainIndex());
     }
 
 }

@@ -49,7 +49,7 @@ public class CombinationEntity {
 
     private int iterations;
 
-    private int statusCode;
+    private String outputValue;
 
     private ZonedDateTime createdAt;
 

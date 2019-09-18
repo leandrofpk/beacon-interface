@@ -1,5 +1,6 @@
 package com.example.beacon.vdf.application.combination;
 
+import com.example.beacon.shared.ByteSerializationFields;
 import com.example.beacon.shared.CipherSuiteBuilder;
 import com.example.beacon.shared.CriptoUtilService;
 import com.example.beacon.shared.ICipherSuite;
@@ -16,6 +17,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
 import java.security.PrivateKey;
 import java.time.ZonedDateTime;
@@ -97,8 +99,7 @@ public class CombinationService {
 
         CombinationEntity combinationEntity = new CombinationEntity();
         combinationEntity.setUri(uri);
-        combinationEntity.setVersion("1.0");
-
+        combinationEntity.setVersion("Version 1.0");
         combinationEntity.setPulseIndex(maxPulseIndex);
         combinationEntity.setTimeStamp(ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME));
         combinationEntity.setCertificateId(this.certificateId);
@@ -106,21 +107,28 @@ public class CombinationService {
         combinationEntity.setCombination(env.getProperty("vdf.combination").toUpperCase());
         combinationEntity.setPeriod(Integer.parseInt(env.getProperty("beacon.combination.period")));
 
+        seedUnicordCombinationVos.forEach(dto ->
+                combinationEntity.addSeed(new CombinationSeedEntity(dto, combinationEntity)));
+
         combinationEntity.setP("9325099249067051137110237972241325094526304716592954055103859972916682236180445434121127711536890366634971622095209473411013065021251467835799907856202363");
         combinationEntity.setX(x.toString());
         combinationEntity.setY(y.toString());
         combinationEntity.setIterations(iterations);
 
-        seedUnicordCombinationVos.forEach(dto ->
-                combinationEntity.addSeed(new CombinationSeedEntity(dto, combinationEntity)));
+        //sign
+        ByteSerializationFields serialization = new ByteSerializationFields(combinationEntity);
+        ByteArrayOutputStream baos = serialization.getBaos();
 
-        signPulse(VdfSerialize.serializeCombinationEntity(combinationEntity), combinationEntity);
-        combinationRepository.saveAndFlush(combinationEntity);
-    }
-
-    private void signPulse(byte[] bytes, CombinationEntity vdfPulseEntity) throws Exception {
         PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
-        vdfPulseEntity.setSignatureValue(cipherSuite.signPkcs15(privateKey, bytes));
+        String signature = cipherSuite.signPkcs15(privateKey, serialization.getBaos().toByteArray());
+        combinationEntity.setSignatureValue(signature);
+
+        //outputvalue
+        baos.write(serialization.byteSerializeSig(signature).toByteArray());
+        String output = cipherSuite.getDigest(baos.toByteArray());
+        combinationEntity.setOutputValue(output);
+
+        combinationRepository.saveAndFlush(combinationEntity);
     }
 
 }

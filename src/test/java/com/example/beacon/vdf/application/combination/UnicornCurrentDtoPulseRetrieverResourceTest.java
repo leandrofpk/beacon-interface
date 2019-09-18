@@ -16,7 +16,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.*;
 
-import static com.example.beacon.shared.ByteSerializationFieldsUtil.*;
 import static org.junit.Assert.assertTrue;
 
 //@RunWith(SpringRunner.class)

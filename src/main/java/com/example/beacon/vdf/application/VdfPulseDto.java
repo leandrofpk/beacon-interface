@@ -39,6 +39,8 @@ public class VdfPulseDto {
 
     private String signatureValue;
 
+    private String outputValue;
+
     @JsonProperty("sloth")
     private VdfSlothDto slothDto;
 

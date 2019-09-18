@@ -107,13 +107,8 @@ function atualizarRecord(data) {
     lista += '<tr><td>Time:</td>';
     lista += '<td>' + pulse.timeStamp + '</td></tr>';
 
-    // pulse.seedList.forEach(function (seed) {
-    //     lista += '<tr><td>Seed:</td>';
-    //     lista += '<td style="word-break: break-word">' + seed.seed + '</td></tr>';
-    //
-    //     lista += '<tr><td>Timestamp Uri:</td>';
-    //     lista += '<td style="word-break: break-word">' + seed.uri + '</td></tr>';
-    // });
+    lista += '<tr><td>Combination:</td>';
+    lista += '<td>' + pulse.combination + '</td></tr>';
 
     lista += '<tr><td>Vdf p:</td>';
     lista += '<td style="word-break: break-word">' + pulse.sloth.p + '</td></tr>';
@@ -129,6 +124,9 @@ function atualizarRecord(data) {
 
     lista += '<tr><td>Signature:</td>';
     lista += '<td style="word-break: break-word">' + pulse.signatureValue + '</td></tr>';
+
+    lista += '<tr><td>Output Value :</td>';
+    lista += '<td style="word-break: break-word">' + pulse.outputValue + '</td></tr>';
 
     $('#table_pulse').html(lista);
 

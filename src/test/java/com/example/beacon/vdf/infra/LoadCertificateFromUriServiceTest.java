@@ -1,7 +1,9 @@
 package com.example.beacon.vdf.infra;
 
 import com.example.beacon.interfac.api.dto.PulseDto;
-import com.example.beacon.shared.*;
+import com.example.beacon.shared.ByteSerializationFields;
+import com.example.beacon.shared.CipherSuiteBuilder;
+import com.example.beacon.shared.ICipherSuite;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;
@@ -35,7 +37,7 @@ public class LoadCertificateFromUriServiceTest {
         final PublicKey publicKey = getCertificate();
         final PulseDto pulse = getPulse();
 
-        ByteArrayOutputStream baos = new ByteSerializationFieldsUtil(pulse).getBaos();
+        ByteArrayOutputStream baos = new ByteSerializationFields(pulse).getBaos();
 
         String sign = pulse.getSignatureValue();
         final ICipherSuite cipherSuite = CipherSuiteBuilder.build(0);

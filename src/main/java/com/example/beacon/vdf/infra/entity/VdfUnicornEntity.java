@@ -49,8 +49,9 @@ public class VdfUnicornEntity {
 
     private int iterations;
 
-    private ZonedDateTime createdAt;
+    private String outputValue;
 
+    private ZonedDateTime createdAt;
 
     public void addSeed(VdfUnicornSeedEntity seed){
         this.seedList.add(seed);

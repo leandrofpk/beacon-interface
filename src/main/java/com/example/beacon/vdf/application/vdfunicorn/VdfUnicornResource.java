@@ -188,6 +188,7 @@ public class VdfUnicornResource {
         dto.setSignatureValue(entity.getSignatureValue());
         dto.setPeriod(entity.getPeriod());
         dto.setCombination(entity.getCombination());
+        dto.setOutputValue(entity.getOutputValue());
 
         entity.getSeedList().forEach(s ->
                 dto.addSeed(new VdfSeedDto(s.getSeed(),
