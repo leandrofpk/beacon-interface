@@ -25,13 +25,13 @@ public class SeedBuilder {
     // Beacon Combination
     public List<SeedSourceDto> getPreDefSeedCombination(){
         final List<SeedSourceDto> seedList = new ArrayList<>();
-        seedList.add(context.getBean(SeedLastNist.class).getSeed());
-        seedList.add(context.getBean(SeedLastChile.class).getSeed());
         return Collections.unmodifiableList(new ArrayList<>(seedList));
     }
 
     public List<SeedSourceDto> getHonestPartyCombination(){
         final List<SeedSourceDto> seedList = new ArrayList<>();
+        seedList.add(context.getBean(SeedLastNist.class).getSeed());
+        seedList.add(context.getBean(SeedLastChile.class).getSeed());
         seedList.add(context.getBean(SeedLocalPrecommitment.class).getSeed());
         return Collections.unmodifiableList(new ArrayList<>(seedList));
     }

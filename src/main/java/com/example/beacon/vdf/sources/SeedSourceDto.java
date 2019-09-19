@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SeedSourceDto {
+    private String timeStamp;
     private String uri;
     private String seed;
     private String description;

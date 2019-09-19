@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Component
 public class SeedLocalRng implements SeedInterface {
@@ -28,6 +30,6 @@ public class SeedLocalRng implements SeedInterface {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return new SeedSourceDto("", Hex.toHexString(bytes),DESCRIPTION);
+        return new SeedSourceDto(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES).toString(),"", Hex.toHexString(bytes),DESCRIPTION);
     }
 }

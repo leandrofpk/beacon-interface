@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @JsonTypeName("pulse")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT ,use = JsonTypeInfo.Id.NAME)
 public class BeaconRemoteDto {
+    private String timeStamp;
     private String uri;
     private String precommitmentValue;
 }

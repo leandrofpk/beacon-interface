@@ -79,7 +79,8 @@ public class CombinationService {
         for (SeedSourceDto dto : seedList) {
             currentValue = currentValue + dto.getSeed();
             String cumulativeDigest = cipherSuite.getDigest(currentValue);
-            out.add(new SeedUnicordCombinationVo(dto.getUri(), dto.getSeed(), dto.getDescription(), cumulativeDigest, ZonedDateTime.now()));
+            ZonedDateTime parse = ZonedDateTime.parse(dto.getTimeStamp(), DateTimeFormatter.ISO_DATE_TIME);
+            out.add(new SeedUnicordCombinationVo(dto.getUri(), dto.getSeed(), dto.getDescription(), cumulativeDigest, parse));
         }
 
         return out;
