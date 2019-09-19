@@ -64,17 +64,15 @@
 
           <p style="color: darkred" align="device">PLEASE, DO NOT USE THE BEACON GENERATED VALUES AS CRYPTOGRAPHIC KEYS.</p>
 
-<!--          Inmetro's Combination Beacon is a proposal for combining beacons built on the NISTR reference. The prototype uses slow computation functions to combine random numbers from NIST, Chile and Brazil to generate a safe and reliable random number.-->
-
           <p>Inmetro's Combination Beacon was built with the objective of proposing a safe combination of beacons
-            using a slow computation function. This prototype was built based on the proposal of Lenstra and Wesoloski.
+            using a Verifiable Delay Function(VDF).  This prototype has been built based on the proposal of
+            Lenstra and Wesoloski described in this <a href="https://eprint.iacr.org/2015/366">paper</a>.
           </p>
 
-          <p>Every minute, a new random number is generated as a result of combining the Nist, Chile, and
-            Inmetro Beacons, as described below:</p>
+<!--          <p>Every minute, a new random number is generated as a result of combining the Nist, Chile, and-->
+<!--            Inmetro Beacons, as described below:</p>-->
           <ul>
-            <li>Every minute Inmmetro's Beacon recovers and concatenates the latest precommitment published by the Nist and Chile beacons</li>
-            <li>The Inmetro precommitment value (honest part) is combined with the previous values and then a VDF is started a few moments before the next Inmetro beacon number is published</li>
+            <li>One time every minute, Inmetro Beacon recovers and concatenates the latest precommitment published by the Nist, Chile and Inmetro</li>
             <li>Results are signed, stored and published together with all parameters used to execute the algorithm</li>
             <li>A route has been added to the API that allows you to check all generated numbers</li>
           </ul>
