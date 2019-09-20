@@ -1,25 +1,18 @@
 $(document).ready(function() {
-    // $(".form_datetime").datetimepicker({format: "yyyy-MM-dd'T'HH:mm:ss.SSSz"});
-
-    // $("#status").bind("ajaxSend", function() {
-    //     $(this).show();
-    // }).bind("ajaxStop", function() {
-    //     $(this).hide();
-    // }).bind("ajaxError", function() {
-    //     $(this).hide();
-    // });
-
-    getLastPulse();
+    getLastPulseReloadPage();
 });
 
-// var $loading = $('#status').hide();
-// $(document)
-//     .ajaxStart(function () {
-//         $loading.show();
-//     })
-//     .ajaxStop(function () {
-//         $loading.hide();
-//     });
+function getLastPulseReloadPage() {
+    $.ajax({
+        url: "/beacon/2.0/pulse/last",
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            atualizarRecord(data);
+        }
+    });
+}
 
 function getLastPulse() {
     $.ajax({
@@ -31,7 +24,7 @@ function getLastPulse() {
             atualizarRecord(data);
         },
         error: function (xhr, status) {
-            alert("Ocorreu um erro.  Por favor, tente mais tarde")
+            alert(xhr.status + '-' +xhr.responseText);
         }
     });
 }

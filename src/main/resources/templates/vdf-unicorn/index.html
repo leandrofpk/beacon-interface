@@ -71,11 +71,16 @@
           </div>
 
           <h2>About this page</h2>
-          <p class="lead">This is a prototype of a random number service using the Unicorn protocol.
-            The application allows for any given period for any user to publish their own seeds and at the end all received values ​​are combined and the slow computation function is performed.
+          <p class="lead">This is a prototype of a random number service using the <a href="https://eprint.iacr.org/2015/366">Unicorn protocol</a>.
           </p>
 
           <p>
+            It allows for any user to publish their own seeds within a time frame. At last, the received values are combined by using a pre-defined VDF.
+            The objective of this prototype is to propose a secure combination of beacons' results by using a Verifiable Delay Function(VDF).
+            It has been built based on the proposal of <a href="https://eprint.iacr.org/2015/366">Lenstra and Wesoloski (2018)</a>.
+
+            <br><br>
+
             There are 3 possible states
           <ul>
             <li><strong>Closed: </strong> Waiting for next 15-minute time slot for contributions</li>
@@ -85,10 +90,10 @@
 
           <p>Comments:</p>
           <ul>
-            <li>The Inmetro precommitment value (honest part) is combined with all contributions received and then a VDF is started a few moments before the next Inmetro beacon number is published</li>
+            <li>The Inmetro precommitment value (independent part) is combined with all contributions received and then a VDF is started a few moments before the next Inmetro beacon number is published</li>
             <li>After the running state, the results are signed, stored and published together with all parameters used to execute the algorithm</li>
             <li>A route has been added to the API that allows you to check all generated numbers</li>
-            <li>Nothing runs if there are no contributions</li>
+            <li>VDF is not performed if there are no contributions</li>
 
           </ul>
 

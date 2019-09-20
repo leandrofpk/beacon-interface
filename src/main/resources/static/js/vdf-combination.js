@@ -1,6 +1,18 @@
 $(document).ready(function() {
-    getLastPulse();
+    getLastPulseReloadPage();
 });
+
+function getLastPulseReloadPage() {
+    $.ajax({
+        url: "/beacon/2.0/combination/last",
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            atualizarRecord(data);
+        }
+    });
+}
 
 function getLastPulse() {
     $.ajax({
@@ -12,7 +24,7 @@ function getLastPulse() {
             atualizarRecord(data);
         },
         error: function (xhr, status) {
-            alert("Ocorreu um erro.  Por favor, tente mais tarde")
+            alert(xhr.status + '-' +xhr.responseText);
         }
     });
 }

@@ -1,6 +1,6 @@
 $(document).ready(function() {
     getCurrent();
-    getLastPulse();
+    getLastPulseReloadPage();
     setInterval(function(){ getCurrent(); }, 10000);
 });
 
@@ -15,6 +15,33 @@ function getCurrent() {
         },
         error: function (xhr, status) {
             alert("Ocorreu um erro.  Por favor, tente mais tarde")
+        }
+    });
+}
+
+function getLastPulseReloadPage() {
+    $.ajax({
+        url: "/beacon/2.0/vdf/unicorn/last",
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            atualizarRecord(data);
+        }
+    });
+}
+
+function getLastPulse() {
+    $.ajax({
+        url: "/beacon/2.0/vdf/unicorn/last",
+        method: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            atualizarRecord(data);
+        },
+        error: function (xhr, status) {
+            alert(xhr.status + '-' +xhr.responseText);
         }
     });
 }
@@ -58,20 +85,7 @@ function updateSeedTableCurrent(seedList) {
 }
 
 
-function getLastPulse() {
-    $.ajax({
-        url: "/beacon/2.0/vdf/unicorn/last",
-        method: 'GET',
-        dataType: 'json',
-        contentType: 'application/json',
-        success: function (data) {
-            atualizarRecord(data);
-        },
-        error: function (xhr, status) {
-            alert("Ocorreu um erro.  Por favor, tente mais tarde")
-        }
-    });
-}
+
 
 function getFirstPulse() {
     $.ajax({
