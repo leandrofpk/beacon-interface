@@ -75,9 +75,11 @@
           </p>
 
           <p>
-            It allows for any user to publish their own seeds within a time frame. At last, the received values are combined by using a pre-defined VDF.
-            The objective of this prototype is to propose a secure combination of beacons' results by using a Verifiable Delay Function(VDF).
-            It has been built based on the proposal of <a href="https://eprint.iacr.org/2015/366">Lenstra and Wesoloski (2018)</a>.
+            It allows users to publish their own seeds within a time frame.
+            At last, the received values are combined by using a pre-defined VDF.
+            The main purpose of this prototype is to propose a secure combination of beacons’ results by using a Verifiable Delay Function(VDF).
+
+            It has been built based on <a href="https://eprint.iacr.org/2015/366">Lenstra and Wesoloski(2018) </a>proposal.
 
             <br><br>
 
@@ -90,9 +92,12 @@
 
           <p>Comments:</p>
           <ul>
-            <li>The Inmetro precommitment value (independent part) is combined with all contributions received and then a VDF is started a few moments before the next Inmetro beacon number is published</li>
-            <li>After the running state, the results are signed, stored and published together with all parameters used to execute the algorithm</li>
-            <li>A route has been added to the API that allows you to check all generated numbers</li>
+            <li>The Inmetro pre-commitment value (independent part) is combined with all
+              contributions received and
+              then a VDF is starts just before the next Inmetro beacon number is published</li>
+            <li>After the running state, the results are signed, stored and published together with all
+              parameters used to execute the algorithm</li>
+            <li>Prototype allows a verification of the generated numbers via public API route</li>
             <li>VDF is not performed if there are no contributions</li>
 
           </ul>

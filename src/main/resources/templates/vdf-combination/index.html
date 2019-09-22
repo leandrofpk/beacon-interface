@@ -64,17 +64,14 @@
 
           <p style="color: darkred" align="device">PLEASE, DO NOT USE THE BEACON GENERATED VALUES AS CRYPTOGRAPHIC KEYS.</p>
 
-          <p>Inmetro's Combination Beacon was built with the objective of proposing a safe combination of beacons
-            using a Verifiable Delay Function(VDF).  This prototype has been built based on the proposal of
-            Lenstra and Wesoloski described in this <a href="https://eprint.iacr.org/2015/366">paper</a>.
+          <p>Inmetro's Combination Beacon was designed to provide a safe combination of beacons using a Verifiable Delay Function(VDF).
+            This prototype has been built based on Lenstra and Wesoloski’ proposal, described in this <a href="https://eprint.iacr.org/2015/366">paper</a>.
           </p>
 
-<!--          <p>Every minute, a new random number is generated as a result of combining the Nist, Chile, and-->
-<!--            Inmetro Beacons, as described below:</p>-->
           <ul>
-            <li>One time every minute, this prototype concatenates the latest precommitment published by the Nist, Chile and Inmetro</li>
+            <li>Once a minute, the prototype concatenates the latest pre-commitment published by the Nist, Chile and Inmetro</li>
             <li>Results are signed, stored and published together with all parameters used to execute the algorithm</li>
-            <li>A route has been added to the API that allows you to check all generated numbers</li>
+            <li>Prototype also allows a verification of the generated numbers via public API route</li>
           </ul>
 
           <p>
