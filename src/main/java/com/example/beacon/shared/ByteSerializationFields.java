@@ -57,8 +57,8 @@ public class ByteSerializationFields {
 
         byteSerializeString(entity.getP());
         byteSerializeString(entity.getX());
-        byteSerializeString(entity.getY());
         encode4(entity.getIterations());
+        byteSerializeString(entity.getY());
     }
 
     public ByteSerializationFields(VdfUnicornEntity entity) throws IOException {
@@ -78,8 +78,8 @@ public class ByteSerializationFields {
 
         byteSerializeString(entity.getP());
         byteSerializeString(entity.getX());
-        byteSerializeString(entity.getY());
         encode4(entity.getIterations());
+        byteSerializeString(entity.getY());
     }
 
     public ByteArrayOutputStream getBaos(){
