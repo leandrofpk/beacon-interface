@@ -55,6 +55,7 @@ public class ByteSerializationFields {
             byteSerializeHash(e.getCumulativeHash());
         }
 
+        byteSerializeString(entity.getP());
         byteSerializeString(entity.getX());
         byteSerializeString(entity.getY());
         encode4(entity.getIterations());
@@ -75,6 +76,7 @@ public class ByteSerializationFields {
             byteSerializeHash(e.getCumulativeHash());
         }
 
+        byteSerializeString(entity.getP());
         byteSerializeString(entity.getX());
         byteSerializeString(entity.getY());
         encode4(entity.getIterations());
