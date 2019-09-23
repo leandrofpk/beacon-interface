@@ -168,11 +168,11 @@ function atualizarRecord(data) {
     lista += '<tr><td>Vdf x:</td>';
     lista += '<td style="word-break: break-word">' + pulse.sloth.x + '</td></tr>';
 
-    lista += '<tr><td>Vdf y:</td>';
-    lista += '<td style="word-break: break-word">' + pulse.sloth.y + '</td></tr>';
-
     lista += '<tr><td>Vdf iterations:</td>';
     lista += '<td>' + pulse.sloth.iterations + '</td></tr>';
+
+    lista += '<tr><td>Vdf y:</td>';
+    lista += '<td style="word-break: break-word">' + pulse.sloth.y + '</td></tr>';
 
     lista += '<tr><td>Signature:</td>';
     lista += '<td style="word-break: break-word">' + pulse.signatureValue + '</td></tr>';

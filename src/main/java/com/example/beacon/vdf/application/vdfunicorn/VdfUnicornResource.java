@@ -196,7 +196,7 @@ public class VdfUnicornResource {
                         s.getDescription(), s.getUri(),
                         s.getCumulativeHash())));
 
-        dto.setSlothDto(new VdfSlothDto(entity.getP(), entity.getX(), entity.getY(), entity.getIterations()));
+        dto.setSlothDto(new VdfSlothDto(entity.getP(), entity.getX(), entity.getIterations(), entity.getY()));
 
         return dto;
     }

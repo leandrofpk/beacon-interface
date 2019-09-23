@@ -11,14 +11,14 @@ public class VdfSlothDto {
 
     private String x;
 
-    private String y;
-
     private int iterations;
 
-    public VdfSlothDto(String p, String x, String y, int iterations) {
+    private String y;
+
+    public VdfSlothDto(String p, String x, int iterations, String y) {
         this.p = p;
         this.x = x;
-        this.y = y;
         this.iterations = iterations;
+        this.y = y;
     }
 }
