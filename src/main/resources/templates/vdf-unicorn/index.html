@@ -120,7 +120,7 @@
           <br><br>
 
           <strong>Previous Pulse: </strong> <br>
-          <span th:text="${uri}"></span>/beacon/2.0/vdf/unicorn/previous/&lt;timestamp&gt; <br>
+          <span th:text="${uri}"></span><span style="word-break: break-word">/beacon/2.0/vdf/unicorn/previous/&lt;timestamp&gt;</span> <br>
           <span th:if="${timestampPrevious!=null}">
           Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/vdf/unicorn/previous/} + ${timestampPrevious}" th:text="|${uri}/beacon/2.0/vdf/unicorn/previous/${timestampPrevious}|"></a>
           </span>
