@@ -140,7 +140,7 @@ function atualizarRecord(data) {
     var lista = '';
 
     lista += '<tr><td>Uri:</td>';
-    lista += '<td>' + pulse.uri + '</td></tr>';
+    lista += '<td style="word-break: break-word">' + pulse.uri + '</td></tr>';
 
     lista += '<tr><td>Version:</td>';
     lista += '<td>' + pulse.version + '</td></tr>';
