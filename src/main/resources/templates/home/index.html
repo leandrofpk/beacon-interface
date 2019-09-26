@@ -71,10 +71,16 @@
 
           <p style="color: darkred" align="device">PLEASE, DO NOT USE THE BEACON GENERATED VALUES AS CRYPTOGRAPHIC KEYS.</p>
 
-          <p>Inmetro's Randomness Beacon is a web service, part of the <a href="https://siccciber.com.br/">SICCCiber</a> project's effort to generate reliable and public sources of random numbers.  <a class="js-scroll-trigger" href="#contact">Contact us</a> for more details</p>
-          <p>In addition to the beacon, we developed two application prototypes using VDF. A prototype for combining beacons and a public api where any user can contribute values to generate a new random number. Both can be found <a  class="js-scroll-trigger" href="#applications">here</a>.</p>
+          <p>Inmetro's Randomness Beacon is a web service, part of the <a href="https://siccciber.com.br/">SICCCiber</a> project's effort to
+            generate reliable and public sources of random numbers.  <a class="js-scroll-trigger" href="#contact">Contact us</a> for more details</p>
+          <p>In addition to the beacon, we developed two application prototypes using VDF. A prototype for combining beacons and a public
+            api where any user can contribute values to generate a new random number. Both can be found <a  class="js-scroll-trigger" href="#applications">here</a>.</p>
 
-          <p>The service is available via a public REST API.  The API Documentation can be found <a href="/docs/index.html">here</a>.</p>
+          <p>The service is available via a public REST API.  Consumers need to provide a pulse generation time in POSIX format.
+            See <a href="http://en.wikipedia.org/wiki/Unix_time">http://en.wikipedia.org/wiki/Unix_time</a> for more
+            information and <a href="http://www.epochconverter.com">http://www.epochconverter.com</a> for an online timestamp converter.</p>
+<!--          The API Documentation can be found <a href="/docs/index.html">here</a>-->
+
 <!--          <ul>-->
 <!--            <li>Clickable nav links that smooth scroll to page sections</li>-->
 <!--            <li>Responsive behavior when clicking nav links perfect for a one page website</li>-->
@@ -110,7 +116,6 @@
 
           <strong>Last Available Pulse:</strong><br>
           <span th:text="${uri}"></span>/beacon/2.0/pulse/last <br>
-<!--          <span th:text="${uri}"></span>/beacon/2.0/chain/last/pulse/last <br>-->
           <span th:if="${timestampPrevious!=null}">
           Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/pulse/last}" th:text="|${uri}/beacon/2.0/pulse/last|"></a>
           </span>
@@ -142,7 +147,6 @@
 
          <br><br>
           If a request for a Pulse results in no Pulse found, a 404 response is returned. <br>
-          If a request for a Pulse is not in RFC 3339 format, a 400 (BAD REQUEST) is returned.
           </p>
         </div>
       </div>
@@ -178,7 +182,6 @@
                   <input id="year" class="btn btn-primary" data-uri="" onclick="getByUri(this);" type="button" value="Year">
                   <input class="btn btn-primary" onclick="getNextPulse();" type="button" value="Next">
                   <input class="btn btn-primary" onclick="getLastPulse()" type="reset" value="Last">
-
             </div>
           </div>
 

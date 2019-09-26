@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
@@ -63,9 +62,8 @@ public class VdfUnicornResource {
     @ResponseBody
     public ResponseEntity specificTime(@PathVariable String timeStamp){
         try {
-            ZonedDateTime parse = ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME);
-
-            VdfUnicornEntity byTimeStamp = vdfUnicornRepository.findByTimeStamp(parse);
+            ZonedDateTime zonedDateTime = DateUtil.longToLocalDateTime(timeStamp);
+            VdfUnicornEntity byTimeStamp = vdfUnicornRepository.findByTimeStamp(zonedDateTime);
 
             if (byTimeStamp==null){
                 return new ResponseEntity("Pulse Not Available.", HttpStatus.NOT_FOUND);
@@ -82,7 +80,6 @@ public class VdfUnicornResource {
     @GetMapping("/first")
     @ResponseBody
     public ResponseEntity first(){
-
         Long first = vdfUnicornRepository.findFirst();
         VdfUnicornEntity byPulseIndex = vdfUnicornRepository.findByPulseIndex(first);
 
@@ -97,9 +94,8 @@ public class VdfUnicornResource {
     @ResponseBody
     public ResponseEntity next(@PathVariable String timeStamp){
         try {
-            ZonedDateTime parse = ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME);
-
-            VdfUnicornEntity next = vdfUnicornRepository.findNext(parse);
+            ZonedDateTime zonedDateTime = DateUtil.longToLocalDateTime(timeStamp);
+            VdfUnicornEntity next = vdfUnicornRepository.findNext(zonedDateTime);
 
             if (next==null){
                 return new ResponseEntity("Pulse Not Available.", HttpStatus.NOT_FOUND);
@@ -118,9 +114,8 @@ public class VdfUnicornResource {
     @GetMapping("/previous/{timeStamp}")
     public ResponseEntity previous(@PathVariable String timeStamp){
         try {
-            ZonedDateTime parse = ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME);
-
-            VdfUnicornEntity previous = vdfUnicornRepository.findPrevious(parse);
+            ZonedDateTime zonedDateTime = DateUtil.longToLocalDateTime(timeStamp);
+            VdfUnicornEntity previous = vdfUnicornRepository.findPrevious(zonedDateTime);
 
             if (previous==null){
                 return new ResponseEntity("Pulse Not Available.", HttpStatus.NOT_FOUND);

@@ -11,17 +11,17 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
+//@RunWith(SpringRunner.class)
+//@SpringBootTest
 public class VdfUnicornServiceTest {
 
-    @Autowired
+//    @Autowired
     VdfUnicornService vdfUnicornService;
 
-    @Autowired
+//    @Autowired
     SeedLocalPrecommitmentUnicorn seedLocalPrecommitmentUnicorn;
 
-    @Test
+//    @Test
     public void test() throws Exception {
         vdfUnicornService.startTimeSlot();
         SeedPostDto seedPostDto = new SeedPostDto("meu seed", "description de teste", "uri de teste");

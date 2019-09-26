@@ -3,6 +3,7 @@ package com.example.beacon.vdf.application;
 import com.example.beacon.interfac.infra.AppUri;
 import com.example.beacon.vdf.infra.entity.CombinationEntity;
 import com.example.beacon.vdf.infra.entity.VdfUnicornEntity;
+import com.example.beacon.vdf.infra.util.DateUtil;
 import com.example.beacon.vdf.repository.CombinationRepository;
 import com.example.beacon.vdf.repository.VdfUnicornRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
-
-import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
 
 @Controller
 @RequestMapping
@@ -48,8 +46,8 @@ public class VdfController {
         }
 
         if (previous != null) {
-            mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));
-            mv.addObject("timestampCurrent", getTimeStampFormated(ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
+            mv.addObject("timestampPrevious", DateUtil.datetimeToMilli(previous.getTimeStamp()));
+            mv.addObject("timestampCurrent", DateUtil.datetimeToMilli(ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
             mv.addObject("pulseIndexPrevious", previous.getPulseIndex());
             mv.addObject("linkVerify", String.format("?y=%s&x=%s&iterations=%s",
                     previous.getY(), previous.getX(), previous.getIterations()));
@@ -72,8 +70,8 @@ public class VdfController {
         }
 
         if (previous != null) {
-            mv.addObject("timestampPrevious", getTimeStampFormated(previous.getTimeStamp()));
-            mv.addObject("timestampCurrent", getTimeStampFormated(ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
+            mv.addObject("timestampPrevious", DateUtil.datetimeToMilli(previous.getTimeStamp()));
+            mv.addObject("timestampCurrent", DateUtil.datetimeToMilli(ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
             mv.addObject("pulseIndexPrevious", previous.getPulseIndex());
             mv.addObject("linkVerify", String.format("?y=%s&x=%s&iterations=%s",
                     previous.getY(), previous.getX(), previous.getIterations()));

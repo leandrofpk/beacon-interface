@@ -3,15 +3,14 @@ package com.example.beacon.interfac.web;
 import com.example.beacon.interfac.api.dto.PulseDto;
 import com.example.beacon.interfac.domain.service.QuerySinglePulsesService;
 import com.example.beacon.interfac.infra.AppUri;
+import com.example.beacon.vdf.infra.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 @Controller
@@ -36,19 +35,12 @@ public class HomeController {
         PulseDto pulseDto = querySinglePulsesService.findPrevious(ZonedDateTime.now().minus(1, ChronoUnit.MINUTES));
 
         if (pulseDto!=null){
-            mv.addObject("timestampPrevious", getTimeStampFormated(pulseDto.getTimeStamp()));
-            mv.addObject("timestampCurrent", getTimeStampFormated(ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
+            mv.addObject("timestampPrevious", DateUtil.datetimeToMilli(pulseDto.getTimeStamp()));
+            mv.addObject("timestampCurrent",  DateUtil.datetimeToMilli(ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES)));
             mv.addObject("pulseIndexPrevious", pulseDto.getPulseIndex());
         }
 
         return mv;
     }
-
-    private String getTimeStampFormated(ZonedDateTime timestamp){
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSz");
-        String format = timestamp.withZoneSameInstant((ZoneOffset.UTC).normalized()).format(dateTimeFormatter);
-        return format;
-    }
-
 
 }

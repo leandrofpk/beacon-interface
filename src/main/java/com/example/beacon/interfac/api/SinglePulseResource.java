@@ -2,6 +2,7 @@ package com.example.beacon.interfac.api;
 
 import com.example.beacon.interfac.api.dto.PulseDto;
 import com.example.beacon.interfac.domain.service.QuerySinglePulsesService;
+import com.example.beacon.vdf.infra.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,8 +30,8 @@ public class SinglePulseResource {
     @ResponseBody
     public ResponseEntity specificTime(@PathVariable String timeStamp){
         try {
-            ZonedDateTime parse = ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME);
-            PulseDto byTimestamp = singlePulsesService.findSpecificTime(parse);
+            ZonedDateTime zonedDateTime = DateUtil.longToLocalDateTime(timeStamp);
+            PulseDto byTimestamp = singlePulsesService.findSpecificTime(zonedDateTime);
 
             if (byTimestamp==null){
                 return new ResponseEntity("Pulse Not Available.", HttpStatus.NOT_FOUND);
@@ -48,8 +49,8 @@ public class SinglePulseResource {
     @ResponseBody
     public ResponseEntity next(@PathVariable String timeStamp){
         try {
-            ZonedDateTime parse = ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME);
-            PulseDto byTimestamp = singlePulsesService.findNext(parse);
+            ZonedDateTime zonedDateTime = DateUtil.longToLocalDateTime(timeStamp);
+            PulseDto byTimestamp = singlePulsesService.findNext(zonedDateTime);
 
             if (byTimestamp==null){
                 return new ResponseEntity("Pulse Not Available.", HttpStatus.NOT_FOUND);
@@ -66,8 +67,8 @@ public class SinglePulseResource {
     @GetMapping("time/previous/{timeStamp}")
     public ResponseEntity previous(@PathVariable String timeStamp){
         try {
-            ZonedDateTime parse = ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME);
-            PulseDto byTimestamp = singlePulsesService.findPrevious(parse);
+            ZonedDateTime zonedDateTime = DateUtil.longToLocalDateTime(timeStamp);
+            PulseDto byTimestamp = singlePulsesService.findPrevious(zonedDateTime);
 
             if (byTimestamp==null){
                 return new ResponseEntity("Pulse Not Available.", HttpStatus.NOT_FOUND);

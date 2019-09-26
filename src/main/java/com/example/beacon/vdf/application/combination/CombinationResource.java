@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -44,9 +43,8 @@ public class CombinationResource {
     @ResponseBody
     public ResponseEntity specificTime(@PathVariable String timeStamp){
         try {
-            ZonedDateTime parse = ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME);
-
-            CombinationEntity byTimeStamp = combinationRepository.findByTimeStamp(parse);
+            ZonedDateTime zonedDateTime = DateUtil.longToLocalDateTime(timeStamp);
+            CombinationEntity byTimeStamp = combinationRepository.findByTimeStamp(zonedDateTime);
 
             if (byTimeStamp==null){
                 return new ResponseEntity("Pulse Not Available.", HttpStatus.NOT_FOUND);
@@ -78,9 +76,8 @@ public class CombinationResource {
     @ResponseBody
     public ResponseEntity next(@PathVariable String timeStamp){
         try {
-            ZonedDateTime parse = ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME);
-
-            CombinationEntity next = combinationRepository.findNext(parse);
+            ZonedDateTime zonedDateTime = DateUtil.longToLocalDateTime(timeStamp);
+            CombinationEntity next = combinationRepository.findNext(zonedDateTime);
 
             if (next==null){
                 return new ResponseEntity("Pulse Not Available.", HttpStatus.NOT_FOUND);
@@ -99,9 +96,8 @@ public class CombinationResource {
     @GetMapping("/previous/{timeStamp}")
     public ResponseEntity previous(@PathVariable String timeStamp){
         try {
-            ZonedDateTime parse = ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME);
-
-            CombinationEntity previous = combinationRepository.findPrevious(parse);
+            ZonedDateTime zonedDateTime = DateUtil.longToLocalDateTime(timeStamp);
+            CombinationEntity previous = combinationRepository.findPrevious(zonedDateTime);
 
             if (previous==null){
                 return new ResponseEntity("Pulse Not Available.", HttpStatus.NOT_FOUND);

@@ -46,7 +46,7 @@ function getFirstPulse() {
 
 function getPreviousPulse() {
     $.ajax({
-        url: "/beacon/2.0/pulse/time/previous/" + document.getElementById("input-datetime").value ,
+        url: "/beacon/2.0/pulse/time/previous/" + new Date(document.getElementById("input-datetime").value).getTime() ,
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -61,7 +61,7 @@ function getPreviousPulse() {
 
 function getNextPulse() {
     $.ajax({
-        url: "/beacon/2.0/pulse/time/next/" + document.getElementById("input-datetime").value,
+        url: "/beacon/2.0/pulse/time/next/" + new Date(document.getElementById("input-datetime").value).getTime(),
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',

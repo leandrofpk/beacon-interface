@@ -47,8 +47,6 @@ function getLastPulse() {
 }
 
 function updateFields(data) {
-    // var vdf = data.vdf;
-
     document.getElementById("spanStatus").textContent = data.status;
     document.getElementById("spanNextRunInMinutes").textContent = data.nextRunInMinutes;
     document.getElementById("spanStart").textContent = data.start;
@@ -104,7 +102,7 @@ function getFirstPulse() {
 
 function getPreviousPulse() {
     $.ajax({
-        url: "/beacon/2.0/vdf/unicorn/previous/" + document.getElementById("input-datetime").value ,
+        url: "/beacon/2.0/vdf/unicorn/previous/" + new Date(document.getElementById("input-datetime").value).getTime() ,
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -119,7 +117,7 @@ function getPreviousPulse() {
 
 function getNextPulse() {
     $.ajax({
-        url: "/beacon/2.0/vdf/unicorn/next/" + document.getElementById("input-datetime").value,
+        url: "/beacon/2.0/vdf/unicorn/next/" + new Date(document.getElementById("input-datetime").value).getTime(),
         method: 'GET',
         dataType: 'json',
         contentType: 'application/json',
@@ -188,7 +186,6 @@ function atualizarRecord(data) {
 function updateSeedTable(seedList) {
     var lista = '';
     seedList.forEach(function (seed) {
-        // lista += '<tr><td style="word-break: break-word">' + seed.timestamp + '</td>';
         lista += '<tr>';
         lista += '<td style="word-break: break-word">' + seed.timeStamp + '</td>';
         lista += '<td style="word-break: break-word">' + seed.seed + '</td>';
