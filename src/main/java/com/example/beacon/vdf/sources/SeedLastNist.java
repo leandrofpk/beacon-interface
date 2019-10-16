@@ -13,6 +13,7 @@ public class SeedLastNist implements SeedInterface {
     public SeedSourceDto getSeed() {
         RestTemplate restTemplate = new RestTemplate();
         BeaconRemoteDto lastPulse = restTemplate.getForObject("https://beacon.nist.gov/beacon/2.0/pulse/last", BeaconRemoteDto.class);
-        return new SeedSourceDto(lastPulse.getTimeStamp(), lastPulse.getUri(), lastPulse.getPrecommitmentValue(), DESCRIPTION);
+        return new SeedSourceDto(lastPulse.getTimeStamp(), lastPulse.getUri(), lastPulse.getPrecommitmentValue(),
+                DESCRIPTION, SeedLastNist.class);
     }
 }

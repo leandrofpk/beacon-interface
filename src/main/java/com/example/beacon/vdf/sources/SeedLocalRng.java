@@ -30,6 +30,6 @@ public class SeedLocalRng implements SeedInterface {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-        return new SeedSourceDto(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES).toString(),"", Hex.toHexString(bytes),DESCRIPTION);
+        return new SeedSourceDto(LocalDateTime.now().truncatedTo(ChronoUnit.MINUTES).toString(),"", Hex.toHexString(bytes),DESCRIPTION, this.getClass());
     }
 }

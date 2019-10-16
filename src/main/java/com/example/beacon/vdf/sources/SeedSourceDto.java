@@ -12,4 +12,5 @@ public class SeedSourceDto {
     private String uri;
     private String seed;
     private String description;
+    private Class classz;
 }

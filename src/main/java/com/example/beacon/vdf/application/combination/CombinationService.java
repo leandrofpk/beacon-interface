@@ -11,8 +11,10 @@ import com.example.beacon.vdf.infra.entity.CombinationEntity;
 import com.example.beacon.vdf.infra.entity.CombinationSeedEntity;
 import com.example.beacon.vdf.repository.CombinationRepository;
 import com.example.beacon.vdf.sources.SeedBuilder;
+import com.example.beacon.vdf.sources.SeedLocalPrecommitment;
 import com.example.beacon.vdf.sources.SeedSourceDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +26,9 @@ import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static com.example.beacon.vdf.infra.util.DateUtil.getCurrentTrucatedZonedDateTime;
 
 @Service
 public class CombinationService {
@@ -42,23 +47,54 @@ public class CombinationService {
 
     private List<SeedUnicordCombinationVo> seedUnicordCombinationVos = new ArrayList<>();
 
+    private final ApplicationContext context;
+
     @Autowired
-    public CombinationService(Environment env, CombinationRepository combinationRepository, SeedBuilder seedBuilder) {
+    public CombinationService(Environment env, CombinationRepository combinationRepository, SeedBuilder seedBuilder, ApplicationContext context) {
         this.env = env;
         this.combinationRepository = combinationRepository;
         this.seedBuilder = seedBuilder;
+        this.context = context;
         this.cipherSuite = CipherSuiteBuilder.build(0);
 
         this.seedList = new ArrayList<>();
     }
 
     public void run(String timeStamp) throws Exception {
-        List<SeedSourceDto> preDefSeedCombination = seedBuilder.getPreDefSeedCombination();
         List<SeedSourceDto> honestPartyCombination = seedBuilder.getHonestPartyCombination();
 
         List<SeedSourceDto> seeds = new ArrayList<>();
-        seeds.addAll(preDefSeedCombination);
         seeds.addAll(honestPartyCombination);
+
+        // in the same minute
+//        ZonedDateTime parse = ZonedDateTime.parse(timeStamp, DateTimeFormatter.ISO_DATE_TIME);
+//        ZonedDateTime.parse(seedSourceDto.getTimeStamp(), DateTimeFormatter.ISO_DATE_TIME)
+
+//        ZonedDateTime now = getCurrentTrucatedZonedDateTime();
+//
+//        List<SeedSourceDto> collect = seeds.stream()
+//                .filter(seedSourceDto ->
+//                        ZonedDateTime.parse(seedSourceDto.getTimeStamp(), DateTimeFormatter.ISO_DATE_TIME).isBefore(now))
+//                .collect(Collectors.toList());
+//
+//        collect.removeIf(seedSourceDto -> seedSourceDto.getClassz().equals(SeedLocalPrecommitment.class));
+
+//        final int repeticoes = 7;
+//        if (seeds.isEmpty()){
+//            // continuar
+//            System.out.println("continuar");
+//        } else {
+//            // buscar novamente até 7 segundos
+//
+//            for (SeedSourceDto seed: collect) {
+//                Thread.sleep(1000);
+//                SeedSourceDto bean = context.getBean(seed.getClass());
+//                System.out.println(bean);
+//            }
+//        }
+
+
+        //
 
         seedUnicordCombinationVos = calcSeedConcat(seeds);
 

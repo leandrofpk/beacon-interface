@@ -16,7 +16,8 @@ public class SeedLocalPrecommitment implements SeedInterface{
 
     @Override
     public SeedSourceDto getSeed() {
-        SeedSourceDto seedSourceDto = new SeedSourceDto(dto.getTimeStamp(), dto.getUri(), dto.getPrecommitment(), DESCRIPTION);
+        SeedSourceDto seedSourceDto = new SeedSourceDto(dto.getTimeStamp(), dto.getUri(),
+                dto.getPrecommitment(), DESCRIPTION, SeedLocalPrecommitment.class);
         this.dto = null;
         return seedSourceDto;
     }
