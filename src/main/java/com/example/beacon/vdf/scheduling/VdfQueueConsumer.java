@@ -58,21 +58,21 @@ public class VdfQueueConsumer {
         }
     }
 
-    @RabbitListener(queues = {"pulses_unicorn_queue"})
-    public void receiveUnicorn(PrecommitmentQueueDto dto) throws Exception {
-        ZonedDateTime parse = ZonedDateTime.parse(dto.getTimeStamp(), DateTimeFormatter.ISO_DATE_TIME);
-        ZonedDateTime now = ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES);
-
-        long between = ChronoUnit.MINUTES.between(parse, now);
-
-        if (!vdfUnicornService.isOpen()){
-            return;
-        }
-        if (between==0){
-            seedLocalPrecommitmentUnicorn.setPrecommitmentUnicorn(dto);
-            vdfUnicornService.endTimeSlot();
-        }
-
-    }
+//    @RabbitListener(queues = {"pulses_unicorn_queue"})
+//    public void receiveUnicorn(PrecommitmentQueueDto dto) throws Exception {
+//        ZonedDateTime parse = ZonedDateTime.parse(dto.getTimeStamp(), DateTimeFormatter.ISO_DATE_TIME);
+//        ZonedDateTime now = ZonedDateTime.now().truncatedTo(ChronoUnit.MINUTES);
+//
+//        long between = ChronoUnit.MINUTES.between(parse, now);
+//
+//        if (!vdfUnicornService.isOpen()){
+//            return;
+//        }
+//        if (between==0){
+//            seedLocalPrecommitmentUnicorn.setPrecommitmentUnicorn(dto);
+//            vdfUnicornService.endTimeSlot();
+//        }
+//
+//    }
 
 }

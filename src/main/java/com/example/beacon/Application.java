@@ -12,6 +12,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.Duration;
 import java.util.TimeZone;
 
 @SpringBootApplication
@@ -35,7 +36,9 @@ public class Application {
 
 	@Bean
 	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
+		return builder.setConnectTimeout(Duration.ofMillis(500))
+				.setReadTimeout(Duration.ofMillis(500))
+				.build();
 	}
 
 }

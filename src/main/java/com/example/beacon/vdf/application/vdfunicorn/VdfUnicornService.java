@@ -7,14 +7,18 @@ import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.application.VdfSeedDto;
 import com.example.beacon.vdf.application.combination.StatusEnum;
-import com.example.beacon.vdf.application.combination.VdfSerialize;
 import com.example.beacon.vdf.application.combination.dto.SeedUnicordCombinationVo;
 import com.example.beacon.vdf.infra.entity.VdfUnicornEntity;
 import com.example.beacon.vdf.infra.entity.VdfUnicornSeedEntity;
 import com.example.beacon.vdf.infra.util.DateUtil;
 import com.example.beacon.vdf.repository.VdfUnicornRepository;
+import com.example.beacon.vdf.scheduling.CombinationResultDto;
+import com.example.beacon.vdf.scheduling.PrecommitmentQueueDto;
+import com.example.beacon.vdf.scheduling.VdfQueueConsumer;
 import com.example.beacon.vdf.sources.SeedBuilder;
 import com.example.beacon.vdf.sources.SeedSourceDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -39,8 +43,6 @@ public class VdfUnicornService {
 
     private ZonedDateTime timestamp;
 
-//    private List<SeedPostDto> seedList;
-
     private List<SeedUnicordCombinationVo> seedListUnicordCombination;
 
     private final ICipherSuite cipherSuite;
@@ -51,20 +53,20 @@ public class VdfUnicornService {
 
     private final VdfUnicornRepository vdfUnicornRepository;
 
+    private static final Logger logger = LoggerFactory.getLogger(VdfUnicornService.class);
+
     @Autowired
     public VdfUnicornService(Environment environment, SeedBuilder seedBuilder, VdfUnicornRepository vdfUnicornRepository) {
         this.env = environment;
         this.seedBuilder = seedBuilder;
         this.vdfUnicornRepository = vdfUnicornRepository;
         this.statusEnum = StatusEnum.STOPPED;
-//        this.seedList = new ArrayList<>();
         this.seedListUnicordCombination = new ArrayList<>();
         this.cipherSuite = CipherSuiteBuilder.build(0);
         this.timestamp = getTimestampOfNextRun(ZonedDateTime.now());
     }
 
     public void startTimeSlot() {
-//        this.seedList.clear();
         this.seedListUnicordCombination.clear();
         this.statusEnum = StatusEnum.OPEN;
         this.timestamp = getCurrentTrucatedZonedDateTime();
@@ -98,7 +100,6 @@ public class VdfUnicornService {
     }
 
     public void endTimeSlot() throws Exception {
-
         if (this.seedListUnicordCombination.isEmpty()){
             this.statusEnum = StatusEnum.STOPPED;
             return;
@@ -107,8 +108,7 @@ public class VdfUnicornService {
         this.statusEnum = StatusEnum.RUNNING;
         List<SeedSourceDto> honestSeeds = seedBuilder.getHonestPartyUnicorn();
 
-        System.out.println("Precom received:" + honestSeeds.get(0).getSeed());
-
+        logger.warn("Combination output received:" + honestSeeds.get(0).getSeed());
 
         honestSeeds.forEach(dto -> {
             this.seedListUnicordCombination.add(
