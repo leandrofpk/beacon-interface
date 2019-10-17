@@ -143,7 +143,9 @@ public class CombinationService {
 
         for (SeedSourceDto dto : seedList) {
             currentValue = currentValue + dto.getSeed();
+            logger.warn("Current value: {}", currentValue);
             String cumulativeDigest = cipherSuite.getDigest(currentValue);
+            logger.warn("cumulativeDigest: {}", cumulativeDigest);
             ZonedDateTime parse = ZonedDateTime.parse(dto.getTimeStamp(), DateTimeFormatter.ISO_DATE_TIME);
             out.add(new SeedUnicordCombinationVo(dto.getUri(), dto.getSeed(), dto.getDescription(), cumulativeDigest, parse));
         }
@@ -196,9 +198,7 @@ public class CombinationService {
 
         combinationRepository.saveAndFlush(combinationEntity);
 
-
         CombinationResultDto combinationResultDto = new CombinationResultDto(combinationEntity.getTimeStamp().toString(), combinationEntity.getOutputValue(), combinationEntity.getUri());
-
         sendToUnicorn(combinationResultDto);
     }
 
@@ -213,6 +213,7 @@ public class CombinationService {
             return;
         }
 
+        logger.warn(combinationResultDto.toString());
         seedCombinationResult.setCombinationResultDto(combinationResultDto);
         vdfUnicornService.endTimeSlot();
     }

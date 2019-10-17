@@ -92,10 +92,17 @@ public class VdfUnicornService {
         if (seedList.size() == 0) {
             currentValue = dtoNew.getSeed();
         } else {
-            SeedUnicordCombinationVo lastSeed = seedList.get(seedList.size() - 1);
-            currentValue = lastSeed + dtoNew.getSeed();
+            for (SeedUnicordCombinationVo vo: seedList) {
+                currentValue = currentValue + vo.getSeed();
+            }
+
+//            SeedUnicordCombinationVo lastSeed = seedList.get(seedList.size() - 1);
+            currentValue = currentValue + dtoNew.getSeed();
         }
+
+        logger.warn("Current value: {}", currentValue);
         String cumulativeDigest = cipherSuite.getDigest(currentValue);
+        logger.warn("Cumulative hash: {}", cumulativeDigest);
         return new SeedUnicordCombinationVo(dtoNew.getUri(), dtoNew.getSeed(), dtoNew.getDescription(), cumulativeDigest, now);
     }
 
