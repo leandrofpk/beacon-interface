@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class SeedCombinationResult implements SeedInterface{
 
-    private static final String DESCRIPTION = "Local Combination Result";
+    private static final String DESCRIPTION = "Beacon Combination Result";
 
     private CombinationResultDto dto;
 
