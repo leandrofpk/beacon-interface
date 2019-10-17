@@ -70,6 +70,8 @@ public class CombinationService {
     }
 
     public void run(String timeStamp) throws Exception {
+        logger.warn("Start run:");
+
         List<SeedSourceDto> preDefSeedCombination = seedBuilder.getPreDefSeedCombination();
 
         // dalayed pulses?
@@ -120,7 +122,9 @@ public class CombinationService {
         final BigInteger x = new BigInteger(seedUnicordCombinationVos.get(seedUnicordCombinationVos.size() - 1).getCumulativeHash(), 16);
         int iterations = Integer.parseInt(env.getProperty("beacon.combination.iterations"));
 
+        logger.warn("Start combination sloth:");
         BigInteger y = VdfSloth.mod_op(x, iterations);
+        logger.warn("End combination sloth:");
 
         persist(y,x, iterations, timeStamp);
         seedList.clear();
@@ -143,9 +147,9 @@ public class CombinationService {
 
         for (SeedSourceDto dto : seedList) {
             currentValue = currentValue + dto.getSeed();
-            logger.warn("Current value: {}", currentValue);
+//            logger.warn("Current value: {}", currentValue);
             String cumulativeDigest = cipherSuite.getDigest(currentValue);
-            logger.warn("cumulativeDigest: {}", cumulativeDigest);
+//            logger.warn("cumulativeDigest: {}", cumulativeDigest);
             ZonedDateTime parse = ZonedDateTime.parse(dto.getTimeStamp(), DateTimeFormatter.ISO_DATE_TIME);
             out.add(new SeedUnicordCombinationVo(dto.getUri(), dto.getSeed(), dto.getDescription(), cumulativeDigest, parse));
         }
@@ -200,6 +204,8 @@ public class CombinationService {
 
         CombinationResultDto combinationResultDto = new CombinationResultDto(combinationEntity.getTimeStamp().toString(), combinationEntity.getOutputValue(), combinationEntity.getUri());
         sendToUnicorn(combinationResultDto);
+
+        logger.warn("Stop run:");
     }
 
     @Async

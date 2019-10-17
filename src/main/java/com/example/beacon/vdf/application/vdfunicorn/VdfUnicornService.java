@@ -115,7 +115,7 @@ public class VdfUnicornService {
         this.statusEnum = StatusEnum.RUNNING;
         List<SeedSourceDto> honestSeeds = seedBuilder.getHonestPartyUnicorn();
 
-        logger.warn("Combination output received:" + honestSeeds.get(0).getSeed());
+        logger.warn("Combination output received");
 
         honestSeeds.forEach(dto -> {
             this.seedListUnicordCombination.add(
@@ -138,7 +138,9 @@ public class VdfUnicornService {
 
         int iterations = Integer.parseInt(env.getProperty("beacon.unicorn.iterations"));
 
+        logger.warn("Start unicorn sloth:");
         BigInteger y = VdfSloth.mod_op(x, iterations);
+        logger.warn("End unicorn sloth:");
 
         persist(y,x, iterations);
         seedListUnicordCombination.clear();
