@@ -12,15 +12,13 @@ import com.example.beacon.vdf.infra.entity.VdfUnicornEntity;
 import com.example.beacon.vdf.infra.entity.VdfUnicornSeedEntity;
 import com.example.beacon.vdf.infra.util.DateUtil;
 import com.example.beacon.vdf.repository.VdfUnicornRepository;
-import com.example.beacon.vdf.scheduling.CombinationResultDto;
-import com.example.beacon.vdf.scheduling.PrecommitmentQueueDto;
-import com.example.beacon.vdf.scheduling.VdfQueueConsumer;
 import com.example.beacon.vdf.sources.SeedBuilder;
 import com.example.beacon.vdf.sources.SeedSourceDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -96,7 +94,6 @@ public class VdfUnicornService {
                 currentValue = currentValue + vo.getSeed();
             }
 
-//            SeedUnicordCombinationVo lastSeed = seedList.get(seedList.size() - 1);
             currentValue = currentValue + dtoNew.getSeed();
         }
 
@@ -132,7 +129,8 @@ public class VdfUnicornService {
         return this.statusEnum.equals(StatusEnum.OPEN);
     }
 
-    private void run() throws Exception {
+    @Async("threadPoolTaskExecutor")
+    protected void run() throws Exception {
         SeedUnicordCombinationVo last = this.seedListUnicordCombination.get(this.seedListUnicordCombination.size() - 1);
         final BigInteger x = new BigInteger(last.getCumulativeHash(), 16);
 
@@ -163,7 +161,7 @@ public class VdfUnicornService {
         long minutesForNextRun = DateUtil.getMinutesForNextRun(ZonedDateTime.now(), nextRun);
         unicornCurrentDto.setNextRunInMinutes(minutesForNextRun);
 
-        DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(15, ChronoUnit.MINUTES);
+        DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(7, ChronoUnit.MINUTES);
         unicornCurrentDto.setEnd(getTimeStampFormated(DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(15, ChronoUnit.MINUTES)));
 
         this.seedListUnicordCombination.forEach(s ->

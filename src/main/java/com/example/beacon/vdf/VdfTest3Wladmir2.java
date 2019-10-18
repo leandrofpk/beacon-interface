@@ -22,7 +22,8 @@ public class VdfTest3Wladmir2 {
 
 //        x = x % p;  // não faz nada no python
 //        int t = 99999;
-        int t = 999;
+//        int t = 170000;
+        int t = 17;
 
         LocalDateTime startEval = LocalDateTime.now();
         VdfTest3Wladmir2 vdfTest3Wladmir = new VdfTest3Wladmir2();
@@ -97,27 +98,5 @@ public class VdfTest3Wladmir2 {
         }
     }
 
-    public String getDigest(String input) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-512");
-            byte[] encodedhash = digest.digest(input.getBytes(UTF_8));
-            return bytesToHex(encodedhash).toUpperCase();
-
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-    private String bytesToHex(byte[] hash) {
-        StringBuilder hexString = new StringBuilder();
-        for (int i = 0; i < hash.length; i++) {
-            String hex = Integer.toHexString(0xff & hash[i]);
-            if(hex.length() == 1) hexString.append('0');
-            hexString.append(hex);
-        }
-        return hexString.toString();
-    }
 
 }
