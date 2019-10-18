@@ -4,6 +4,7 @@ import com.example.beacon.interfac.api.dto.PulseDto;
 import com.example.beacon.interfac.api.dto.SkiplistDto;
 import com.example.beacon.interfac.domain.service.BadRequestException;
 import com.example.beacon.interfac.domain.service.QuerySequencePulsesService;
+import com.example.beacon.vdf.infra.util.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 
@@ -32,10 +32,11 @@ public class SequenceOfPulsesResource {
     @ResponseBody
     public ResponseEntity skypList(@PathVariable String startTimestamp, @PathVariable String endTimestamp){
         try {
-            ZonedDateTime parse1 = ZonedDateTime.parse(startTimestamp, DateTimeFormatter.ISO_DATE_TIME);
-            ZonedDateTime parse2 = ZonedDateTime.parse(endTimestamp, DateTimeFormatter.ISO_DATE_TIME);
 
-            List<PulseDto> sequence = querySequencePulsesService.sequence(parse1, parse2);
+            ZonedDateTime startTime = DateUtil.longToLocalDateTime(startTimestamp);
+            ZonedDateTime endTime = DateUtil.longToLocalDateTime(endTimestamp);
+
+            List<PulseDto> sequence = querySequencePulsesService.sequence(startTime, endTime);
 
             SkiplistDto skiplist = new SkiplistDto(sequence);
 

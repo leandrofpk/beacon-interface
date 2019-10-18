@@ -114,16 +114,14 @@
 
           <br><br>
 
-          <strong>Verify Pulse:</strong><br>
-          <span th:text="${uri}"></span>/beacon/2.0/combination/verify?y=&lt;Y&gt;&x=&lt;X&gt;&iterations=&lt;iterations&gt;<br>
-          <span th:if="${timestampPrevious!=null}">
-          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/combination/verify} + ${linkVerify}" th:text="|${uri}/beacon/2.0/combination/verify${linkVerify}|"></a>
-          </span>
+<!--          <strong>Verify Pulse:</strong><br>-->
+<!--          <span th:text="${uri}"></span>/beacon/2.0/combination/verify?y=&lt;Y&gt;&x=&lt;X&gt;&iterations=&lt;iterations&gt;<br>-->
+<!--          <span th:if="${timestampPrevious!=null}">-->
+<!--          Example: <a style="word-break: break-word" th:href="@{/beacon/2.0/combination/verify} + ${linkVerify}" th:text="|${uri}/beacon/2.0/combination/verify${linkVerify}|"></a>-->
+<!--          </span>-->
 
          <br><br>
-
           If a request for a Pulse results in no Pulse found, a 404 response is returned. <br>
-          If a request for a Pulse is not in RFC 3339 format, a 400 (BAD REQUEST) is returned.
           </p>
         </div>
       </div>
