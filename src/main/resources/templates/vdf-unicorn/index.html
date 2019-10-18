@@ -92,9 +92,17 @@
 
           <p>Comments:</p>
           <ul>
-            <li>The Inmetro pre-commitment value (independent part) is combined with all
-              contributions received and
-              then a VDF is starts just before the next Inmetro beacon number is published</li>
+<!--            <li>The Inmetro pre-commitment value (independent part) is combined with all-->
+<!--              contributions received and-->
+<!--              then a VDF is starts just before the next Inmetro beacon number is published</li>-->
+
+            <li>
+              All contributions received from external entities on the web are grouped with the results of Inmetro's
+              Combination Beacon during a time slot. After, they are combined and submitted to the VDF, and the service
+              publishes the random number just before the next Inmetro beacon number is published
+            </li>
+
+
             <li>After the running state, the results are signed, stored and published together with all
               parameters used to execute the algorithm</li>
             <li>Prototype allows a verification of the generated numbers via public API route</li>
