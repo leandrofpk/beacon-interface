@@ -161,8 +161,8 @@ public class VdfUnicornService {
         long minutesForNextRun = DateUtil.getMinutesForNextRun(ZonedDateTime.now(), nextRun);
         unicornCurrentDto.setNextRunInMinutes(minutesForNextRun);
 
-        DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(7, ChronoUnit.MINUTES);
-        unicornCurrentDto.setEnd(getTimeStampFormated(DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(15, ChronoUnit.MINUTES)));
+        DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(9, ChronoUnit.MINUTES);
+        unicornCurrentDto.setEnd(getTimeStampFormated(DateUtil.getTimestampOfNextRun(ZonedDateTime.now()).plus(9, ChronoUnit.MINUTES)));
 
         this.seedListUnicordCombination.forEach(s ->
                 unicornCurrentDto.addSeed(new VdfSeedDto(s.getSeed(),

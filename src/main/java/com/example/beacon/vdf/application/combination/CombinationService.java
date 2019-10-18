@@ -130,9 +130,8 @@ public class CombinationService {
     }
 
     private void runAndPersist(BigInteger x, String timeStamp) throws Exception {
-        logger.warn("Start combination sloth");
         combinationServiceCalcAndPersist.run(timeStamp, seedUnicordCombinationVos, x);
-        logger.warn("Enviado para segundo plano");
+        logger.warn("Async...");
     }
 
 }

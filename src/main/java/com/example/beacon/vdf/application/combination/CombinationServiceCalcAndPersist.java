@@ -12,7 +12,6 @@ import com.example.beacon.vdf.repository.CombinationRepository;
 import com.example.beacon.vdf.scheduling.CombinationResultDto;
 import com.example.beacon.vdf.sources.SeedBuilder;
 import com.example.beacon.vdf.sources.SeedCombinationResult;
-import org.bouncycastle.pqc.math.linearalgebra.LittleEndianConversions;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
