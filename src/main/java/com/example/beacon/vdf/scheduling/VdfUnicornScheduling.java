@@ -1,7 +1,6 @@
 package com.example.beacon.vdf.scheduling;
 
 import com.example.beacon.vdf.application.vdfunicorn.VdfUnicornService;
-import com.example.beacon.vdf.repository.PrecomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -14,8 +13,7 @@ public class VdfUnicornScheduling {
     private final VdfUnicornService vdfUnicornService;
 
     @Autowired
-    public VdfUnicornScheduling(VdfUnicornService vdfUnicornService, PrecomRepository precomRepository
-                                ) {
+    public VdfUnicornScheduling(VdfUnicornService vdfUnicornService) {
         this.vdfUnicornService = vdfUnicornService;
     }
 

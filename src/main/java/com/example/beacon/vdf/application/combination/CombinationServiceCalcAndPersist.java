@@ -1,8 +1,9 @@
 package com.example.beacon.vdf.application.combination;
 
+import br.gov.inmetro.beacon.library.ciphersuite.suite0.CipherSuiteBuilder;
+import br.gov.inmetro.beacon.library.ciphersuite.suite0.CriptoUtilService;
+import br.gov.inmetro.beacon.library.ciphersuite.suite0.ICipherSuite;
 import com.example.beacon.shared.ByteSerializationFields;
-import com.example.beacon.shared.CriptoUtilService;
-import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.application.combination.dto.SeedUnicordCombinationVo;
 import com.example.beacon.vdf.application.vdfunicorn.VdfUnicornService;
@@ -47,9 +48,11 @@ public class CombinationServiceCalcAndPersist {
     private static final Logger logger = LoggerFactory.getLogger(CombinationServiceCalcAndPersist.class);
 
     @Autowired
-    public CombinationServiceCalcAndPersist(CombinationRepository combinationRepository, ICipherSuite cipherSuite, SeedBuilder seedBuilder, VdfUnicornService vdfUnicornService, Environment env, SeedCombinationResult seedCombinationResult) {
+    public CombinationServiceCalcAndPersist(CombinationRepository combinationRepository,
+                                            SeedBuilder seedBuilder, VdfUnicornService vdfUnicornService,
+                                            Environment env, SeedCombinationResult seedCombinationResult) {
         this.combinationRepository = combinationRepository;
-        this.cipherSuite = cipherSuite;
+        this.cipherSuite = CipherSuiteBuilder.build(0);
         this.seedBuilder = seedBuilder;
         this.vdfUnicornService = vdfUnicornService;
         this.env = env;

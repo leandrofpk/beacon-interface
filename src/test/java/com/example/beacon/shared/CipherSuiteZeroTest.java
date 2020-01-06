@@ -9,23 +9,11 @@ import java.security.PublicKey;
 import java.security.Security;
 import java.security.cert.X509Certificate;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class CipherSuiteZeroTest {
 
     @Test
-    public void assinbarEvalidar(){
-        CipherSuiteZero cipherSuiteZero = new CipherSuiteZero();
-
-
-
-
-
-
-    }
-
-
-
     public void loadCert() throws Exception {
         Security.addProvider(new BouncyCastleProvider());
 

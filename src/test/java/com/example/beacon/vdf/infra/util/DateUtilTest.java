@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class DateUtilTest {
 
     @Test
-    public void datetimeToMilli() throws ParseException {
+    public void datetimeToMilli() {
         ZonedDateTime parse = ZonedDateTime.parse("2019-09-07T20:11:00.000Z");
         long l = parse.toInstant().toEpochMilli();
         assertEquals(1567887060000L, l);

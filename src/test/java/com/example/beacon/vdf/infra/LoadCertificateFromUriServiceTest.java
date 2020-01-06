@@ -1,9 +1,9 @@
 package com.example.beacon.vdf.infra;
 
+import br.gov.inmetro.beacon.library.ciphersuite.suite0.CipherSuiteBuilder;
+import br.gov.inmetro.beacon.library.ciphersuite.suite0.ICipherSuite;
 import com.example.beacon.interfac.api.dto.PulseDto;
 import com.example.beacon.shared.ByteSerializationFields;
-import com.example.beacon.shared.CipherSuiteBuilder;
-import com.example.beacon.shared.ICipherSuite;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.junit.Test;
 import org.springframework.web.client.RestTemplate;

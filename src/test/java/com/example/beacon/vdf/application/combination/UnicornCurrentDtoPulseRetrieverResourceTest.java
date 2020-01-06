@@ -1,22 +1,19 @@
 package com.example.beacon.vdf.application.combination;
 
-import com.example.beacon.shared.CipherSuiteBuilder;
-import com.example.beacon.shared.CriptoUtilService;
-import com.example.beacon.shared.ICipherSuite;
+import br.gov.inmetro.beacon.library.ciphersuite.suite0.CriptoUtilService;
 import com.example.beacon.vdf.application.combination.dto.VdfPulseDtoPost;
 import org.bouncycastle.asn1.ASN1InputStream;
 import org.bouncycastle.asn1.ASN1OctetString;
 import org.bouncycastle.asn1.ASN1Sequence;
 import org.bouncycastle.asn1.util.ASN1Dump;
 import org.bouncycastle.util.encoders.Hex;
+import org.junit.Test;
 import org.springframework.core.env.Environment;
 
 import javax.crypto.Cipher;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.security.*;
-
-import static org.junit.Assert.assertTrue;
 
 //@RunWith(SpringRunner.class)
 //@SpringBootTest
@@ -39,25 +36,25 @@ public class UnicornCurrentDtoPulseRetrieverResourceTest {
     }
 
 //    @Test
-    public void generateEntityPostToTest() throws Exception {
-        final ICipherSuite cipherSuite = CipherSuiteBuilder.build(0);
-        PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
-
-        byte[] bytes = VdfSerialize.serializeVdfDto(pulse);
-        String sign = cipherSuite.signPkcs15(privateKey, bytes);
-
-        pulse.setSignatureValue(sign);
-        System.out.println(pulse);
-
-        PublicKey publicKey = CriptoUtilService.loadPublicKeyFromCertificate(env.getProperty("beacon.x509.certificate"));
-        boolean verify = cipherSuite.verifyPkcs15(publicKey, sign, VdfSerialize.serializeVdfDto(pulse));
-
-        assertTrue(verify);
-    }
+//    public void generateEntityPostToTest() throws Exception {
+//        final ICipherSuite cipherSuite = CipherSuiteBuilder.build(0);
+//        PrivateKey privateKey = CriptoUtilService.loadPrivateKeyPkcs1(env.getProperty("beacon.x509.privatekey"));
+//
+//        byte[] bytes = VdfSerialize.serializeVdfDto(pulse);
+//        String sign = cipherSuite.signPkcs15(privateKey, bytes);
+//
+//        pulse.setSignatureValue(sign);
+//        System.out.println(pulse);
+//
+//        PublicKey publicKey = CriptoUtilService.loadPublicKeyFromCertificate(env.getProperty("beacon.x509.certificate"));
+//        boolean verify = cipherSuite.verifyPkcs15(publicKey, sign, VdfSerialize.serializeVdfDto(pulse));
+//
+//        assertTrue(verify);
+//    }
 
 
     //    http://www.java2s.com/Tutorial/Java/0490__Security/BasicclassforexploringPKCS1V15Signatures.htm
-//    @Test
+    @Test
     public void test() throws Exception {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
 

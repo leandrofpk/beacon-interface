@@ -6,7 +6,7 @@ public enum StatusEnum {
     RUNNING("Running"),
     STOPPED("Stopped");
 
-    private String description;
+    private final String description;
 
     StatusEnum(String description) {
         this.description = description;

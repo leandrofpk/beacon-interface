@@ -1,9 +1,9 @@
 package com.example.beacon.vdf.application.vdfunicorn;
 
+import br.gov.inmetro.beacon.library.ciphersuite.suite0.CipherSuiteBuilder;
+import br.gov.inmetro.beacon.library.ciphersuite.suite0.CriptoUtilService;
+import br.gov.inmetro.beacon.library.ciphersuite.suite0.ICipherSuite;
 import com.example.beacon.shared.ByteSerializationFields;
-import com.example.beacon.shared.CipherSuiteBuilder;
-import com.example.beacon.shared.CriptoUtilService;
-import com.example.beacon.shared.ICipherSuite;
 import com.example.beacon.vdf.VdfSloth;
 import com.example.beacon.vdf.application.VdfSeedDto;
 import com.example.beacon.vdf.application.combination.StatusEnum;

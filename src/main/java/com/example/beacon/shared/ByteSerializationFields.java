@@ -14,6 +14,10 @@ import java.nio.ByteBuffer;
 import static com.example.beacon.vdf.infra.util.DateUtil.getTimeStampFormated;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
+@Deprecated
+/**
+ *   Mover para a lib.  Antes resolver os problemas das dependências dos contrutores
+ */
 public class ByteSerializationFields {
 
     private final ByteArrayOutputStream baos = new ByteArrayOutputStream();
